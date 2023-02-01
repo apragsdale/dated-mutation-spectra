@@ -1,0 +1,75 @@
+\documentclass[]{article}
+\usepackage[round]{natbib}
+
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{booktabs}
+
+% lorem ipsum dummy text
+\usepackage{lipsum}
+
+\lstset{language=Python}
+
+% cross-reference with main text
+\usepackage{xr}
+\externaldocument{doc}
+
+% local definitions
+\newcommand{\comment}[1]{{\textcolor{red}{Comment: #1}}}
+
+\begin{document}
+\title{Supporting Information for ``An article template''}
+\author[1,*]{The Author}
+\affil[1]{Planet Earth}
+\affil[*]{email@address.edu}
+\date{\today}
+\maketitle
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
+\section{First supp. section}
+
+
+\begin{table}[h]
+\caption{\label{tab:1kgpops}Some \citet{10002015global} populations.}
+\centering
+\begin{tabular}[t]{lll}
+\toprule
+Code & Description & Region\\
+\midrule
+ESN & Esan in Nigeria & Africa\\
+GWD & Gambian in Western Divisions in the Gambia & Africa\\
+LWK & Luhya in Webuye, Kenya & Africa\\
+MSL & Mende in Sierra Leone & Africa\\
+YRI & Yoruba in Ibadan, Nigeria & Africa\\
+\addlinespace
+CEU & Utah Residents (CEPH) with Northern and Western European Ancestry & Europe\\
+GBR & British in England and Scotland & Europe\\
+FIN & Finnish in Finland & Europe\\
+IBS & Iberian Population in Spain & Europe\\
+TSI & Toscani in Italia & Europe\\
+\addlinespace
+CDX & Chinese Dai in Xishuangbanna, China & East Asia\\
+CHB & Han Chinese in Beijing, China & East Asia\\
+CHS & Southern Han Chinese & East Asia\\
+JPT & Japanese in Tokyo, Japan & East Asia\\
+KHV & Kinh in Ho Chi Minh City, Vietnam & East Asia\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\break
+
+\bibliographystyle{plainnat}
+\bibliography{doc}
+
+\end{document}

@@ -1,0 +1,158 @@
+\documentclass[]{article}
+\usepackage[round]{natbib}
+
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{color}
+
+\lstset{language=Python}
+
+% local definitions
+\newcommand{\comment}[1]{{\textcolor{red}{Comment: #1}}}
+
+% cross-reference with supplement
+\usepackage{xr}
+\externaldocument{supplement}
+
+\begin{document}
+
+\title{An article template}
+\author[1,*]{The Author}
+\affil[1]{Planet Earth}
+\affil[*]{email@address.edu}
+\maketitle
+
+\begin{abstract}
+A very simple template for an article class document.
+\end{abstract}
+
+\section{Interpretation of results}
+
+\begin{enumerate}
+    \item Human generation time differences between populations are claimed
+        to extend to more than 250,000 years. Extending the analysis beyond
+        10,000 generations shows that generation times do not converge
+        until ``78,000'' generations ago (more than 2 million years).
+        This is implausible.
+    \item Eurasian--West African divergence has been estimated to be around
+        \citep[e.g.,][]{pagani2015tracing}
+    \item Even papers that have inferred deep divergences of human populations
+        in Africa would place the West Africa--Eurasian divergence around
+        100--150ka \citep[e.g.,][]{schlebusch2017southern}.
+    \item It's worth noting that multiple studies have found evidence for
+        deep population structure in the history of Bantu-speaking groups.
+        However, it's unclear if such structure could account for such
+        long-lasting differences in generation times, or if that structure
+        is mis-inferred (as we argue in \citet{ragsdale2022weakly}).
+\end{enumerate}
+
+\section{The mutation spectrum over time}
+
+Issues:
+\begin{enumerate}
+    \item GEVA-Atlas variant ages result in mutation spectra that change
+        rapidly beyond 10,000 generates (which is likely why the weren't
+        shown?)
+    \item Allele age estimates between three state-of-the-art methods
+        [\texttt{GEVA} \citep{albers2020dating}, Relate
+        \citep{speidel2019method}, and \texttt{tsdate}
+        \citep{wohns2022unified}] are only moderately correlated
+        (for example, see Figure S20 in the Supplement of
+        \citet{wohns2022unified}).
+    \item Allele ages provided by each method results in distinct and
+        unalike mutation spectrum histories
+        (Figures~\ref{fig:geva-spectra}--\ref{fig:relate-spectra}).
+    \item In turn, these divergent histories provide estimates of
+        generation time profiles that differ completely.
+\end{enumerate}
+
+\section{De novo mutations from trio data}
+
+\begin{enumerate}
+    \item \emph{De novo} mutations from the Icelandic trio study have
+        a different mutation profile than the most recent age bins
+        (across all three of the variant dating methods).
+    \item In the most recent age bins (0 to 50 or 80 generations ago),
+        the three methods estimate very similar spectra of young standing
+        variation. They are closer to each other than any of them are
+        to the spectrum from \citet{jonsson2017parental}.
+    \item \citet{wang2023human} acknowledge this:
+        \begin{quote}
+            We found that the mutation spectrum from the large pedigree study
+            (14) consistently differed from the variant spectrum inferred from
+            the 1000 Genomes Project data, possibly because we removed
+            singletons from the polymorphism dataset to reduce errors.''
+        \end{quote}
+    \item However, they did not test (or at least did not show a test of)
+        this hypothesis that the removal of singletons drives this signal.
+        I don't think it does, but want to dive into it a bit more
+        thoroughly.
+    \item I also don't think the approach they took is satisfying:
+        \begin{quote}
+            Therefore, to obtain absolute generation times for historical
+            periods, we centered the observed spectra on the most recent bin,
+            subtracting its difference with the average mutation spectrum
+            estimated in (14) from each historical spectrum.  This has the
+            effect of assuming that parental ages in the pedigreed mutation
+            dataset reflect generation times in the most recent historical bin.
+        \end{quote}
+        And I don't know what biases this introduces. It does have the effect
+        of forcing recent bins to have roughly the same inferred average
+        generation times for mothers and fathers as the iceland trio data
+        ($28.2$ and $32$, resp.). It's therefore not a \emph{result} that
+        recent time periods match other estimates. It's a built-in assumption
+        of their model
+\end{enumerate}
+
+\section{Bigger picture issues and commentary}
+
+\begin{enumerate}
+    \item Allele age estimates are noisy, and probably shouldn't be used
+        for such detailed inferences. You'll end up fitting the noise and
+        bias of each method.
+    \item DNM estimates from trios have their own sets of problems. Do we
+        know where the discrepancy between trio-estimated DNM spectrum and
+        observations from pop-gen data come from? Probably needs to be
+        sorted out.
+\end{enumerate}
+
+\break
+
+\section{Figures}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.geva.max_age.10000.pdf}
+    \caption{
+        \textbf{\texttt{GEVA}-inferred mutation spectrum history.}
+    }
+    \label{fig:geva-spectra}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.relate.max_age.10000.pdf}
+    \caption{
+        \textbf{\texttt{Relate}-inferred mutation spectrum history.}
+    }
+    \label{fig:relate-spectra}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.tsdate.max_age.10000.pdf}
+    \caption{
+        \textbf{\texttt{tsdate}-inferred mutation spectrum history.}
+    }
+    \label{fig:tsdate-spectra}
+\end{figure}
+
+\break
+
+\bibliographystyle{plainnat}
+\bibliography{doc}
+
+\end{document}
