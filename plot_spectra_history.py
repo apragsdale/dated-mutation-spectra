@@ -57,11 +57,14 @@ def make_parser():
 
 
 def get_relative_spectra_histories(
-    dataset, pop, max_age=10000, keep_singletons=False, max_frequency=0.98
+    dataset, pop, max_age=10000, keep_singletons=False, max_frequency=0.98, num_bins=100
 ):
-    fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{max_age}.singletons.{keep_singletons}.max_frequency.{max_frequency}.csv"
+    if num_bins == 100:
+        fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{max_age}.singletons.{keep_singletons}.max_frequency.{max_frequency}.csv"
+    else:
+        fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{max_age}.singletons.{keep_singletons}.max_frequency.{max_frequency}.num_bins.{num_bins}.csv"
     df = pd.read_csv(fname, sep="\t")
-    y = np.zeros((100, len(classes)))
+    y = np.zeros((num_bins, len(classes)))
     for i, c in enumerate(classes):
         y[:, i] = df[c]
     for j in range(len(y)):

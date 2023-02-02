@@ -54,6 +54,12 @@ def make_parser():
         type=float,
         default=0.98,
     )
+    optional.add_argument(
+        "--num_bins",
+        "-b",
+        type=int,
+        default=100,
+    )
     return parser
 
 
@@ -112,8 +118,8 @@ def read_chromosome(chrom, dataset, max_age, keep_singletons, max_frequency):
     return df
 
 
-def get_bin_edges(dataset, max_age):
-    # we always use 100 bins.. this could be changed if we need to
+def get_bin_edges(dataset, max_age, num_bins=100):
+    assert num_bins > 0, "num_bins must be positive integer"
     ages = {}
     for chrom in range(1, 23):
         try:
@@ -126,9 +132,9 @@ def get_bin_edges(dataset, max_age):
         ages[chrom] = ages[chrom][ages[chrom] < max_age]
     all_ages = np.concatenate(list(ages.values()))
     all_ages = np.sort(all_ages)
-    bin_size = int(len(all_ages) / 100)
+    bin_size = int(len(all_ages) / num_bins)
     bin_edges = []
-    for i in range(100):
+    for i in range(num_bins):
         bin_edges.append(all_ages[bin_size * i])
     bin_edges.append(max_age)
     return np.array(bin_edges)
@@ -145,17 +151,14 @@ def count_mutation_types(df):
     return class_counts
 
 
-def parse_variant_data(datset, max_age, keep_singletons, max_frequency):
+def parse_variant_data(datset, max_age, keep_singletons, max_frequency, num_bins=100):
     ## this isn't the fastest way to do this, but I was running into memory
     ## issues trying to load all data across chromosomes at once into one df
     # set up age bins
-    bin_edges = get_bin_edges(dataset, max_age)
-    num_bins = len(bin_edges) - 1
+    bin_edges = get_bin_edges(dataset, max_age, num_bins)
     eprint(current_time(), "set up bin edges")
     # gather data across chromosomes
-    pop_data = {
-        p: {i: defaultdict(int) for i in range(num_bins)} for p in pops
-    }
+    pop_data = {p: {i: defaultdict(int) for i in range(num_bins)} for p in pops}
     for chrom in range(1, 23):
         # load chromosome data
         df = read_chromosome(chrom, dataset, max_age, keep_singletons, max_frequency)
@@ -175,8 +178,7 @@ def parse_variant_data(datset, max_age, keep_singletons, max_frequency):
 
     all_pop_counts = {
         pop: {
-            i: {"Min": bin_edges[i], "Max": bin_edges[i + 1]}
-            for i in range(num_bins)
+            i: {"Min": bin_edges[i], "Max": bin_edges[i + 1]} for i in range(num_bins)
         }
         for pop in pops
     }
@@ -192,14 +194,24 @@ def parse_variant_data(datset, max_age, keep_singletons, max_frequency):
 if __name__ == "__main__":
     parser = make_parser()
     args = parser.parse_args(sys.argv[1:])
-    (dataset, max_age, keep_singletons, max_frequency) = (
+    (dataset, max_age, keep_singletons, max_frequency, num_bins) = (
         args.dataset,
         args.max_age,
         args.singletons,
         args.frequency,
+        args.num_bins,
     )
-    pop_dfs = parse_variant_data(dataset, max_age, keep_singletons, max_frequency)
+
+    if keep_singletons is True and dataset == "geva":
+        raise ValueError("No singletons in GEVA!")
+
+    pop_dfs = parse_variant_data(
+        dataset, max_age, keep_singletons, max_frequency, num_bins=num_bins
+    )
     for pop in pops:
-        fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{max_age}.singletons.{keep_singletons}.max_frequency.{max_frequency}.csv"
+        if num_bins == 100:
+            fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{int(max_age)}.singletons.{keep_singletons}.max_frequency.{max_frequency}.csv"
+        else:
+            fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{int(max_age)}.singletons.{keep_singletons}.max_frequency.{max_frequency}.num_bins.{int(num_bins)}.csv"
         pop_dfs[pop].to_csv(fname, sep="\t", index=False)
     eprint(current_time(), "saved data!!")

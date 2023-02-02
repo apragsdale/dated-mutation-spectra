@@ -7,6 +7,7 @@
 \usepackage{authblk}
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{booktabs}
 
 \lstset{language=Python}
 
@@ -90,6 +91,10 @@ Issues:
         this hypothesis that the removal of singletons drives this signal.
         I don't think it does, but want to dive into it a bit more
         thoroughly.
+        \comment{Update: GEVA does not provide ages for singletons. Relate
+            and tsdate do, however, so we can test this hypothesis there.}
+    \item Table~\ref{tab:recent-spectra} shows mutation spectrum from the
+        most recent bin in each dataset.
     \item I also don't think the approach they took is satisfying:
         \begin{quote}
             Therefore, to obtain absolute generation times for historical
@@ -150,7 +155,57 @@ Issues:
     \label{fig:tsdate-spectra}
 \end{figure}
 
-\break
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.relate.max_age.10000.singletons.pdf}
+    \caption{
+        \textbf{\texttt{Relate}-inferred mutation spectrum history, including singletons.}
+    }
+    \label{fig:relate-spectra}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.tsdate.max_age.10000.singletons.pdf}
+    \caption{
+        \textbf{\texttt{tsdate}-inferred mutation spectrum history, including singletons.}
+    }
+    \label{fig:tsdate-spectra}
+\end{figure}
+
+\clearpage
+
+\section{Tables}
+
+\begin{table}[h]
+    \caption{
+        \label{tab:recent-spectra}
+        \textbf{Mutation profiles from the past 100 generations,
+        compared to Iceland trios.}
+        The most recent time bin for each method included the past $\approx150$
+        generations. When singletons were included (when using data from
+        \texttt{tsdate} and \texttt{Relate}), the spectra of estimated
+        recent standing variation were largely similar. Note that \texttt{GEVA}
+        does not report ages for singletons.
+    }
+    \centering
+    \begin{tabular}[t]{l|cccccc}
+        \toprule
+        Dataset & A$\rightarrow$C & A$\rightarrow$G & A$\rightarrow$T &
+            C$\rightarrow$A & C$\rightarrow$G & C$\rightarrow$T \\
+        \midrule
+        \texttt{GEVA} & 0.0946 & 0.3600 & 0.0886 & 0.1201 & 0.1057 & 0.2310 \\
+        \texttt{tsdate} & 0.0931 & 0.3579 & 0.0899 & 0.1146 & 0.1061 & 0.2384 \\
+        \texttt{tsdate} (w/singletons) & 0.0989 & 0.3598 & 0.0908 & 0.1168 & 0.1062 & 0.2275 \\
+        \texttt{Relate} & 0.0991 & 0.3610 & 0.0863 & 0.1124 & 0.1038 & 0.2374 \\
+        \texttt{Relate} (w/singletons) & 0.1002 & 0.3590 & 0.0921 & 0.1164 & 0.1060 & 0.2263 \\
+        \midrule
+        Iceland trios & 0.1071 & 0.4100 & 0.0881 & 0.0481 & 0.0847 & 0.2620 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\clearpage
 
 \bibliographystyle{plainnat}
 \bibliography{doc}
