@@ -118,7 +118,7 @@ def get_allele_frequencies(df, chrom):
             l = line.decode()
             if l.startswith("#"):
                 if l.startswith("#CHROM"):
-                    num_samples = len(l.split()[9:])
+                    num_samples = 2 * len(l.split()[9:])
                 continue
             (_, pos, rsid, ref, alt, _, _, info) = l.split()[:8]
             pos = int(pos)
@@ -148,19 +148,20 @@ def get_allele_frequencies(df, chrom):
                 continue
             infodict = parse_vcf_info(info)
             if flip:
-                AC[idx] = num_samples - eval(infodict["AC"])
-                ALL[idx] = 1 - eval(infodict["AF"])
-                AFR[idx] = 1 - eval(infodict["AFR_AF"])
-                EAS[idx] = 1 - eval(infodict["EAS_AF"])
-                EUR[idx] = 1 - eval(infodict["EUR_AF"])
-                SAS[idx] = 1 - eval(infodict["SAS_AF"])
+                AC[idx] = num_samples - int(infodict["AC"])
+                ALL[idx] = 1 - float(infodict["AF"])
+                AFR[idx] = 1 - float(infodict["AFR_AF"])
+                EAS[idx] = 1 - float(infodict["EAS_AF"])
+                EUR[idx] = 1 - float(infodict["EUR_AF"])
+                SAS[idx] = 1 - float(infodict["SAS_AF"])
             else:
-                AC[idx] = eval(infodict["AC"])
-                ALL[idx] = eval(infodict["AF"])
-                AFR[idx] = eval(infodict["AFR_AF"])
-                EAS[idx] = eval(infodict["EAS_AF"])
-                EUR[idx] = eval(infodict["EUR_AF"])
-                SAS[idx] = eval(infodict["SAS_AF"])
+                AC[idx] = int(infodict["AC"])
+                ALL[idx] = float(infodict["AF"])
+                AFR[idx] = float(infodict["AFR_AF"])
+                EAS[idx] = float(infodict["EAS_AF"])
+                EUR[idx] = float(infodict["EUR_AF"])
+                SAS[idx] = float(infodict["SAS_AF"])
+            assert AC[idx] > 0 and AC[idx] < num_samples
     df["AC"] = AC
     df["ALL"] = ALL
     df["AFR"] = AFR

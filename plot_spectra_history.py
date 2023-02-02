@@ -79,7 +79,9 @@ def plot_spectra(
     spectra = {}
     bin_mids = {}
     for p in pops:
-        spectra[p], bin_mids[p] = get_relative_spectra_histories(dataset, p)
+        spectra[p], bin_mids[p] = get_relative_spectra_histories(
+            dataset, p, max_age=max_age, keep_singletons=keep_singletons
+        )
     anchor = {c: spectra["ALL"][c][0] for c in classes}
     fig = plt.figure(figsize=(8, 5))
     fig.clf()
@@ -91,7 +93,7 @@ def plot_spectra(
         for j, c in enumerate(classes):
             y = (spectra[p][c] - anchor[c]) * 100
             xout, yout, wout = loess_1d(bin_mids[p], y, frac=0.5, degree=2)
-            ax.plot(xout, yout, c=colors[j % 6], lw=1.0, label=c)
+            ax.plot(xout, yout, c=colors[j % 6], lw=2.0, label=c)
         ax.set_xscale("log")
         if k == 4:
             ax.legend(ncol=1, fontsize=6, bbox_to_anchor=(1.0, 1.0))
@@ -115,7 +117,12 @@ if __name__ == "__main__":
         args.singletons,
         args.frequency,
     )
-    fname = f"plots/spectrum_history.{dataset}.max_age.{int(max_age)}.pdf"
+    if keep_singletons:
+        fname = (
+            f"plots/spectrum_history.{dataset}.max_age.{int(max_age)}.singletons.pdf"
+        )
+    else:
+        fname = f"plots/spectrum_history.{dataset}.max_age.{int(max_age)}.pdf"
     plot_spectra(
-        dataset, max_age, keep_singletons, max_frequency, fout=fname, show=True
+        dataset, max_age, keep_singletons, max_frequency, fout=fname, show=False
     )
