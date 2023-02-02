@@ -101,77 +101,61 @@ def get_allele_frequencies(df, chrom):
     Americans and Afro-Caribbean. We have kept them here, to match the Wang et
     al study but note that it may be preferable to disclude them.
     """
-    vcf_fname = f"./data/1000G/ALL.chr{chrom}.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"
-    # set up allele frequency vectors
-    ALL = np.zeros(len(df))
-    AFR = np.zeros(len(df))
-    EAS = np.zeros(len(df))
-    EUR = np.zeros(len(df))
-    SAS = np.zeros(len(df))
-    AC = np.zeros(len(df))
-    positions = np.array(list(df["Pos"]))
-    ancestral = list(df["Anc"])
-    derived = list(df["Der"])
-    IDs = list(df["ID"])
+    num_samples = 2 * 2504
+    vcf_fname = f"./data/1000G/ALL.chr{chrom}.phase3_shapeit2_mvncall_integrated_v5.20130502.sites.annotation.vcf.gz"
+    d = df[["Pos", "Anc", "Der"]].set_index("Pos").to_dict("index")
     with gzip.open(vcf_fname, "rb") as fin:
         for line in fin:
             l = line.decode()
             if l.startswith("#"):
-                if l.startswith("#CHROM"):
-                    num_samples = 2 * len(l.split()[9:])
                 continue
-            (_, pos, rsid, ref, alt, _, _, info) = l.split()[:8]
+            (_, pos, rsid, ref, alt, _, _, info) = l.split()
             pos = int(pos)
-            pos_idx = np.where(positions == pos)[0]
-            if len(pos_idx) == 0:
-                # not a position in our list
+            if pos not in d.keys():
                 continue
-            else:
-                idx = pos_idx[0]
             # make sure we're dealing with nucleotides
             if ref not in nucleotides or alt not in nucleotides:
                 continue
-            # make sure IDs match
-            if rsid != IDs[idx]:
-                continue
             # check that anc and der alleles match ref and alt from 1kg
-            if ref != ancestral[idx] and ref != derived[idx]:
+            if ref != d[pos]["Anc"] and ref != d[pos]["Der"]:
                 continue
-            if alt != ancestral[idx] and alt != derived[idx]:
+            if alt != d[pos]["Anc"] and alt != d[pos]["Der"]:
                 continue
             # if everything looks good, parse the info and get allele freqs
             flip = False
-            if ancestral[idx] == alt:
+            if d[pos]["Anc"] == alt:
                 flip = True
-            elif ancestral[idx] != ref:
+            elif d[pos]["Anc"] != ref:
                 # ancestral allel does't match alt or ref
                 continue
             infodict = parse_vcf_info(info)
+            d[pos]["AltID"] = rsid
             if flip:
-                AC[idx] = num_samples - int(infodict["AC"])
-                ALL[idx] = 1 - float(infodict["AF"])
-                AFR[idx] = 1 - float(infodict["AFR_AF"])
-                EAS[idx] = 1 - float(infodict["EAS_AF"])
-                EUR[idx] = 1 - float(infodict["EUR_AF"])
-                SAS[idx] = 1 - float(infodict["SAS_AF"])
+                d[pos]["AC"] = num_samples - int(infodict["AC"])
+                d[pos]["ALL"] = 1 - float(infodict["AF"])
+                d[pos]["AFR"] = 1 - float(infodict["AFR_AF"])
+                d[pos]["EAS"] = 1 - float(infodict["EAS_AF"])
+                d[pos]["EUR"] = 1 - float(infodict["EUR_AF"])
+                d[pos]["SAS"] = 1 - float(infodict["SAS_AF"])
             else:
-                AC[idx] = int(infodict["AC"])
-                ALL[idx] = float(infodict["AF"])
-                AFR[idx] = float(infodict["AFR_AF"])
-                EAS[idx] = float(infodict["EAS_AF"])
-                EUR[idx] = float(infodict["EUR_AF"])
-                SAS[idx] = float(infodict["SAS_AF"])
-            assert AC[idx] > 0 and AC[idx] < num_samples
-    df["AC"] = AC
-    df["ALL"] = ALL
-    df["AFR"] = AFR
-    df["EAS"] = EAS
-    df["EUR"] = EUR
-    df["SAS"] = SAS
-    # remove sites where AFR, EAS, EUR, and SAS all have zero frequencies
-    focal_afs = AFR + EAS + EUR + SAS
-    df = df[focal_afs > 0]
-    ## might want this to be df[df["AC"]] > 0]
+                d[pos]["AC"] = int(infodict["AC"])
+                d[pos]["ALL"] = float(infodict["AF"])
+                d[pos]["AFR"] = float(infodict["AFR_AF"])
+                d[pos]["EAS"] = float(infodict["EAS_AF"])
+                d[pos]["EUR"] = float(infodict["EUR_AF"])
+                d[pos]["SAS"] = float(infodict["SAS_AF"])
+
+    df["AC"] = [d[pos]["AC"] for pos in df["Pos"]]
+    df["ALL"] = [d[pos]["ALL"] for pos in df["Pos"]]
+    df["AFR"] = [d[pos]["AFR"] for pos in df["Pos"]]
+    df["EAS"] = [d[pos]["EAS"] for pos in df["Pos"]]
+    df["EUR"] = [d[pos]["EUR"] for pos in df["Pos"]]
+    df["SAS"] = [d[pos]["SAS"] for pos in df["Pos"]]
+
+    df["ID"] = [
+        id1 + ";" + id2 if id1 != id2 else id1
+        for id1, id2 in zip(df["ID"], [d[pos]["AltID"] for pos in df["Pos"]])
+    ]
     return df
 
 
