@@ -54,17 +54,17 @@ Possible titles:
 
 \end{abstract}
 
-Recent years have seen the rapid development of methods toward the
-reconstruction of genealogical structures of large cohorts
-\citep{speidel2019method,wohns2022unified,hubisz2020mapping}, comprised of a
-series of gene genealogies (or trees) along the genome. Reconstructed
-genealogies (or informative summaries of them \citep{albers2020dating}) have
-the potential to transform evolutionary and population genetic inference, as
-biological and evolutionary processes impact the shape and correlation of gene
-trees and the distribution of variation that arises in the lineages they
-represent. Relevant to this study, the age of a variant can be estimated by
-mapping that mutation to the portion of the gene tree in which it is inferred
-to have occurred.
+Recent years have seen the rapid development of methods for reconstructing
+genealogical structures of large cohorts
+\citep{speidel2019method,wohns2022unified,hubisz2020mapping}, which are
+comprised of a series of gene genealogies (or trees) along the genome.
+Reconstructed genealogies (or informative summaries of them
+\citep{albers2020dating}) have the potential to transform evolutionary and
+population genetic inference, as biological and evolutionary processes impact
+the shape and correlation of gene trees and the distribution of variation that
+arises in the lineages they represent. Relevant to this study, the age of a
+variant can be estimated by mapping its mutation to the portion of the gene
+tree in which it is inferred to have occurred.
 
 At the same time, the last few years have seen large sequencing projects that
 provide ever-increasing resolution of genome biology, including direct
@@ -76,55 +76,56 @@ large enough sample size both the number of mutations and proportions of
 mutation types (e.g., A$\rightarrow$C, A$\rightarrow$G, etc.) can be correlated
 with parental age and sex \citep{jonsson2017parental}. \citet{wang2023human}
 combined these two sets of inferences, the estimated ages of mutations and the
-paternal age- and sex-dependence of the mutation spectrum, to infer the history
+parental age- and sex-dependence of the mutation spectrum, to infer the history
 of average maternal and paternal generation intervals for human populations of
 diverse ancestries. In order to avoid overfitting, this approach requires
 making a number of assumptions about the constancy of the mutational process
-\cite{harris,dewitt} \aprcomment{and others to point out?}. For now, let's take
-these as stated\ldots
+\cite{harris,dewitt} \aprcomment{and others to point out? For now, let's accept
+these as stated\ldots}
 
 \subsection*{Long-lasting differences in human generation intervals}
 
 In applying this inference approach to multiple populations of different
 continental ancestries, \citet{wang2023human} estimated that the ancestors of
 European, East Asian, and South Asian populations included in the
-\citet{1000genomes2015} (1KGP) had significantly reduced average generation
-times compared to West African populations included in the same dataset. These
-differences extended to at least 10,000 generations, the time period that was
-highlighted in this study. In discussing this result, the authors state that
-``the difference among populations beyond 2000 generations ago reflects
-population structure in humans before their dispersal out of Africa, a
-structure that is not fully captured by the 1000 Genomes AFR sample. This
-implies that the simple labels of `African' and `non-African' for these
-populations conceal differences in generation times that existed on our
-ancestral continent.'' Indeed, a number of recent genetic studies suggest that
-human population structure within Africa extending hundreds of thousands of
-years into the past has shaped modern-day genetic variation
-\citep{plagnol2006possible,hammer2011genetic,hsieh2016model,hey2018phylogeny,ragsdale2019models,durvasula2020recovering,lorente2019whole}.
+\citet{1000genomes2015} dataset (1KGP) have a history of significantly reduced
+average generation times compared to West African populations. These
+differences extend to over 10,000 generations, the time period highlighted in
+this study. In discussing this result the authors state, ``the difference
+among populations beyond 2000 generations ago reflects population structure in
+humans before their dispersal out of Africa, a structure that is not fully
+captured by the 1000 Genomes AFR sample. This implies that the simple labels
+of `African' and `non-African' for these populations conceal differences in
+generation times that existed on our ancestral continent.'' Indeed, a number of
+recent genetic studies suggest that human population structure within Africa
+extending hundreds of thousands of years into the past has in part shaped
+modern-day genetic variation
+\citep{plagnol2006possible,hammer2011genetic,hsieh2016model,hey2018phylogeny,
+ragsdale2019models,durvasula2020recovering,lorente2019whole}.
 
 However, in extending their analysis farther into the past,
-\citet{wang2023human} find that ancestral generation intervals do not converge
-until many 10s of thousands of generations into the past. With an average
-generation time of 25--30 years, this corresponds to well over one million
-years ago. This observation would require some portion of the ancestries of
-Eurasian and West African populations to have remained isolated for many
-hundreds of thousands of years, for those structured ancestral populations to
-have had large differences in average generation times over the course of this
-history, and for those groups to contributed substantively to different
-contemporary human populations. While such a scenario of very long-lasting
-isolation among ancestral popualtions is not impossible, it is not supported by
-genetic \citep{ragsdale2022weakly,others} or archaeological
+\citeauthor{wang2023human} find that ancestral generation intervals do not
+converge until many 10s of thousands of generations into the past. With an
+average generation time of 25--30 years, this corresponds to well over one
+million years ago. This observation would require some portion of the
+ancestries of Eurasian and West African populations to have remained isolated
+for many hundreds of thousands of years, for those structured ancestral
+populations to have had large differences in average generation times over the
+course of this history, and for those groups to have contributed substantively
+to different contemporary human populations. While such a scenario of very
+long-lasting isolation among ancestral popualtions is not impossible, it is not
+supported by genetic \citep{ragsdale2022weakly,others} or archaeological
 \citep{scerri2018did,others} evidence, which rather suggest at least periodic
-connectivity of ancestral human populations.
+connectivity of ancestral human populations within Africa.
 
 Rather than long-lasting isolation between a large portion of ancestry of West
 African and Eurasian populations (that represented large differences in
 generation intervals), Eurasian--West African divergence has been estimated at
 only $\approx 75$ka (thousand years ago)
-\citep[e.g.,][]{pagani2015tracing,other}. Even among studies that have inferred
+\citep[e.g.,][]{pagani2015tracing,other}. Even studies that have inferred
 deeper divergences of human populations within African would place the
 Eurasian--West African divergence at around 100--150ka
-\citep{schlebusch2017southern}.
+\citep{schlebusch2017southern}. 
 
 \aprcomment{
     If these estimated divergences represents the majority of ancestry of the
@@ -144,7 +145,22 @@ namely noise and bias in allele age inference and incosistencies in trio-base
 estimates of mutation profiles, confound inferences of generation times from
 time series of mutation spectra.
 
-\subsection*{Inconsistencies in the mutation spectrum over time}
+\subsection*{Inconsistencies in inferred mutation spectra over time}
+
+Central to the inference of generation intervals from time-stratified mutation
+spectra is the dating of variant ages. \citet{wang2023human} used published
+allele ages from \citet{albers2020dating} (using the software \texttt{GEVA}).
+\texttt{GEVA} estimates allele ages by considering the number of additional
+mutations that have accumulated on the ancestral haplotype carrying the focal
+variant, as well as the effect of recombination in reducing the size of that
+ancestral haplotype. Singletons are excluded from analysis and are not assigned
+an age. Partitioning variants by their estimated ages shows that the mutation
+spectrum (i.e., the distribution of mutations of six mutation types) has
+changed over time (Figure~\ref{fig:xyz} and see Figure 1C in
+\citeauthor{wang2023human}). Importantly, this assumes that the observed
+spectrum of segregating variation is not biased with respect to the spectrum of
+\emph{de novo} mutations occuring during that time. \aprcomment{Would require a
+selection (or genotyping error) argument.}
 
 Issues:
 \begin{enumerate}
