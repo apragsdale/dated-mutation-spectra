@@ -103,14 +103,14 @@ def load_and_filter_trio_data():
     euro_triplets = [["TCC", "TTC"], ["ACC", "ATC"], ["TCT", "TTC"], ["CCC", "CTC"]]
     for tri_from, tri_to in euro_triplets:
         ## NOTE: commented out the full observed triplet mutation types
-        # df = df[(df["Ref_triplet"] != tri_from) & (df["Alt_triplet"] != tri_to)]
-        # df = df[
-        #    (df["Ref_triplet"] != reverse_complement(tri_from))
-        #    & (df["Alt_triplet"] != reverse_complement(tri_to))
-        # ]
+        df = df[(df["Ref_triplet"] != tri_from) & (df["Alt_triplet"] != tri_to)]
+        df = df[
+            (df["Ref_triplet"] != reverse_complement(tri_from))
+            & (df["Alt_triplet"] != reverse_complement(tri_to))
+        ]
         # Wang et all just remove reference triplets with the from triplet
-        df = df[(df["Ref_triplet"] != tri_from)]
-        df = df[df["Ref_triplet"] != reverse_complement(tri_from)]
+        #df = df[(df["Ref_triplet"] != tri_from)]
+        #df = df[df["Ref_triplet"] != reverse_complement(tri_from)]
 
     # collapse mutation classes
     muts = list(df["mut_class"])
