@@ -7,3 +7,4 @@ biopython
 matplotlib
 bokeh
 loess
+scikit-learn

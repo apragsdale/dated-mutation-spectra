@@ -137,6 +137,7 @@ Issues:
     \label{fig:geva-spectra}
 \end{figure}
 
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.relate.max_age.10000.pdf}
@@ -145,6 +146,7 @@ Issues:
     }
     \label{fig:relate-spectra}
 \end{figure}
+
 
 \begin{figure}[ht!]
     \centering
@@ -155,6 +157,7 @@ Issues:
     \label{fig:tsdate-spectra}
 \end{figure}
 
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.relate.max_age.10000.singletons.pdf}
@@ -164,6 +167,7 @@ Issues:
     \label{fig:relate-spectra}
 \end{figure}
 
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{../plots/spectrum_history.tsdate.max_age.10000.singletons.pdf}
@@ -172,6 +176,70 @@ Issues:
     }
     \label{fig:tsdate-spectra}
 \end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.geva.pdf}
+    \caption{
+        \textbf{\texttt{GEVA}-inferred generation time histories.}
+    }
+    \label{fig:geva-gen-times}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.relate.pdf}
+    \caption{
+        \textbf{\texttt{Relate}-inferred generation time histories.}
+    }
+    \label{fig:relate-gen-times}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.tsdate.pdf}
+    \caption{
+        \textbf{\texttt{tsdate}-inferred generation time histories.}
+    }
+    \label{fig:tsdate-gen-times}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.geva.pdf}
+    \caption{
+        \textbf{Prediction of mutation spectrum history from
+        \texttt{GEVA}-inferred generation times.}
+    }
+    \label{fig:geva-fit}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.relate.pdf}
+    \caption{
+        \textbf{Prediction of mutation spectrum history from
+        \texttt{Relate}-inferred generation times.}
+    }
+    \label{fig:relate-fit}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.tsdate.pdf}
+    \caption{
+        \textbf{Prediction of mutation spectrum history from
+        \texttt{tsdate}-inferred generation times.}
+    }
+    \label{fig:tsdate-fit}
+\end{figure}
+
 
 \clearpage
 
@@ -187,6 +255,11 @@ Issues:
         \texttt{tsdate} and \texttt{Relate}), the spectra of estimated
         recent standing variation were largely similar. Note that \texttt{GEVA}
         does not report ages for singletons.
+        While the three methods provide similar spectra from recent mutations,
+        the spectrum from the Iceland trios differs substantially.
+        The similarity in the spectrum between mutations that were phased
+        in \citet{jonsson2017parental} and all mutations (phased and unphased)
+        are very similar to each other.
     }
     \centering
     \begin{tabular}[t]{l|cccccc}
@@ -200,7 +273,8 @@ Issues:
         \texttt{Relate} & 0.0991 & 0.3610 & 0.0863 & 0.1124 & 0.1038 & 0.2374 \\
         \texttt{Relate} (w/singletons) & 0.1002 & 0.3590 & 0.0921 & 0.1164 & 0.1060 & 0.2263 \\
         \midrule
-        Iceland trios & 0.1071 & 0.4100 & 0.0881 & 0.0481 & 0.0847 & 0.2620 \\
+        Trios (phased) & 0.1071 & 0.4100 & 0.0881 & 0.0481 & 0.0847 & 0.2620 \\
+        Trios (all mutations) & 0.1080 & 0.4086 & 0.0903 & 0.0483 & 0.0839 & 0.2610 \\
         \bottomrule
     \end{tabular}
 \end{table}
