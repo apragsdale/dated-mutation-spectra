@@ -41,7 +41,7 @@ def make_parser():
         type=str,
         required=True,
     )
-    optional.add_argument("--max_age", "-m", default=10000, type=float)
+    optional.add_argument("--max_age", "-m", default=10000, type=int)
     optional.add_argument(
         "--singletons",
         "-s",

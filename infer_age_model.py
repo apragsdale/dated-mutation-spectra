@@ -46,6 +46,12 @@ def make_parser():
         type=str,
         default="combined",
     )
+    optional.add_argument(
+        "--max_age",
+        "-m",
+        type=int,
+        default=10000,
+    )
     return parser
 
 
@@ -109,8 +115,8 @@ def load_and_filter_trio_data():
             & (df["Alt_triplet"] != reverse_complement(tri_to))
         ]
         # Wang et all just remove reference triplets with the from triplet
-        #df = df[(df["Ref_triplet"] != tri_from)]
-        #df = df[df["Ref_triplet"] != reverse_complement(tri_from)]
+        # df = df[(df["Ref_triplet"] != tri_from)]
+        # df = df[df["Ref_triplet"] != reverse_complement(tri_from)]
 
     # collapse mutation classes
     muts = list(df["mut_class"])
@@ -256,8 +262,8 @@ def get_mutation_counts(dataset, pop="ALL", max_age=10000, singletons=False):
     return df_counts
 
 
-def get_data_spectra(dataset, pop):
-    counts = get_mutation_counts(dataset, pop=pop)
+def get_data_spectra(dataset, pop, max_age=10000):
+    counts = get_mutation_counts(dataset, pop=pop, max_age=max_age)
     num_bins = len(counts)
     bins = list(zip(counts["Min"], counts["Max"]))
     y = np.zeros((num_bins, 6))
@@ -266,9 +272,11 @@ def get_data_spectra(dataset, pop):
     return y, bins
 
 
-def fit_generation_times(dataset, pop, trio_mode, regr, iceland_spectrum):
-    data_spectra, bins = get_data_spectra(dataset, pop)
-    anchor_spectra, bins = get_data_spectra(dataset, "ALL")
+def fit_generation_times(
+    dataset, pop, trio_mode, regr, iceland_spectrum, max_age=10000
+):
+    data_spectra, bins = get_data_spectra(dataset, pop, max_age=max_age)
+    anchor_spectra, bins = get_data_spectra(dataset, "ALL", max_age=max_age)
     anchor = anchor_spectra[0]
     fit_ages = np.zeros((100, 2))
     for bin_idx in range(100):
@@ -331,16 +339,18 @@ def plot_inferred_generation_times(bins, fit_ages, dataset):
     ax.set_ylim(ylim)
 
     fig.tight_layout()
-    plt.savefig(f"plots/inferred_generation_times.{dataset}.pdf")
+    plt.savefig(f"plots/inferred_generation_times.{dataset}.max_age.{max_age}.pdf")
 
 
-def get_predicted_spectrum_history(ages, regr, trio_mode, dataset, iceland_spectrum):
+def get_predicted_spectrum_history(
+    ages, regr, trio_mode, dataset, iceland_spectrum, max_age=10000
+):
     if trio_mode == "combined":
         model_func = predict_spectrum_combined
     elif trio_mode == "phased":
         model_func = predict_spectrum_phased
 
-    anchor_spectra, bins = get_data_spectra(dataset, "ALL")
+    anchor_spectra, bins = get_data_spectra(dataset, "ALL", max_age=max_age)
     anchor = anchor_spectra[0]
     delta = anchor / np.sum(anchor) - iceland_spectrum / iceland_spectrum.sum()
 
@@ -352,13 +362,13 @@ def get_predicted_spectrum_history(ages, regr, trio_mode, dataset, iceland_spect
     return y
 
 
-def plot_predicted_histories(bins, predicted_histories, dataset):
+def plot_predicted_histories(bins, predicted_histories, dataset, max_age=10000):
     fig = plt.figure(4, figsize=(8, 5))
     axes = {}
     fig.clf()
     for i, pop in enumerate(bins.keys()):
         # load the data
-        data_spectra, b = get_data_spectra(dataset, pop)
+        data_spectra, b = get_data_spectra(dataset, pop, max_age=max_age)
         if pop == "ALL":
             anchor = data_spectra[0] / np.sum(data_spectra[0])
         for j in range(len(data_spectra)):
@@ -387,13 +397,13 @@ def plot_predicted_histories(bins, predicted_histories, dataset):
 
     fig.tight_layout()
     axes[4].legend(ncol=2, fontsize=6, bbox_to_anchor=(1.0, 1.0))
-    plt.savefig(f"plots/goodness-of-fit.{dataset}.pdf")
+    plt.savefig(f"plots/goodness-of-fit.{dataset}.max_age.{max_age}.pdf")
 
 
 if __name__ == "__main__":
     parser = make_parser()
     args = parser.parse_args(sys.argv[1:])
-    (dataset, trio_mode) = (args.dataset, args.trio_mode)
+    (dataset, trio_mode, max_age) = (args.dataset, args.trio_mode, args.max_age)
 
     # load and filter trio data
     df = load_and_filter_trio_data()
@@ -422,7 +432,7 @@ if __name__ == "__main__":
     bins = {}
     for pop in pops:
         bins[pop], fit_ages[pop] = fit_generation_times(
-            dataset, pop, trio_mode, regr, iceland_spectrum
+            dataset, pop, trio_mode, regr, iceland_spectrum, max_age=max_age
         )
 
     # plot the results
@@ -433,6 +443,6 @@ if __name__ == "__main__":
     for pop in pops:
         ages = fit_ages[pop]
         predicted_histories[pop] = get_predicted_spectrum_history(
-            ages, regr, trio_mode, dataset, iceland_spectrum
+            ages, regr, trio_mode, dataset, iceland_spectrum, max_age=max_age
         )
-    plot_predicted_histories(bins, predicted_histories, dataset)
+    plot_predicted_histories(bins, predicted_histories, dataset, max_age=max_age)
