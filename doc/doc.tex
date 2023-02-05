@@ -185,14 +185,23 @@ methods.
     \item Allele age estimates between the three methods are only moderately
         correlated (as shown in Figure S20 in the Supplement of
         \citet{wohns2022unified}).
-    \item TODO: estimate this correlation from our parsed data
-    \item Despite this low correlation, we would hope that differences are
+    \item I estimated this correlation from our parsed data
+        \aprcomment{
+            \GEVA and \relate: $r^2 \approx 0.28$,
+            \GEVA and \tsdate: $r^2 \approx 0.34$,
+            \tsdate and \relate: $r^2 \approx 0.64$
+        }
+    \item Despite this low to moderate correlation, 
+        we would hope that differences are
         unbiased with respect to the age-stratified mutation spectra. However,
         allele ages provided by each method result in distinct and
         unalike mutation spectrum histories (Figures
         \ref{fig:geva-spectra}--\ref{fig:relate-spectra}), with mutation
         spectrum changes often trending in opposite directions over the same
         epochs.
+    \item Even between \tsdate and \relate, which have higher corretion in
+        inferred allele ages, we do not see agreement of mutation spectrum
+        history.
     \item In turn, these divergent histories provide estimates of
         generation time profiles that qualitatively differ.
 \end{itemize}
