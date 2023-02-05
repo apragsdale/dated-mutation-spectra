@@ -105,25 +105,30 @@ def load_and_filter_trio_data():
         tri[0] + alt + tri[2] for (tri, alt) in zip(df["Ref_triplet"], df["Alt"])
     ]
 
-    # remove European TC triplets and their complements
-    euro_triplets = [["TCC", "TTC"], ["ACC", "ATC"], ["TCT", "TTC"], ["CCC", "CTC"]]
-    for tri_from, tri_to in euro_triplets:
-        ## NOTE: commented out the full observed triplet mutation types
-        df = df[(df["Ref_triplet"] != tri_from) & (df["Alt_triplet"] != tri_to)]
-        df = df[
-            (df["Ref_triplet"] != reverse_complement(tri_from))
-            & (df["Alt_triplet"] != reverse_complement(tri_to))
-        ]
-        # Wang et all just remove reference triplets with the from triplet
-        # df = df[(df["Ref_triplet"] != tri_from)]
-        # df = df[df["Ref_triplet"] != reverse_complement(tri_from)]
-
     # collapse mutation classes
     muts = list(df["mut_class"])
     for i, mut in enumerate(muts):
         if mut in complementary_classes:
             muts[i] = class_map[mut]
     df["mut_class"] = muts
+
+    # remove European TC triplets and their complements
+    #euro_triplets = [["TCC", "TTC"], ["ACC", "ATC"], ["TCT", "TTC"], ["CCC", "CTC"]]
+    #for tri_from, tri_to in euro_triplets:
+        ## NOTE: commented out the full observed triplet mutation types
+        # df = df[(df["Ref_triplet"] != tri_from) ! (df["Alt_triplet"] != tri_to)]
+        # df = df[
+        #    (df["Ref_triplet"] != reverse_complement(tri_from))
+        #    ! (df["Alt_triplet"] != reverse_complement(tri_to))
+        # ]
+    for tri in ["TCC", "ACC", "TCT", "CCC"]:
+        # Wang et al do it a bit differently
+        df = df[(df["mut_class"] != "C>T") | (df["Ref_triplet"] != tri)]
+        df = df[
+            (df["mut_class"] != "C>T")
+            | (df["Ref_triplet"] != reverse_complement(tri))
+        ]
+
     return df
 
 
@@ -225,6 +230,17 @@ def predict_spectrum_phased(ages, regr):
         + ages[0] * regr_father.coef_.flatten()
         + ages[1] * regr_mother.coef_.flatten()
     )
+
+
+def predict_spectrum(ages):
+    """
+    This comes from the `age_modeling.R` script from Wang et al.
+    """
+    alpha = np.array([13.830321, 15.180457, 14.056053, 13.923672, 13.952551, 14.947698])
+    beta0 = np.array([-0.316633, -0.327940, -0.322887, -0.329628, -0.321475, -0.326378])
+    beta1 = np.array([0.252819, 0.265539, 0.249886, 0.264401, 0.262430, 0.256306])
+    p = np.exp(alpha + ages[0] * beta0 + ages[1] * beta1)
+    return p / np.sum(p)
 
 
 def get_mutation_spectrum(df):

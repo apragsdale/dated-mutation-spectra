@@ -27,7 +27,7 @@
 
 \begin{document}
 
-\title{On the fraught inference of historical generation times}
+\title{On the fraught inference of historical human generation times}
 \author[1,*]{Aaron P. Ragsdale}
 \author[2]{Kevin Thornton}
 \affil[1]{University of Wisconsin--Madison, Wisconsin, USA}
@@ -49,13 +49,10 @@
     substantially higher than those of Eurasian populations extending tens of
     thousands of generations into the past. Here we show that the results and
     interpretations in \citet{wang2023human} are driven by noise and biases in
-    input data, questionable modeling and statistical choices, and a failure to
-    validate their inferences using independent approaches for estimating
-    allele ages. With the recent development of methods to reconstruct
-    genome-wide gene genealogies, coalescence times, and allele ages, we
-    caution that ...
-
-    \aprcomment{this seems kind of aggressive\ldots just writing down some thoughts}
+    input data, modeling and statistical choices, and a lack of validation
+    using independent approaches for estimating allele ages. With the recent
+    development of methods to reconstruct genome-wide gene genealogies,
+    coalescence times, and allele ages, we caution that ...
 
 \end{abstract}
 
@@ -71,24 +68,54 @@ arises in the lineages they represent. Relevant to this study, the age of a
 variant can be estimated by mapping its mutation to the portion of the gene
 tree in which it is inferred to have occurred.
 
-At the same time, the last few years have seen large sequencing projects that
-provide ever-increasing resolution of genome biology, including direct
-measurements of mutation rates and profiles
-\citep{jonsson2017parental,halldorsson2019characterizing}. Through
-high-coverage sequencing of multiple generations of families, \emph{de novo}
+At the same time, the last few years have seen large sequencing efforts of
+families that provide ever-increasing resolution of genome biology, including
+direct measurements of mutation rates and profiles. Through high-coverage
+sequencing of multiple generations within known pedigrees, \emph{de novo}
 mutations can be determined as maternally or paternally inherited, and with a
 large enough sample size both the number of mutations and proportions of
 mutation types (e.g., A$\rightarrow$C, A$\rightarrow$G, etc.) can be correlated
-with parental age and sex \citep{jonsson2017parental}. \citet{wang2023human}
-combined these two sets of inferences, the estimated ages of mutations and the
-parental age- and sex-dependence of the mutation spectrum, to infer the history
-of average maternal and paternal generation intervals for human populations of
-diverse ancestries. In order to avoid overfitting, this approach requires
-making a number of assumptions about the constancy of the mutational process
-\cite{harris,dewitt} \aprcomment{and others to point out? For now, let's accept
-these as stated\ldots}
+with parental age and sex
+\citep{jonsson2017parental,halldorsson2019characterizing}.
+\citet{wang2023human} combined these two sets of inferences, the estimated ages
+of mutations and the parental age- and sex-dependence of the mutation spectrum,
+to infer the history of average maternal and paternal generation intervals for
+human populations of diverse ancestries. In order to avoid overfitting, this
+approach requires making a number of assumptions about the constancy of the
+mutational process over time \cite{harris,dewitt}, its similarity across
+populations, \aprcomment{and others to point out? For now, let's accept these
+as stated\ldots}
 
-\subsection*{Long-lasting differences in human generation intervals}
+This approach has recently been criticized \citep{gao2022limited}. Notably,
+\citeauthor{gao2022limited} show that observed changes in the mutation spectrum
+over time cannot be explained by changes in maternal and paternal generation
+times alone, as specific mutational signatures would require unique and
+divergent generation intervals to simultaneously explain them.
+\citeauthor{gao2022limited} also point out that pedigree-based estimates of the
+\emph{de novo} mutation spectrum do not agree with the mutation spectrum among
+young variants in existing population-level datasets, which we also discuss
+below. They argue instead that factors other than changes in generation
+intervals, including genetic modifiers and environmental exposure, must explain
+observed variation in mutation profiles.
+
+In this note, we
+\begin{enumerate}
+    \item Argue that the inferred generation time histories are inconsistent
+        with the current understanding of human population history, in
+        particular deep history within Africa.
+    \item Show that allele age estimates are not just noisy, but age-stratified
+        mutation spectra reconstructed using independent methods disagree
+        wildly, with mutation profiles diverging in opposing directions. Thus,
+        the results from \citet{wang2023human} do not reproduce.
+    \item Discuss the problems with using mutation rates and profiles from
+        pedigree-based studies to calibrate population genetic inferences.
+\end{enumerate}
+In conclusion, we suggest that downstream analyses using estimated allele ages
+and mutation profiles should more carefully validate their results, which in
+turn should be interpreted with a heavy dose of skepticism \aprcomment{or
+something like that}.
+
+\subsection*{Long-lasting differences in population-specific generation intervals}
 
 In applying this inference approach to multiple populations of different
 continental ancestries, \citet{wang2023human} estimated that the ancestors of
@@ -229,28 +256,30 @@ mutation spectra to those estimated from pedigree studies
 identified in Icelandic trios \citep{jonsson2017parental} differs considerably
 from the spectrum of young segregating variation (e.g., variants estimated to
 be less than 100 generations old, Table~\ref{tab:recent-spectra}).
-\aprcomment{what do \citet{gao2022limited} say is the reason they abandon
-them?}
+\citet{gao2022limited} argue that these differences are unlikely to be driven
+by biological processes.
 
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
-$0.05$. Instead, \GEVA, \tsdate, and \relate, while they differ for mutations
-that are estimated to be older, very closely agree for mutations inferred to be
-less than 100 generations old. In discussing this discrepancy,
-\citet{wang2023human} state, ``We found that the mutation spectrum from the
-large pedigree study consistently differed from the variant spectrum inferred
-from the 1000 Genomes Project data, possibly because we removed singletons from
-the polymorphism dataset to reduce errors.'' Rather, \GEVA does not provide
-estimates of allele ages for singletons, so this suggested source of
-discrepancy cannot be checked with their published allele ages. Both \tsdate
+$0.02$, which would imply a large over- or under-count of different mutation
+types. \GEVA, \tsdate, and \relate, while they differ for mutations that are
+inferred to be older, very closely agree for mutations inferred to be less than
+100 generations old (Table~\ref{tab:recent-spectra}). In discussing this
+discrepancy, \citet{wang2023human} state, ``We found that the mutation spectrum
+from the large pedigree study consistently differed from the variant spectrum
+inferred from the 1000 Genomes Project data, possibly because we removed
+singletons from the polymorphism dataset to reduce errors.'' Rather, \GEVA does
+not provide estimates of allele ages for singletons, so this suggested source
+of discrepancy cannot be checked with their published allele ages. Both \tsdate
 and \relate do report allele ages for singletons, and their inclusion does not
 strongly affect the mutation spectrum in the most recent time period
-(Table~\ref{tab:recent-spectra}), though it does impact the mutation spectra in
-older time periods (Figures~\ref{fig:relate-spectra-singletons},
-\ref{fig:tsdate-spectra-singletons}). \aprcomment{also should double check that
-the young-variant spectrum is close between a bunch of different populations.}
-\aprcomment{Comment on coverage: \GEVA and \relate use the low-coverage 1KGP
-data, while \tsdate uses the more recent high-coverage 1KGP data.}
+(Table~\ref{tab:recent-spectra}), though it does impact the mutation profiles
+in older time periods (Figures~\ref{fig:relate-spectra-singletons},
+\ref{fig:tsdate-spectra-singletons}). Of note, reported ages from \GEVA and
+\relate both used the low-coverage phase 3 1KGP data while \tsdate used the
+more recent independently sequenced high-coverage 1KGP data
+\citep{byrska2022high}, so the similarity of mutation profiles among young
+variants is unlikely to be driven by differences in coverage.
 
 What could be driving the large disagreement between the spectrum of \emph{de
 novo} mutations from pedigree-based approaches and that of young variants in
@@ -370,7 +399,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.geva.max_age.10000.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.DM.geva.max_age.10000.pdf}
     \caption{
         \textbf{\GEVA-inferred generation time histories.}
     }
@@ -380,7 +409,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.relate.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.DM.relate.max_age.10000.pdf}
     \caption{
         \textbf{\relate-inferred generation time histories.}
     }
@@ -390,7 +419,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.tsdate.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/inferred_generation_times.DM.tsdate.max_age.10000.pdf}
     \caption{
         \textbf{\tsdate-inferred generation time histories.}
     }
@@ -400,7 +429,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.geva.max_age.10000.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.DM.geva.max_age.10000.pdf}
     \caption{
         \textbf{Prediction of mutation spectrum history from
         \GEVA-inferred generation times.}
@@ -411,7 +440,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.relate.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.DM.relate.max_age.10000.pdf}
     \caption{
         \textbf{Prediction of mutation spectrum history from
         \relate-inferred generation times.}
@@ -422,7 +451,7 @@ Many of these to the supplement.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.tsdate.pdf}
+    \includegraphics[width=0.8\textwidth]{../plots/goodness-of-fit.DM.tsdate.max_age.10000.pdf}
     \caption{
         \textbf{Prediction of mutation spectrum history from
         \tsdate-inferred generation times.}
@@ -438,18 +467,20 @@ Many of these to the supplement.
 \begin{table}[h]
     \caption{
         \label{tab:recent-spectra}
-        \textbf{Mutation profiles from the past 100 generations,
-        compared to Iceland trios.}
-        The most recent time bin for each method included the past $\approx150$
-        generations. When singletons were included (when using data from
-        \tsdate and \relate), the spectra of estimated
-        recent standing variation were largely similar. Note that \GEVA
-        does not report ages for singletons.
-        While the three methods provide similar spectra from recent mutations,
-        the spectrum from the Iceland trios differs substantially.
-        The similarity in the spectrum between mutations that were phased
-        in \citet{jonsson2017parental} and all mutations (phased and unphased)
-        are very similar to each other.
+        \textbf{Mutation profiles from the past 100 generations, compared to
+        Iceland trios.} The most recent time bin for each method included the
+        past $\approx150$ generations. When singletons were included (when
+        using data from \tsdate and \relate), the spectra of estimated recent
+        standing variation were unchanged. Note that \GEVA does not report ages
+        for singletons.  While the three methods provide similar spectra from
+        recent mutations, the spectrum from the Iceland pedigrees differs, in
+        particular for the C$\rightarrow$A and C$\rightarrow$G classes. These
+        differences are up to $2\%$ of the proportion among all mutations,
+        which corresponds to an under- or over-count of up to $\sim20\%$ of
+        C$\rightarrow$A and C$\rightarrow$G mutations, respectively.  This
+        difference remains whether the spectrum is estimated from only
+        mutations that were phased in \citet{jonsson2017parental} or from all
+        mutations (phased and unphased).
     }
     \centering
     \begin{tabular}[t]{l|cccccc}
@@ -463,8 +494,8 @@ Many of these to the supplement.
         \relate & 0.0991 & 0.3610 & 0.0863 & 0.1124 & 0.1038 & 0.2374 \\
         \relate (w/singletons) & 0.1002 & 0.3590 & 0.0921 & 0.1164 & 0.1060 & 0.2263 \\
         \midrule
-        Trios (phased) & 0.1071 & 0.4100 & 0.0881 & 0.0481 & 0.0847 & 0.2620 \\
-        Trios (all mutations) & 0.1080 & 0.4086 & 0.0903 & 0.0483 & 0.0839 & 0.2610 \\
+        Trios (phased) & 0.0953 & 0.3649 & 0.0890 & 0.0960 & 0.1216 & 0.2332 \\
+        Trios (all mutations) & 0.0962 & 0.3638 & 0.0923 & 0.0951 & 0.1202 & 0.2324 \\
         \bottomrule
     \end{tabular}
 \end{table}
