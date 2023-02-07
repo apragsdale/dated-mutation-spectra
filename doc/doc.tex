@@ -242,13 +242,13 @@ age estimation for older variants \citep{albers2020dating}, we attempted to
 reproduce the inferred generation interval histories using allele age estimates
 from independent sources, \relate \citep{speidel2019method} and \tsdate
 \citep{wohns2022unified}, both state-of-the-art genealogical reconstruction
-methods. Allele age estimates between the three methods are only moderately
-correlated (\GEVA and \relate: $r^2 \approx 0.28$, \GEVA and \tsdate: $r^2
-\approx 0.34$, \tsdate and \relate: $r^2 \approx 0.64$, and see Figure S20 from
-\citet{wohns2022unified}). Despite the low to moderate correlation, we would
-hope that differences are unbaised with respect to mutation type. However,
-allele ages provided by each method result in unalike mutation spectrum
-histories (Figures~\ref{fig:spectrum-ages}A-C and
+methods. The ages of alleles dated by at least two of the methods are only
+moderately correlated (\GEVA and \relate: $r^2 \approx 0.28$, \GEVA and
+\tsdate: $r^2 \approx 0.34$, \tsdate and \relate: $r^2 \approx 0.64$, and see
+Figure S20 from \citet{wohns2022unified}). Despite the low to moderate
+correlation, we would hope that differences are unbaised with respect to
+mutation type. However, allele ages provided by each method result in unalike
+mutation spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
 \ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with mutation spectrum
 changes often trending in opposite directions over the same time periods. In
 turn, these divergent spectrum histories provide qualitatively different
@@ -256,17 +256,14 @@ inferred generation time histories (Figure \ref{fig:spectrum-ages}X). Notably,
 none of them provide a reasonable fit to the data (Figure
 \ref{fig:spectrum-ages}Y).
 
-\begin{itemize}
-    \item \GEVA and \relate work with the same input data, but they keep and
-        discard different proportions of mutations depending on class.
-    \item TODO: Quantify
-        \begin{itemize}
-            \item total numbers of mutations with estimated ages
-            \item proportions of each mutation type given an age
-            \item among non-shared mutations, which mutation types are over- and
-                under-represented by each method?
-        \end{itemize}
-\end{itemize}
+Published allele ages from both \citet{albers2020dating} (\GEVA) and
+\citet{speidel2019method} (\relate) used the same input dataset, phase 3 of
+1KGP. However, they differ in the total number of variants that were assigned
+ages (roughly 30 million and 48 million, respectively). Of those variants,
+25 million variants were dated by each, with the remaining uniquely assigned
+an age by one or the other method. Among su
+
+Q: Did Gao or Wang filter alleles by quality score of ages?
 
 Conclusions from this section:
 \begin{itemize}
