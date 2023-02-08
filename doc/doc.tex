@@ -274,7 +274,7 @@ to methodological differences in evaluating whether a particular variant can be
 reliably dated, which may have both bioinformatic (\aprcomment{e.g.,}) and
 biological (e.g., recurrent mutations) causes.  Therefore, when comparing
 mutation spectra that are conditioned on variants being dated by a particular
-method, it is not apparent which method (if any!)\ provide unbiased estimates
+method, it is not apparent which method, if any, provides unbiased estimates
 of age-stratified mutation spectra.
 
 \subsection*{Mutation spectra differ between \emph{de novo} mutations and young
@@ -296,6 +296,9 @@ alleles}
         pedigree-based estimates of the \emph{de novo} mutation spectrum
         \citep{jonsson2017parental} differs, in particular for C$\rightarrow$A
         and $C\rightarrow$G mutations.
+        \krtcomment{Somewhere, it would be useful to note why tsdate isn't in here
+        -- it is because it does actually date ALL mutations in the data (??),
+        so that the inferred tree sequence is a lossless representation of the datums.}
     }
     \label{fig:data-comp}
 \end{figure}
@@ -315,7 +318,9 @@ differences are unlikely to be driven by biological processes.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
-types. \GEVA, \tsdate and \relate, while their estimated mutation spectra
+types. \krtcomment{Would it be helpful to give an example of how many SNPs these
+differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
+\GEVA, \tsdate and \relate, while their estimated mutation spectra
 differ at older times, very closely agree for mutations inferred to be less
 than 100 generations old (Table~\ref{tab:recent-spectra}). In discussing this
 discrepancy, \citet{wang2023human} state, ``We found that the mutation spectrum
@@ -383,6 +388,10 @@ downstream inferences, as these issues would have been identified by attempting
 to reproduce their inferences using available independent allele age estimates.
 \aprcomment{call for the field to stop putting the cart in front of the horse,
 or whatever that saying is.}
+\krtcomment{Here, we can say something like the mutation dating stuff is very new,
+will probably be changing a good bit in coming years, and cite the paper from Rasmus'
+group that the different methods have very different accuracies even under overly-idealized
+conditions.}
 
 \bibliographystyle{genetics}
 \bibliography{doc}
