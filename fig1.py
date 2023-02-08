@@ -1,9 +1,9 @@
 """
+Panels:
+
 - Three mutation spectrum histories.
-- Recent mutation spectrum between three datasets, w/ and w/out singletons, compared
-  to Iceland trios
-- Correlations in allele ages between all mutations and a subset, comparing
-  GEVA and Relate
+- Model prediction of data
+
 """
 
 import matplotlib.pyplot as plt
@@ -18,12 +18,14 @@ matplotlib.rc("axes", titlesize=6)
 matplotlib.rc("legend", fontsize=4)
 
 import pandas as pd
+import pickle
 
 from loess.loess_1d import loess_1d
 import numpy as np
 
 from util import *
 from plot_spectra_history import get_relative_spectra_histories
+from generation_times_dirichlet_multinomial import get_predicted_spectrum_history
 
 from bokeh.palettes import Dark2
 from bokeh.palettes import Colorblind as cb
@@ -52,25 +54,37 @@ def plot_spectra(dataset, ax):
     ax.set_ylabel("Percent change")
     ax.set_xlabel("Generations ago")
 
+def plot_model_spectra(pred_arr, ax):
+    for i, c in enumerate(classes):
+        y = (pred_arr[:, i] - pred_arr[0, i]) * 100
+        x = bins[dataset]
+        xout, yout, wout = loess_1d(x, y, frac=0.5, degree=2)
+        ax.plot(xout, yout, c=colors[i], lw=1.0, label=c)
+    ax.set_xscale("log")
+    ax.set_ylabel("Percent change")
+    ax.set_xlabel("Generations ago")
 
-fig = plt.figure(1, figsize=(6.5, 5))
+
+fig = plt.figure(1, figsize=(6.5, 3.25))
 fig.clf()
-grid = (3, 7)
+grid = (2, 3)
 
-ax1 = plt.subplot2grid(grid, (0, 0), colspan=3, rowspan=1)
+### top row: data spectrum histories
+
+ax1 = plt.subplot2grid(grid, (0, 0), colspan=1, rowspan=1)
 dataset = "geva"
 plot_spectra(dataset, ax1)
-ax1.set_title("GEVA")
+ax1.set_title("GEVA (data)")
 
-ax2 = plt.subplot2grid(grid, (1, 0), colspan=3, rowspan=1)
+ax2 = plt.subplot2grid(grid, (0, 1), colspan=1, rowspan=1)
 dataset = "relate"
 plot_spectra(dataset, ax2)
-ax2.set_title("Relate")
+ax2.set_title("Relate (data)")
 
-ax3 = plt.subplot2grid(grid, (2, 0), colspan=3, rowspan=1)
+ax3 = plt.subplot2grid(grid, (0, 2), colspan=1, rowspan=1)
 dataset = "tsdate"
 plot_spectra(dataset, ax3)
-ax3.set_title("tsdate")
+ax3.set_title("tsdate (data)")
 
 ylim = max(
     [
@@ -82,106 +96,59 @@ ylim = max(
 ax1.set_ylim(-ylim, ylim)
 ax2.set_ylim(-ylim, ylim)
 ax3.set_ylim(-ylim, ylim)
+ax1.set_xlabel(None)
+ax2.set_xlabel(None)
+ax3.set_xlabel(None)
+ax2.set_ylabel(None)
+ax3.set_ylabel(None)
 
 ax1.legend(ncol=2, loc="upper left", frameon=False)
 
-ax4 = plt.subplot2grid(grid, (0, 3), colspan=4, rowspan=1)
-# recent spectra (last 100 gens) against Iceland trios
-geva_recent = np.array([0.0946, 0.3600, 0.0886, 0.1201, 0.1057, 0.2310])
-relate_recent = np.array([0.0989, 0.3598, 0.0908, 0.1168, 0.1062, 0.2275])
-tsdate_recent = np.array([0.1002, 0.3590, 0.0921, 0.1164, 0.1060, 0.2263])
-trios = np.array([0.0962, 0.3638, 0.0923, 0.0951, 0.1202, 0.2324])
+#### bottom row: model prediction spectrum histories
+geva_histories = pickle.load(open("data/predicted_ages.geva.10000.pkl", "rb"))
+relate_histories = pickle.load(open("data/predicted_ages.relate.10000.pkl", "rb"))
+tsdate_histories = pickle.load(open("data/predicted_ages.tsdate.10000.pkl", "rb"))
 
-width = 0.2
-x = np.arange(6)
+iceland_spectrum = np.array([2739, 10408, 2529, 2702, 3484, 6613])
 
-ax4.bar(x - 1.5 * width, geva_recent, width, color=cb[5][0], label="GEVA")
-ax4.bar(x - 0.5 * width, relate_recent, width, color=cb[5][1], label="Relate")
-ax4.bar(x + 0.5 * width, tsdate_recent, width, color=cb[5][2], label="tsdate")
-ax4.bar(x + 1.5 * width, trios, width, color=cb[5][3], label="Pedigree")
+predicted_spectra_geva = get_predicted_spectrum_history(
+        geva_histories["ages"]["ALL"], "geva", iceland_spectrum)
+predicted_spectra_relate = get_predicted_spectrum_history(
+        relate_histories["ages"]["ALL"], "relate", iceland_spectrum)
+predicted_spectra_tsdate = get_predicted_spectrum_history(
+        tsdate_histories["ages"]["ALL"], "tsdate", iceland_spectrum)
 
-ax4.legend(frameon=False, loc="upper left")
-ax4.set_xticks(x)
-ax4.set_xticklabels(classes)
-ax4.set_ylabel("Relative proportion")
-ax4.set_title("Mutation spectrum among young variants")
+ax4 = plt.subplot2grid(grid, (1, 0), colspan=1, rowspan=1)
+dataset = "geva"
+plot_model_spectra(predicted_spectra_geva, ax4)
+ax4.set_title("GEVA (model prediction)")
 
-ages = pd.read_pickle("ages.shared.geva-relate.pkl.gz")
+ax5 = plt.subplot2grid(grid, (1, 1), colspan=1, rowspan=1)
+dataset = "relate"
+plot_model_spectra(predicted_spectra_relate, ax5)
+ax5.set_title("Relate (model prediction)")
 
-max_age = max(max(ages["AgeGEVA"]), max(ages["AgeRelate"]))
-min_age = min(max(ages["AgeGEVA"]), min(ages["AgeRelate"]))
+ax6 = plt.subplot2grid(grid, (1, 2), colspan=1, rowspan=1)
+dataset = "tsdate"
+plot_model_spectra(predicted_spectra_tsdate, ax6)
+ax6.set_title("tsdate (model prediction)")
 
-x = np.logspace(np.log10(min_age), np.log10(max_age), 200)
+ax4.set_ylim(-ylim, ylim)
+ax5.set_ylim(-ylim, ylim)
+ax6.set_ylim(-ylim, ylim)
 
-
-def age_heat(ax, mut=None):
-    ax.axline([0, 0], [1, 1], color="k", lw=0.1)
-    cmap = "cubehelix_r"
-    # cmap = "gist_heat_r"
-    if mut is None:
-        _, _, _, image = ax.hist2d(
-            ages["AgeGEVA"], ages["AgeRelate"], bins=(x, x), cmap=cmap
-        )
-
-    else:
-        _, _, _, image = ax.hist2d(
-            ages[ages["Mut"] == mut]["AgeGEVA"],
-            ages[ages["Mut"] == mut]["AgeRelate"],
-            bins=(x, x),
-            cmap=cmap,
-        )
-    image.set_edgecolor("face")
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlim(1e2, 1e5)
-    ax.set_ylim(1e2, 1e5)
-    ax.set_xlabel("Allele age (GEVA)")
-    ax.set_ylabel("Allele age (Relate)")
-    if mut is None:
-        mut = "All"
-    ax.set_title(mut + " mutations")
-
-
-ax5 = plt.subplot2grid(grid, (1, 3), colspan=2, rowspan=1)
-age_heat(ax5)
-
-ax6 = plt.subplot2grid(grid, (1, 5), colspan=2, rowspan=1)
-age_heat(ax6, mut="A>G")
-
-def age_densities(shared, unique, ax, legend=False, dataset=""):
-    v = np.concatenate((shared, unique))
-    sns.kdeplot(
-        [v, shared, unique],
-        common_norm=True,
-        fill=True,
-        ax=ax,
-        legend=False,
-    )
-    ax.set_xticks([2, 3, 4, 5])
-    ax.set_xticklabels([100, 1000, 10000, 100000])
-    ax.set_xlabel("Generations ago")
-    ax.set_xlim(1.5, 5.5)
-    ax.set_yticks([])
-    ax.set_title(dataset + " A>G mutations")
-    if legend:
-        ax.legend(["All", "Shared", "Unique"])
-
-
-ax7 = plt.subplot2grid(grid, (2, 3), colspan=2, rowspan=1)
-ages_geva = pd.read_pickle("ages.unique.geva.pkl.gz")
-shared_ages = np.log10(ages[ages["Mut"] == "A>G"]["AgeGEVA"])
-unique_ages = np.log10(ages_geva[ages_geva["Mut"] == "A>G"]["Age"])
-
-age_densities(shared_ages, unique_ages, ax7, legend=True, dataset="GEVA")
-
-ax8 = plt.subplot2grid(grid, (2, 5), colspan=2, rowspan=1)
-ages_relate = pd.read_pickle("ages.unique.relate.pkl.gz")
-shared_ages = np.log10(ages[ages["Mut"] == "A>G"]["AgeRelate"])
-unique_ages = np.log10(ages_relate[ages_relate["Mut"] == "A>G"]["Age"])
-
-age_densities(shared_ages, unique_ages, ax8, legend=False, dataset="Relate")
+ax5.set_ylabel(None)
+ax6.set_ylabel(None)
 
 
 fig.tight_layout()
+
+fig.text(0.03, 0.95, "A", fontsize=8, va="center", ha="center")
+fig.text(0.36, 0.95, "B", fontsize=8, va="center", ha="center")
+fig.text(0.68, 0.95, "C", fontsize=8, va="center", ha="center")
+fig.text(0.03, 0.50, "D", fontsize=8, va="center", ha="center")
+fig.text(0.36, 0.50, "E", fontsize=8, va="center", ha="center")
+fig.text(0.68, 0.50, "F", fontsize=8, va="center", ha="center")
+
 plt.savefig("plots/fig1.pdf")
 

@@ -33,7 +33,7 @@
 \author[2]{Kevin Thornton}
 \affil[1]{University of Wisconsin--Madison, Wisconsin, USA}
 \affil[2]{University of California, Irvine, California, USA}
-\affil[*]{email@address.edu}
+\affil[*]{apragsdale@wisc.edu}
 \maketitle
 
 \begin{abstract}
@@ -41,7 +41,7 @@
     \noindent \citet{wang2023human} recently proposed an approach to infer the
     history of human generation intervals from changes in mutation profiles
     over time. As the relative proportions of different mutation types depend
-    on the ages of parents, stratiying variants by the time they arose allows
+    on the ages of parents, stratifying variants by the time they arose allows
     for the inference of average paternal and maternal generation times at past
     times. Applying this approach to published allele age estimates,
     \citet{wang2023human} inferred long-lasting sex differences in average
@@ -70,22 +70,23 @@ of a variant can be estimated by mapping its mutation to the portion of the
 gene tree in which it is inferred to have occurred \citep{albers2020dating}.
 
 The past few years have also seen efforts to sequence large sets of pedigrees,
-providingincreased resolution of important parameters of genome biology,
+providing increased resolution of important parameters of genome biology,
 including direct measurements of mutation rates and profiles. Through
 high-coverage sequencing of multiple generations of families, \emph{de novo}
 mutations can be determined as maternally or paternally inherited, and with a
 large enough sample size both the number of mutations and proportions of
-mutation types (e.g., A$\rightarrow$C, A$\rightarrow$G, etc.) can be correlated
-with parental age and sex
-\citep{jonsson2017parental,halldorsson2019characterizing}.
-\citet{wang2023human} combined these two sets of inferences, the estimated ages
-of mutations and the parental age- and sex-dependence of the mutation spectrum,
-to infer the history of average maternal and paternal generation intervals for
-human populations of diverse ancestries. In order to avoid overfitting, this
-approach requires making a number of assumptions about the constancy of the
-mutational process over time \cite{harris,dewitt}, its similarity across
-populations, and of negligible effect of selection on shaping the profile of
-surviving mutation types.
+mutation types (i.e., the \emph{mutation spectrum} of A$\rightarrow$C,
+A$\rightarrow$G, etc.\ mutation types) can be correlated with parental age and
+sex \citep{jonsson2017parental,halldorsson2019characterizing}.  These two sets
+of inferences, the estimated ages of mutations and the parental age- and
+sex-dependence of the mutation spectrum, can be combined to infer the history
+of average maternal and paternal generation intervals for human populations of
+diverse ancestries \citep{macia2021different,wang2023human}. In order to avoid
+overfitting, this approach requires making a number of assumptions about the
+constancy of the mutational process over time and its similarity across
+populations \citep{harris2015evidence,mathieson2017differences,harris2017rapid,
+dewitt2021nonparametric}, and of negligible effects of selection on shaping the
+profile of segregating mutation types.
 
 This approach has recently been criticized \citep{gao2022limited}. Notably,
 \citet{gao2022limited} show that observed changes in the mutation spectrum over
@@ -132,8 +133,7 @@ recent genetic studies suggest that human population structure within Africa
 extending hundreds of thousands of years into the past has in part shaped
 present-day genetic variation
 \citep{hammer2011genetic,hsieh2016model,hey2018phylogeny,
-ragsdale2019models,durvasula2020recovering,lorente2019whole}.
-% additional citations: plagnol2006possible,
+ragsdale2019models,lorente2019whole,durvasula2020recovering}.
 
 However, in extending their analysis deeper into the past,
 \citet{wang2023human} find that ancestral generation intervals do not converge
@@ -145,138 +145,156 @@ years, for those structured ancestral populations to have had large differences
 in average generation times over the course of this history, and for those
 groups to have contributed substantively to different contemporary human
 populations. While such a scenario of very long-lasting isolation among
-ancestral popualtions is not impossible, it is not supported by genetic
-\citep{ragsdale2022weakly,others} or archaeological
-\citep{scerri2018did,others} evidence, which rather suggest at least periodic
+ancestral populations is not impossible, it is not supported by genetic
+\citep{ragsdale2022weakly} or archaeological
+\citep{scerri2018did} evidence, which rather suggest at least periodic
 connectivity of ancestral human populations within Africa.
 
 Genetic studies have estimated the Eurasian--West African divergence (i.e., the
 time of recent shared ancestry) at only $\approx 75$ka (thousand years ago)
-\citep[e.g.,][]{pagani2015tracing,others}. While population genetic studies
-vary considerably in estimated population split times, even those that infer
-deeper human divergences place the Eurasian--West African divergence at
-100--150ka \citep[e.g.,][]{schlebusch2017southern}. If such estimated
-divergence times represent the majority of ancestry of the two groups (while
-allowing for a smaller portion to be due to long-lasting structure), then the
-shared portion of ancestry should be subject to the same generation intervals
-prior to the divergence time. Any differences in the mutation spectrum from
-those epochs would be driven by differences in generation times affecting the
-minority of ancestry that remained isolated. 
+\citep[e.g.,][]{pagani2015tracing,bergstrom2020insights}. While population
+genetic studies vary considerably in estimated population split times, even
+those that infer deeper human divergences place the Eurasian--West African
+divergence at 100--150ka \citep[e.g.,][]{schlebusch2017southern}. If such
+estimated divergence times represent the majority of ancestry of the two groups
+(while allowing for a smaller portion to be due to long-lasting structure),
+then the shared portion of ancestry should be subject to the same generation
+intervals prior to the divergence time. Any differences in the mutation
+spectrum from those epochs would be driven by differences in generation times
+affecting the minority of ancestry that remained isolated. 
 
 As a simple test of such a scenario, we consider a demographic model of archaic
-admixture within Africa \citep[e.g.,][]{durvasula2020recovering}, allowing for
-some proportion (up to 10\%) of admixture from a diverged lineage into West
-African populations. At 10,000 generations ago, paternal and maternal
-generation intervals in the ancestors of Eurasians were inferred to both be
-$\approx20$ years, while the ancestral African generation intervals were at
-least 28 and 23 (Figure S4 in \citet{wang2023human}). Using the same mutation
-model \citep{jonsson2017parental}, we can determine the generation intervals in
-the ``ghost'' lineage that is needed to result in a mutation spectrum matching
-that of the inferred generation times.
+admixture within Africa, allowing for some proportion of admixture from a
+diverged lineage into West African populations (such as $\approx10\%$ as
+inferred by \citet{durvasula2020recovering}). At 10,000 generations ago,
+paternal and maternal generation intervals in the ancestors of Eurasians were
+inferred to both be $\approx20$ years, while the ancestral African generation
+intervals were at least 28 and 23 (see Figure S4 in \citet{wang2023human}).
+Using the same mutation model \citep{jonsson2017parental}, we can determine the
+generation intervals in the isolated lineage that is needed to result in a
+mutation spectrum matching that of the inferred generation times.
 
-We assume that ancestry proportions of, for example, 10\% and 90\% from the
-diverged and Eurasian-shared lineages result in surviving variation from those
-epochs having similar proportions of contributions (in effect, ignoring
-differences in total mutation rate and demographic effects that may distort
-the magnitude of the contributed mutation spectra). With 10\% admixture into
-West Africans from a diverged lineage, the mean paternal age of conception
-would need to be 92 and the mean maternal age 48. These are unreasonably long
-generation times for \emph{Homo} species. With 20\% admixture from this
-diverged lineage (which is larger than has been proposed or inferred in
-previous genetic studies), mean ages would still need to be 58 and 34.
+We assume that ancestry proportions of 10\% and 90\% from the diverged and
+Eurasian-shared lineages result in surviving variation from those epochs having
+similar proportions of contributions (in effect, ignoring differences in total
+    mutation rate and demographic effects that may distort the magnitude of the
+contributed mutation spectra). With 10\% admixture into West Africans from a
+diverged lineage, the mean paternal age of conception would need to be 92 and
+the mean maternal age 48. These are unreasonably long generation times for
+\emph{Homo} species. With 20\% admixture from this diverged lineage (which is
+larger than has been proposed or inferred in previous genetic studies), mean
+ages would still need to be 58 and 34.
 
 Therefore, even assuming a model of long-lasting population structure with
 strict isolation within Africa, we find the reconstructed generation time
 intervals over the past 10,000 years from \citet{wang2023human} to be
 incompatible with plausible life histories of early humans. Given this, it is
-natural to ask what may be causing such mis-inferences. Below we show that
+natural to ask what may be causing such mis-inference. Below we show that
 multiple sources of uncertainty, namely noise and bias in allele age inference
 and incosistencies in trio-base estimates of mutation profiles, confound
 inferences of generation times from time series of mutation spectra.
 
 \subsection*{Inconsistencies in inferred mutation spectra over time}
 
-\begin{figure}[t!]
+Accurate dating of variant ages is central to the inference of generation
+intervals from time-stratified mutation spectra. \citet{wang2023human} used
+published allele ages from \GEVA \citep{albers2020dating}. \GEVA estimates
+allele ages by considering the number of mutations that have accumulated on the
+ancestral haplotype carrying the focal variant, as well as the effect of
+recombination in reducing the size of that ancestral haplotype. Singletons are
+excluded from analysis and are not assigned an age. Partitioning variants by
+their estimated ages shows that the mutation spectrum has changed over time,
+assuming that the observed spectrum of segregating variation is not biased with
+respect to the spectrum of \emph{de novo} mutations occuring during that time
+(Figure~\ref{fig:spectrum-ages}A and see Figure 1C in \citet{wang2023human}).
+
+\begin{figure}[tb!]
     \centering
     \includegraphics{../plots/fig1.pdf}
     \caption{
-        \textbf{caption}
-        \aprcomment{I think I want to show a few other things}
-        \aprcomment{Need panel labels}
-        \aprcomment{THis figure should just be left three panels, and model
-            predictions and fit between model and data, move right side
-        stuff to Fig 2}
+        \textbf{Time-stratified mutation spectra are inconsistent and poorly
+        fit by historical generation time changes.} (A-C) Three methods for
+        estimating allele ages provide incongruous mutation spectrum histories.
+        (D-F) In fitting historical generation intervals to each observed
+        mutation spectrum profile, none of the mutation spectrum histories
+        observed in the data are recovered by the predicted spectra using the
+        inferred generation time histories.
     }
     \label{fig:spectrum-ages}
 \end{figure}
 
-Central to the inference of generation intervals from time-stratified mutation
-spectra is the dating of variant ages. \citet{wang2023human} used published
-allele ages from \GEVA \citep{albers2020dating}. \GEVA estimates allele ages by
-considering the number of mutations that have accumulated on the ancestral
-haplotype carrying the focal variant, as well as the effect of recombination in
-reducing the size of that ancestral haplotype. Singletons are excluded from
-analysis and are not assigned an age. Partitioning variants by their estimated
-ages shows that the mutation spectrum (i.e., the distribution of six mutation
-types) has changed over time, assuming that the observed spectrum of
-segregating variation is not biased with respect to the spectrum of \emph{de
-novo} mutations occuring during that time (Figure~\ref{fig:spectrum-ages}A and
-Figure 1C in \citet{wang2023human}). \aprcomment{Would require a selection (or
-genotyping or methodological error) argument.}
-
-In fitting the generation time history to data from the past 10,000
-generations, we find that the inferred generation times provide a poor fit to
-the data (Figure~\ref{fig:spectrum-ages}X). The relative proportions of the
-predicted mutation spectrum trend in opposite directions for some mutation
-classes, confirming the concern from \citet{gao2022limited} that a single
-generation time history cannot simultaneously explain each of the six mutation
-class frequency changes. For alleles older than 10,000 generations, the
-mutation spectrum fluctuates by large amounts
-(Figure~\ref{fig:geva-spectra-80k}). While ``age estimates of mutations in the
-very distant past have decreased accuracy''
+In fitting generation time histories to data from the past 10,000 generations,
+we find that the inferred generation times provide a poor fit to the data
+(Figure~\ref{fig:spectrum-ages}D). The relative proportions of the predicted
+mutation spectrum trend in opposite directions for some mutation classes,
+confirming the concern from \citet{gao2022limited} that a single generation
+time history cannot simultaneously explain each of the six mutation class
+frequency changes. For alleles older than 10,000 generations, the mutation
+spectrum fluctuates by large amounts (Figure~\ref{fig:geva-spectra-80k}). While
+estimated allele ages from the distant past have decreased accuracy
 \citep{albers2020dating,wang2023human}, the large differences in proportions
 suggests a bias in \GEVA's reported dates that correlates with mutation type.
 
 Given the poor fit of the model to the \GEVA data and the known uncertainty in
-age estimation for older variants \citep{albers2020dating}, we attempted to
-reproduce the inferred generation interval histories using allele age estimates
-from independent sources, \relate \citep{speidel2019method} and \tsdate
-\citep{wohns2022unified}, both state-of-the-art genealogical reconstruction
-methods. The ages of alleles dated by at least two of the methods are only
-moderately correlated (\GEVA and \relate: $r^2 \approx 0.28$, \GEVA and
-\tsdate: $r^2 \approx 0.34$, \tsdate and \relate: $r^2 \approx 0.64$, and see
-Figure S20 from \citet{wohns2022unified}). Despite the low to moderate
-correlation, we would hope that differences are unbaised with respect to
-mutation type. However, allele ages provided by each method result in unalike
-mutation spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
+age estimation for older variants, we attempted to reproduce the inferred
+generation time histories using allele age estimates from independent sources,
+\relate \citep{speidel2019method} and \tsdate \citep{wohns2022unified}, both
+state-of-the-art genealogical reconstruction methods. The ages of variants
+dated by at least two of the methods are only moderately correlated (\GEVA and
+    \relate: $r^2 \approx 0.28$, \GEVA and \tsdate: $r^2 \approx 0.33$, \tsdate
+and \relate: $r^2 \approx 0.64$; Figure~\ref{fig:data-comp}A-C and see Figure
+S20 from \citet{wohns2022unified}). Despite the low to moderate correlation, we
+would hope that differences are unbaised with respect to mutation type.
+However, allele ages provided by each method result in unalike mutation
+spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
 \ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with mutation spectrum
 changes often trending in opposite directions over the same time periods. In
 turn, these divergent spectrum histories provide qualitatively different
-inferred generation time histories (Figure \ref{fig:spectrum-ages}X). Notably,
-none of them provide a reasonable fit to the data (Figure
-\ref{fig:spectrum-ages}Y).
+inferred generation time histories
+(Figures~\ref{fig:geva-gen-times}--\ref{fig:tsdate-gen-times}). Notably, none
+of them provide a reasonable fit to the data (Figure
+\ref{fig:spectrum-ages}D-F).
 
 Published allele ages from both \citet{albers2020dating} (\GEVA) and
-\citet{speidel2019method} (\relate) used the same input dataset, phase 3 of
-1KGP. However, they differ in the total number of variants that were assigned
-ages (roughly 30 million and 48 million, respectively). Of those variants,
-25 million variants were dated by each, with the remaining uniquely assigned
-an age by one or the other method. Among su
-
-Q: Did Gao or Wang filter alleles by quality score of ages?
-
-Conclusions from this section:
-\begin{itemize}
-    \item Mutation spectrum histories stratified by estimated allele ages are
-        unreliable, as methods disagree even for fairly young mutations,
-        and it's not clear whether \emph{any} of the methods get
-        it right (relevant to \citet{gao2022limited}).
-    \item It is not obvious where the discrepancies are coming from (need
-        to look into \citet{brandt2022evaluation})
-\end{itemize}
+\citet{speidel2019method} (\relate) used the same input dataset: the phase 3
+release of 1KGP. However, they differ in the total number of variants that were
+assigned ages (roughly 30 million and 48 million, respectively). Of those
+variants, 25 million variants were dated by each, with the remaining uniquely
+assigned an age by one or the other method. In comparing the proportions of
+mutation types assigned ages by both methods or uniquely by one, we find that
+those proportions differ considerably (Figure~\ref{fig:data-comp}D). For
+example, \GEVA provides age estimates for relatively more A$\rightarrow$G
+mutations and fewer C$\rightarrow$G mutations, while \relate provides age
+estimates for relatively more C$\rightarrow$T and fewer A$\rightarrow$G
+mutations. This owes to methodological differences in evaluating whether a
+particular variant can be reliably dated, which may have both bioinformatic
+(\aprcomment{e.g.,}) and biological (e.g., recurrent mutations) causes.
+Therefore, when comparing mutation spectra that are conditioned on variants
+being dated by a particular method, it is not apparent which method (if any!)\
+provide unbiased estimates of age-stratified mutation spectra.
 
 \subsection*{Mutation spectra differ between \emph{de novo} mutations and young
 alleles}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics{../plots/fig2.pdf}
+    \caption{
+        \textbf{Comparing allele ages and mutation spectra across data
+        sources.} (A-C) Allele age estimates are only moderately correlated
+        between methods. Shown here are allele age estimates for variants that
+        were assigned ages by two or more of \GEVA, \relate and \tsdate. (D)
+        The proportions of mutation types uniquely dated by \GEVA and \relate
+        differ from the variant proportions among mutations dated by both
+        methods, indicating biases in the mutation types that are kept and
+        discarded. (E) While the mutation spectrum among young variants (dated
+        to $<100$ generations) are similar between age estimation methods,
+        pedigree-based estimates of the \emph{de novo} mutation spectrum
+        \citep{jonsson2017parental} differs, in particular for C$\rightarrow$A
+        and $C\rightarrow$G mutations.
+    }
+    \label{fig:data-comp}
+\end{figure}
 
 The large disagreements in mutation spectrum histories between multiple variant
 age-estimation methods are concerning for down-stream inferences that rely on
@@ -286,9 +304,9 @@ studies \citep{jonsson2017parental,halldorsson2019characterizing}. As
 \citet{wang2023human} acknowledge, the spectrum of \emph{de novo} mutations
 identified in Icelandic trios \citep{jonsson2017parental} differs from the
 spectrum of young segregating variation (e.g., variants estimated to be less
-than 100 generations old, Table~\ref{tab:recent-spectra}).
-\citet{gao2022limited} argue that these differences are unlikely to be driven
-by biological processes.
+than 100 generations old, Figure~\ref{fig:data-comp}E and
+Table~\ref{tab:recent-spectra}). \citet{gao2022limited} argue that these
+differences are unlikely to be driven by biological processes.
 
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
@@ -303,65 +321,64 @@ singletons from the polymorphism dataset to reduce errors.'' Rather, \GEVA does
 not provide estimates of allele ages for singletons, so this suggested source
 of discrepancy cannot be checked with their published allele ages. Both \tsdate
 and \relate report allele ages for singletons, and their inclusion does not
-strongly affect the mutation spectrum in the most recent time period
+strongly affect the mutation spectrum for very young variants
 (Table~\ref{tab:recent-spectra}), though it does impact the mutation profiles
 in older time periods (Figures~\ref{fig:relate-spectra-singletons},
 \ref{fig:tsdate-spectra-singletons}). Of note, reported ages from \GEVA and
 \relate both used the low-coverage phase 3 1KGP data while \tsdate used the
 more recent independently sequenced high-coverage 1KGP data
-\citep{byrska2022high}, so the accuracy of mutation profiles among young
+\citep{byrska2022high}, so the accuracy of the mutation spectrum among young
 variants is unlikely to be driven by differences in coverage.
 
 To account for the differences between the \emph{de novo} spectrum from
 pedigree studies \citep{jonsson2017parental} and the spectrum among young
 variants, \citet{wang2023human} subtracted this difference from each historical
-mutatino spectrum. This choice ``has the effect of assuming that parental ages
+mutation spectrum. This choice ``has the effect of assuming that parental ages
 in the pedigreed mutation dataset reflect generation times in the most recent
-historical bin'' \citep{wang2023human}. \aprcomment{Is it reasonable to assume
-    that generation intervals in present-day icelanders should be the same as
-the average intervals over the past 3-5 thousand years?} However, more
-concerning is that we do not know the source of the discrepancy between the
-Iceland and 1KGP spectra. Without knowing this, it is unclear that simply
-substracting the differences between them properly account for it. Instead,
-mutation class-specific genotyping differences likely distorts the underlying
-mutation model, potentially driving deviations in predicted mutation profiles
-in unexpected ways \aprcomment{this is purely speculative}.
+historical bin'' \citep{wang2023human}. However, the average generation time
+among present-day Icelanders may not reflect average generation times in
+world-wide populations over the past 3-5 thousand years, represented by the
+most recent time bin in their analysis. Still more concerning is that we do not
+know the source of the discrepancy between the Iceland and 1KGP mutation
+spectra. Without knowing this, it is unclear that simply substracting the
+differences between them properly accounts for it. Instead, mutation
+class-specific genotyping differences likely distort the underlying mutation
+model, potentially driving deviations in predicted mutation profiles in
+unexpected ways.
 
 What could be driving the large disagreement between the spectrum of \emph{de
 novo} mutations from Icelandic pedigrees and that of young variants in the 1KGP
 dataset? First, there could be true differences in the mutation spectrum
-between the Iceland population and 1KGP populations, although this is unlikely
-as populations of different ancestries in 1KGP are more closely aligned than
-any one is to the Iceland spectrum, including the EUR populations. If it were
-the case, then the Icelandic pedigree data is an inappropriate calibration for
-the mutation spectrum in other populations. Second, there could be differences
-in selective pressures between mutations of different classes, although
-selection would need to be very strong for some classes compared to others in
-order to see the observed difference among young variants. \aprcomment{we could
-maybe use \texttt{moments} to test this?} Third, the signal is driven by
-genotyping error or bioinformatics choices, though the agreement between high-
-and low-coverage 1KGP datasets suggests that genotyping error does not have a
-strong effect in the 1KGP data. Instead, filtering and bioinformatics choices
-in the pedigree approach are the likely culprit
-\citep{bergeron2022mutationathon}. Until the source of these differences are
-understood and properly accounted for, population-genetic inferences should
-avoid calibration using mutation rates and profiles from pedigree studies.
+between the Iceland cohort and 1KGP populations, although this is unlikely, as
+populations of different ancestries in 1KGP have more similar recent mutation
+spectra to each other than to the Iceland \emph{de novo} spectrum (including
+the EUR populations). If the differences are real, then the Icelandic pedigree
+data is an inappropriate calibration for the mutation spectrum in other
+populations. Second, there could be differences in selective pressures between
+mutations of different classes, although selection would need to be very strong
+for some classes compared to others in order to see the observed difference
+among young variants. Third, the signal may be driven by genotyping error or
+bioinformatics choices, though the agreement between high- and low-coverage
+1KGP datasets suggests that genotyping error does not have a strong effect in
+the 1KGP data. Instead, filtering and bioinformatics choices in the pedigree
+approach are the likely culprit \citep{bergeron2022mutationathon}. Until the
+source of these differences are understood and properly accounted for,
+population-genetic inferences should avoid calibration using mutation rates and
+profiles from pedigree studies.
 
 \subsection*{Conclusions}
 
-\begin{enumerate}
-    \item Allele age estimates are noisy, and probably shouldn't be used
-        for such detailed inferences. You'll end up fitting the noise and
-        bias of each method.
-    \item DNM estimates from trios have their own sets of problems. Do we
-        know where the discrepancy between trio-estimated DNM spectrum and
-        observations from pop-gen data come from? Probably needs to be
-        sorted out.
-    \item Finally, \citet{wang2023human} gives us an excellent exmaple of the
-        need for validation in population genetics studies, especially when
-        inferences are built upon previous inferences that are known to be
-        noisy and that need additional validations in their own right.
-\end{enumerate}
+With genome-wide genealogical reconstruction methods in their infancy, we
+should be cautious of unexpected and subtle biases that can impact downstream
+analyses. In the case of generation time inference \citep{wang2023human}, we
+showed that patterns of variation that were attributed to biological processes
+(variation in generation times) are predominantly driven by nonbiological
+artifacts in the input data. This highlights the need for increased scrutiny
+and validation of methods using genealogical reconstruction approaches in
+downstream inferences, as these issues would have been identified by attempting
+to reproduce their inferences using available independent allele age estimates.
+\aprcomment{call for the field to stop putting the cart in front of the horse,
+or whatever that saying is.}
 
 \bibliographystyle{genetics}
 \bibliography{doc}

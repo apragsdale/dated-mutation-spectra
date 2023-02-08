@@ -14,6 +14,7 @@ matplotlib.rc("axes", labelsize=6)
 matplotlib.rc("axes", titlesize=6)
 matplotlib.rc("legend", fontsize=6)
 
+import pickle
 
 from util import *
 
@@ -117,7 +118,7 @@ def fit_generation_times(dataset, pop, iceland_spectrum, max_age=10000):
     return bins, fit_ages
 
 
-def plot_inferred_generation_times(bins, fit_ages, dataset):
+def plot_inferred_generation_times(bins, fit_ages, dataset, savefig=False):
     fig = plt.figure(3, figsize=(8, 5))
     fig.clf()
     ylim = (14, 50)
@@ -153,7 +154,10 @@ def plot_inferred_generation_times(bins, fit_ages, dataset):
     ax.set_ylim(ylim)
 
     fig.tight_layout()
-    plt.savefig(f"plots/inferred_generation_times.DM.{dataset}.max_age.{max_age}.pdf")
+    if savefig:
+        plt.savefig(
+            f"plots/inferred_generation_times.DM.{dataset}.max_age.{max_age}.pdf"
+        )
 
 
 def get_predicted_spectrum_history(ages, dataset, iceland_spectrum, max_age=10000):
@@ -170,7 +174,9 @@ def get_predicted_spectrum_history(ages, dataset, iceland_spectrum, max_age=1000
     return y
 
 
-def plot_predicted_histories(bins, predicted_histories, dataset, max_age=10000):
+def plot_predicted_histories(
+    bins, predicted_histories, dataset, max_age=10000, savefig=False
+):
     fig = plt.figure(4, figsize=(8, 5))
     axes = {}
     fig.clf()
@@ -205,7 +211,8 @@ def plot_predicted_histories(bins, predicted_histories, dataset, max_age=10000):
 
     fig.tight_layout()
     axes[4].legend(ncol=2, fontsize=6, bbox_to_anchor=(1.0, 1.0))
-    plt.savefig(f"plots/goodness-of-fit.DM.{dataset}.max_age.{max_age}.pdf")
+    if savefig:
+        plt.savefig(f"plots/goodness-of-fit.DM.{dataset}.max_age.{max_age}.pdf")
 
 
 if __name__ == "__main__":
@@ -214,7 +221,7 @@ if __name__ == "__main__":
     (dataset, max_age) = (args.dataset, args.max_age)
 
     # Icelander spectrum from other infer_age_model.py
-    #iceland_spectrum = np.array([ 2886, 11053,  2697,  2909,  3685,  7063])
+    # iceland_spectrum = np.array([ 2886, 11053,  2697,  2909,  3685,  7063])
     # Icelander spectrum from age_modeling.R
     iceland_spectrum = np.array([2739, 10408, 2529, 2702, 3484, 6613])
 
@@ -238,3 +245,7 @@ if __name__ == "__main__":
             ages, dataset, iceland_spectrum, max_age=max_age
         )
     plot_predicted_histories(bins, predicted_histories, dataset, max_age=max_age)
+
+    # save histories
+    with open(f"data/predicted_ages.{dataset}.{max_age}.pkl", "wb+") as fout:
+        pickle.dump({"bins": bins, "ages": fit_ages}, fout)

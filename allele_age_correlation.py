@@ -21,7 +21,7 @@ def filter_df(df):
     return df
 
 
-overlapping_variants = {"geva-relate": []}
+overlapping_variants = {"geva-relate": [], "geva-tsdate": [], "relate-tsdate": []}
 unique_variants = {"geva": [], "relate": []}
 
 
@@ -157,17 +157,17 @@ for chrom in range(1, 23):
     for i, k in enumerate(tsdate_geva_id_overlap_match):
         ages[i] = [geva_id_map[k]["Age"], tsdate_id_map[k]["Age"]]
 
-    # overlapping_variants["geva-tsdate"].append(
-    #    pd.DataFrame.from_dict(
-    #        {
-    #            "Chr": [chrom] * len(ages),
-    #            "ID": tsdate_geva_id_overlap_match,
-    #            "AgeGEVA": ages[:, 0],
-    #            "Agetsdate": ages[:, 1],
-    #            "Mut": muts,
-    #        }
-    #    )
-    # )
+    overlapping_variants["geva-tsdate"].append(
+       pd.DataFrame.from_dict(
+           {
+               "Chr": [chrom] * len(ages),
+               "ID": tsdate_geva_id_overlap_match,
+               "AgeGEVA": ages[:, 0],
+               "Agetsdate": ages[:, 1],
+               "Mut": muts,
+           }
+       )
+    )
 
     corr["GEVA-tsdate"] = {"ALL": np.corrcoef(ages[:, 0], ages[:, 1])[0, 1]}
 
@@ -193,17 +193,17 @@ for chrom in range(1, 23):
     for i, k in enumerate(tsdate_relate_id_overlap_match):
         ages[i] = [relate_id_map[k]["Age"], tsdate_id_map[k]["Age"]]
 
-    # overlapping_variants["relate-tsdate"].append(
-    #    pd.DataFrame.from_dict(
-    #        {
-    #            "Chr": [chrom] * len(ages),
-    #            "ID": tsdate_relate_id_overlap_match,
-    #            "AgeGEVA": ages[:, 0],
-    #            "AgeRelate": ages[:, 1],
-    #            "Mut": muts,
-    #        }
-    #    )
-    # )
+    overlapping_variants["relate-tsdate"].append(
+       pd.DataFrame.from_dict(
+           {
+               "Chr": [chrom] * len(ages),
+               "ID": tsdate_relate_id_overlap_match,
+               "AgeRelate": ages[:, 0],
+               "Agetsdate": ages[:, 1],
+               "Mut": muts,
+           }
+       )
+    )
 
     corr["Relate-tsdate"] = {"ALL": np.corrcoef(ages[:, 0], ages[:, 1])[0, 1]}
 
