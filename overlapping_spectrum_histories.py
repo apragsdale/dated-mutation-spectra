@@ -82,7 +82,7 @@ for i in range(num_bins):
 
 # plots
 
-from bokeh.palettes import Dark2
+from bokeh.palettes import Bright
 import matplotlib
 import matplotlib.pylab as plt
 from loess.loess_1d import loess_1d
@@ -94,8 +94,7 @@ matplotlib.rc("axes", labelsize=6)
 matplotlib.rc("axes", titlesize=6)
 matplotlib.rc("legend", fontsize=6)
 
-D = Dark2[6]
-colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+colors = Bright[6]
 
 fig = plt.figure(999, figsize=(6.5, 3))
 fig.clf()

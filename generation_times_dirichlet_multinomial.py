@@ -4,7 +4,6 @@ import scipy.optimize
 import scipy.stats
 from loess.loess_1d import loess_1d
 import matplotlib.pylab as plt
-from bokeh.palettes import Dark2
 import matplotlib
 
 plt.rcParams["legend.title_fontsize"] = "xx-small"
@@ -21,10 +20,11 @@ from util import *
 import argparse
 
 from bokeh.palettes import Dark2
+from bokeh.palettes import Bright
 
-D = Dark2[6]
-colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
-
+#D = Dark2[6]
+#colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+colors = Bright[6]
 
 def make_parser():
     ADHF = argparse.ArgumentDefaultsHelpFormatter
@@ -127,12 +127,12 @@ def plot_inferred_generation_times(bins, fit_ages, dataset, savefig=False):
         ages = fit_ages[pop]
         bin_mids = np.mean(bins[pop], axis=1)
         ax = plt.subplot(2, 3, i + 1)
-        ax.plot(bin_mids, ages[:, 0], "b.--", lw=0.5, label="Paternal")
-        ax.plot(bin_mids, ages[:, 1], "r.--", lw=0.5, label="Maternal")
+        ax.plot(bin_mids, ages[:, 0], ".", color=colors[0], lw=0.5, label="Paternal")
+        ax.plot(bin_mids, ages[:, 1], ".", color=colors[1], lw=0.5, label="Maternal")
         xout, yout1, wout = loess_1d(bin_mids, ages[:, 0], frac=0.5, degree=2)
-        ax.plot(bin_mids, yout1, c="b", lw=1.0, label=None)
+        ax.plot(bin_mids, yout1, c=colors[0], lw=1.0, label=None)
         xout, yout2, wout = loess_1d(bin_mids, ages[:, 1], frac=0.5, degree=2)
-        ax.plot(bin_mids, yout2, c="r", lw=1.0, label=None)
+        ax.plot(bin_mids, yout2, c=colors[1], lw=1.0, label=None)
         xout, yout3, wout = loess_1d(bin_mids, ages.mean(axis=1), frac=0.5, degree=2)
         sex_averaged[pop] = yout3
         if i == 0:
@@ -195,7 +195,7 @@ def plot_predicted_histories(
             y = (data_spectra[:, j] - anchor[j]) * 100
             xout, yout1, wout = loess_1d(bin_mids, y, frac=0.5, degree=2)
             axes[i].plot(
-                bin_mids, yout1, ":", color=colors[j], lw=2, label=c + " (data)"
+                bin_mids, yout1, "-", color=colors[j], lw=1, label=c + " (data)"
             )
         # plot the smoothed econstructed histories
         for j, c in enumerate(mut_classes):
@@ -235,7 +235,7 @@ if __name__ == "__main__":
         )
 
     # plot the results
-    plot_inferred_generation_times(bins, fit_ages, dataset)
+    plot_inferred_generation_times(bins, fit_ages, dataset, savefig=True)
 
     # do we recover the input mutation spectra?
     predicted_histories = {}
@@ -244,7 +244,7 @@ if __name__ == "__main__":
         predicted_histories[pop] = get_predicted_spectrum_history(
             ages, dataset, iceland_spectrum, max_age=max_age
         )
-    plot_predicted_histories(bins, predicted_histories, dataset, max_age=max_age)
+    plot_predicted_histories(bins, predicted_histories, dataset, max_age=max_age, savefig=True)
 
     # save histories
     with open(f"data/predicted_ages.{dataset}.{max_age}.pkl", "wb+") as fout:

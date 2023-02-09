@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{booktabs}
+\usepackage{amsmath}
 
 \lstset{language=Python}
 
@@ -30,7 +31,7 @@
 
 \title{On the fraught inference of historical human generation times}
 \author[1,*]{Aaron P. Ragsdale}
-\author[2]{Kevin Thornton}
+\author[2]{Kevin R. Thornton}
 \affil[1]{University of Wisconsin--Madison, Wisconsin, USA}
 \affil[2]{University of California, Irvine, California, USA}
 \affil[*]{apragsdale@wisc.edu}
@@ -219,7 +220,6 @@ respect to the spectrum of \emph{de novo} mutations occuring during that time
         mutation spectrum profile, none of the mutation spectrum histories
         observed in the data are recovered by the predicted spectra using the
         inferred generation time histories.
-        \krtcomment{General comment: we should make sure to use an "accessible" color palette. Here, we have red and green.}
     }
     \label{fig:spectrum-ages}
 \end{figure}
@@ -291,14 +291,17 @@ alleles}
         The proportions of mutation types uniquely dated by \GEVA and \relate
         differ from the variant proportions among mutations dated by both
         methods, indicating biases in the mutation types that are kept and
-        discarded. (E) While the mutation spectrum among young variants (dated
-        to $<100$ generations) are similar between age estimation methods,
-        pedigree-based estimates of the \emph{de novo} mutation spectrum
+        discarded. Here, we compared \GEVA and \relate (instead of \tsdate)
+        because allele ages were obtained from the same input data, namely
+        phase three of the 1KGP.
+        (E) While the mutation spectrum among young variants dated
+        to $<100$ generations is similar between age estimation methods,
+        the pedigree-based estimate of the \emph{de novo} mutation spectrum
         \citep{jonsson2017parental} differs, in particular for C$\rightarrow$A
-        and $C\rightarrow$G mutations.
-        \krtcomment{Somewhere, it would be useful to note why tsdate isn't in here
-        -- it is because it does actually date ALL mutations in the data (??),
-        so that the inferred tree sequence is a lossless representation of the datums.}
+        and C$\rightarrow$G mutations.
+        %\krtcomment{Somewhere, it would be useful to note why tsdate isn't in here
+        %-- it is because it does actually date ALL mutations in the data (??),
+        %so that the inferred tree sequence is a lossless representation of the datums.}
     }
     \label{fig:data-comp}
 \end{figure}
@@ -318,7 +321,9 @@ differences are unlikely to be driven by biological processes.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
-types. \krtcomment{Would it be helpful to give an example of how many SNPs these
+types. \aprcomment{Depends on the dataset, but this is the equivalent of 10s of
+thousands of SNPs aged to less that 100 generations.}
+\krtcomment{Would it be helpful to give an example of how many SNPs these
 differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
 \GEVA, \tsdate and \relate, while their estimated mutation spectra
 differ at older times, very closely agree for mutations inferred to be less
@@ -386,12 +391,12 @@ artifacts in the input data. This highlights the need for increased scrutiny
 and validation of methods using genealogical reconstruction approaches in
 downstream inferences, as these issues would have been identified by attempting
 to reproduce their inferences using available independent allele age estimates.
-\aprcomment{call for the field to stop putting the cart in front of the horse,
-or whatever that saying is.}
-\krtcomment{Here, we can say something like the mutation dating stuff is very new,
-will probably be changing a good bit in coming years, and cite the paper from Rasmus'
-group that the different methods have very different accuracies even under overly-idealized
-conditions.}
+Large-scale reconstruction of gene genealogies, dating mutations, and
+$T_\text{MRCA}$ inference are all exciting developments, but these methods are
+quite new and will likely advance considerably in the coming years. As existing
+methods show very different accuracies and bias even under overly-idealized
+conditions \citep{brandt2022evaluation}, we should continue to evaluate their
+performance and be cautious in their use in downstream analyses.
 
 \bibliographystyle{genetics}
 \bibliography{doc}
