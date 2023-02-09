@@ -27,18 +27,23 @@ import numpy as np
 
 from util import *
 from bokeh.palettes import Colorblind as cb
+from bokeh.palettes import Bright
+
+#colors = cb[6]
+colors = Bright[6]
 
 classes = ["A>C", "A>G", "A>T", "C>A", "C>G", "C>T"]
 
-def age_heat(ax, age1, age2, dataset1=None, dataset2=None):
+def age_heat(ax, ages1, ages2, dataset1=None, dataset2=None):
     min_age = 1e2
     max_age = 1e5
     x = np.logspace(np.log10(min_age), np.log10(max_age), 200)
     ax.axline([0, 0], [1, 1], color="k", lw=0.1)
     cmap = "cubehelix_r"
-    # cmap = "gist_heat_r"
+    #cmap = "gist_heat_r"
+    #cmap = "viridis"
     _, _, _, image = ax.hist2d(
-        age1, age2, bins=(x, x), cmap=cmap
+        ages1, ages2, bins=(x, x), cmap=cmap, cmin=1,
     )
     image.set_edgecolor("face")
     ax.set_xscale("log")
@@ -116,9 +121,9 @@ props = {k: [v[c] / totals[k] for c in classes] for k, v in mutation_counts.item
 width = 0.2
 x = np.arange(6)
 
-ax4.bar(x - width, props["shared"], 0.9*width, color=cb[5][0], label="Shared")
-ax4.bar(x, props["geva"], 0.9*width, color=cb[5][1], label="GEVA-unique")
-ax4.bar(x + width, props["relate"], 0.9*width, color=cb[5][2], label="Relate-unique")
+ax4.bar(x - width, props["shared"], 0.9*width, color=colors[0], label="Shared")
+ax4.bar(x, props["geva"], 0.9*width, color=colors[1], label="GEVA-unique")
+ax4.bar(x + width, props["relate"], 0.9*width, color=colors[2], label="Relate-unique")
 
 ax4.legend(frameon=False, loc="upper left")
 ax4.set_xticks(x)
@@ -135,10 +140,10 @@ relate_recent = np.array([0.0989, 0.3598, 0.0908, 0.1168, 0.1062, 0.2275])
 tsdate_recent = np.array([0.1002, 0.3590, 0.0921, 0.1164, 0.1060, 0.2263])
 trios = np.array([0.0962, 0.3638, 0.0923, 0.0951, 0.1202, 0.2324])
 
-ax5.bar(x - 1.5 * width, geva_recent, 0.9 * width, color=cb[5][0], label="GEVA")
-ax5.bar(x - 0.5 * width, relate_recent, 0.9 * width, color=cb[5][1], label="Relate")
-ax5.bar(x + 0.5 * width, tsdate_recent, 0.9 * width, color=cb[5][2], label="tsdate")
-ax5.bar(x + 1.5 * width, trios, 0.9 * width, color=cb[5][3], label="Pedigree")
+ax5.bar(x - 1.5 * width, geva_recent, 0.9 * width, color=colors[0], label="GEVA")
+ax5.bar(x - 0.5 * width, relate_recent, 0.9 * width, color=colors[1], label="Relate")
+ax5.bar(x + 0.5 * width, tsdate_recent, 0.9 * width, color=colors[2], label="tsdate")
+ax5.bar(x + 1.5 * width, trios, 0.9 * width, color=colors[3], label="Pedigree")
 
 ax5.legend(frameon=False, loc="upper left")
 ax5.set_xticks(x)
@@ -150,7 +155,7 @@ ax5.set_xlabel("Mutation classes")
 print("Plotted young variants")
 
 fig.tight_layout()
-fig.subplots_adjust(left=0)
+fig.subplots_adjust(left=0, right=0.98, bottom=0.09, wspace=0.02)
 fig.text(0.03, 0.97, "A", fontsize=8, va="center", ha="center")
 fig.text(0.03, 0.65, "B", fontsize=8, va="center", ha="center")
 fig.text(0.03, 0.33, "C", fontsize=8, va="center", ha="center")

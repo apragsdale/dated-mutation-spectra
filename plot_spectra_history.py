@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pylab as plt
 from loess.loess_1d import loess_1d
 import argparse
-from bokeh.palettes import Dark2
 import matplotlib
 import sys
 
@@ -27,8 +26,12 @@ classes = [
     "C>T",
 ]
 
-D = Dark2[6]
-colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+from bokeh.palettes import Dark2
+from bokeh.palettes import Bright
+
+# D = Dark2[6]
+# colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+colors = Bright[6]
 
 
 def make_parser():

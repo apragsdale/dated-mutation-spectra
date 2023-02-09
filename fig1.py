@@ -29,9 +29,12 @@ from generation_times_dirichlet_multinomial import get_predicted_spectrum_histor
 
 from bokeh.palettes import Dark2
 from bokeh.palettes import Colorblind as cb
+from bokeh.palettes import Bright
 
-D = Dark2[6]
-colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+#D = Dark2[6]
+#colors = [D[1], D[2], D[5], D[4], D[3], D[0]]
+#colors = cb[6]
+colors = Bright[6]
 
 bins = {}
 spectra = {}
@@ -140,6 +143,7 @@ ax6.set_ylim(-ylim, ylim)
 ax5.set_ylabel(None)
 ax6.set_ylabel(None)
 
+ax4.legend(ncol=2, loc="upper left", frameon=False)
 
 fig.tight_layout()
 
