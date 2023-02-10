@@ -67,11 +67,25 @@ population structure in Africa have been proposed, a history of strict
 isolation between diverged lineages before admixture is more likely to result
 in a signal of differing ancestral generation times.
 
-
 \begin{figure}[h!]
     \centering
     \includegraphics{durvasula_model}
-    \caption{\textbf{A model for archaic admixture within Africa.}}
+    \caption{
+        \textbf{A model for archaic admixture within Africa.} This model is
+        based on a model for ``ghost'' archaic introgression within Africa
+        \citep{durvasula2020recovering}, in which an isolated lineage diverged
+        prior to the human-Neanderthal split and more recently contributed
+        ancestry to West African, but not European populations. The mutation
+        spectrum of West African populations among alleles dating to
+        $\sim250-300$ka is due to a combination of mutations from the
+        ``shared'' and ``isoaled'' lineages, while the European populations'
+        spectrum from this time is due to a combination from the ``shared'' and
+        Neanderthal branches. \citet{wang2023human} showed that masking
+        Neanderthal segments in Eurasian populations had a negligible effect on
+        their inferred generation time histories, so we ignore this small
+        contribution when comparing observed mutation spectra between West
+        African and Eurasian groups.
+    }
     \label{fig:durvasula-model}
 \end{figure}
 
@@ -95,7 +109,9 @@ assumptions in the original inference of generation time histories.
 
 Given the admixture proportion $f$, inferred West African-ancestral paternal
 and maternal generation intervals of 28 (27--30) and 23 (22--25) years, and the
-mutation model $M(p, m)$, we found generation times $p_d$ and $m_d$ in the
+mutation model $M(p, m)$, giving the expected proportional mutation spectrum for
+paternal and maternal generation times $p$ and $m$,
+we found generation times $p_d$ and $m_d$ in the
 diverged lineage such that
 \begin{align*}
     M(28, 23) & = (1-f)M(20, 20) + fM(p_d, m_d).
@@ -129,16 +145,51 @@ parameters \texttt{frac=0.5} and \texttt{degree=2}.
 
 \subsubsection*{Allele ages from \GEVA}
 
+Allele age data from \GEVA reported in \citet{albers2020dating} were downloaded
+from \url{https://human.genome.dating/download/index}. We used the median
+joint-estimated allele ages, ``AgeMedian\_Jnt''. To compare to allele age data
+estimated from \relate and \tsdate, we used allele ages estimated from the
+Thousand Genomes Project (TGP) data source.
+
 \subsubsection*{Allele ages from \relate}
 
+Allele age data from \relate reported in \citet{speidel2019method} were
+downloaded from \url{https://zenodo.org/record/3234689}. \relate provides
+allele ages separately for the 26 populations in the Thousand Genomes Project.
+As such, we followed the approach in \citet{wohns2022unified} and computed the
+average upper and lower bounds of the edge the mutation lies over for each
+population it is present in. We then took the midpoint of those averaged
+upper and lower bounds as the allele age estimate.
+
 \subsubsection*{Allele ages from \tsdate}
+
+The reconstructed genealogies from \citet{wohns2022unified} were downloaded
+from \url{https://zenodo.org/record/5512994}. Data for each chromosome arm were
+provided in tree sequence format, and mutation ages can be estimated from the
+upper and lower bounds of the genealogical edge on which it arose. We kept
+sites that were uniquely assigned to a single branch, and we considered
+variants that segregate among the subset of individuals from the AFR, EAS, EUR,
+and SAS Thousand Genomes Project superpopulations. For such sites, allele ages
+were found using the function \texttt{tsdate.sites\_time\_from\_ts(ts,
+node\_selection="arithmetic")}.
+
+\subsubsection*{Reference genomes} To determine triplet contexts for each
+mutation, we used the reference genomes for GRCh37 (\GEVA and \relate data) and
+GRCH38 (\tsdate data). These were downloaded from
+\url{http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/} and
+\url{https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/},
+respectively.
+
+\subsubsection*{Data availability}
+
+All analyses were performed using publicly available datasets. Python scripts
+to run analyses described here are available at
+\url{https://github.com/apragsdale/dated-mutation-spectra}/
 
 \bibliographystyle{genetics}
 \bibliography{doc}
 
-\clearpage
-
-\section{Tables and figures}
+\section*{Tables and figures}
 
 \begin{table}[h]
     \centering
@@ -200,7 +251,7 @@ parameters \texttt{frac=0.5} and \texttt{degree=2}.
         \bottomrule
     \end{tabular}
     \caption{
-        \label{tab:recent-spectra}
+        \label{tab:population-spectra}
         \textbf{Mutation profiles from the past 100 generations in continental
         population groups.}
     }

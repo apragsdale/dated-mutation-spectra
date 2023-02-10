@@ -220,7 +220,8 @@ respect to the spectrum of \emph{de novo} mutations occuring during that time
         (D-F) In fitting historical generation intervals to each observed
         mutation spectrum profile, none of the mutation spectrum histories
         observed in the data are recovered by the predicted spectra using the
-        inferred generation time histories.
+        inferred generation time histories. Trajectories are smoothed using
+        LOESS regression.
     }
     \label{fig:spectrum-ages}
 \end{figure}
@@ -322,13 +323,13 @@ differences are unlikely to be driven by biological processes.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
-types. This is the equivlent of 10s of thousands of SNPs in the most recent bin,
-with the exact number depending on the variant-dating method.
+types. This is the equivlent of 10s of thousands of SNPs in the most recent
+bin, with the exact number depending on the variant-dating method.
 %\krtcomment{Would it be helpful to give an example of how many SNPs these
 %differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
-\GEVA, \tsdate and \relate, while their estimated mutation spectra
-differ at older times, very closely agree for mutations inferred to be less
-than 100 generations old (Table~\ref{tab:recent-spectra}). In discussing this
+\GEVA, \tsdate and \relate, while their estimated mutation spectra differ at
+older times, very closely agree for mutations inferred to be less than 100
+generations old (Table~\ref{tab:recent-spectra}). In discussing this
 discrepancy, \citet{wang2023human} state, ``We found that the mutation spectrum
 from the large pedigree study consistently differed from the variant spectrum
 inferred from the 1000 Genomes Project data, possibly because we removed
@@ -339,11 +340,11 @@ and \relate report allele ages for singletons, and their inclusion does not
 strongly affect the mutation spectrum for very young variants
 (Table~\ref{tab:recent-spectra}), though it does impact the mutation profiles
 in older time periods (Figures~\ref{fig:relate-spectra-singletons},
-\ref{fig:tsdate-spectra-singletons}). Of note, reported ages from \GEVA and
-\relate both used the low-coverage phase 3 1KGP data while \tsdate used the
-more recent independently sequenced high-coverage 1KGP data
-\citep{byrska2022high}, so the accuracy of the mutation spectrum among young
-variants is unlikely to be driven by differences in coverage.
+\ref{fig:tsdate-spectra-singletons}). Reported ages from \GEVA and \relate both
+used the low-coverage phase 3 1KGP data while \tsdate used the more recent
+independently sequenced high-coverage 1KGP data \citep{byrska2022high}, so the
+accuracy of the mutation spectrum among young variants is unlikely to be driven
+by differences in coverage.
 
 To account for the differences between the \emph{de novo} spectrum from
 pedigree studies \citep{jonsson2017parental} and the spectrum among young
@@ -367,19 +368,19 @@ dataset? First, there could be true differences in the mutation spectrum
 between the Iceland cohort and 1KGP populations, although this is unlikely, as
 populations of different ancestries in 1KGP have more similar recent mutation
 spectra to each other than to the Iceland \emph{de novo} spectrum (including
-the EUR populations). If the differences are real, then the Icelandic pedigree
-data is an inappropriate calibration for the mutation spectrum in other
-populations. Second, there could be differences in selective pressures between
-mutations of different classes, although selection would need to be very strong
-for some classes compared to others in order to see the observed difference
-among young variants. Third, the signal may be driven by genotyping error or
-bioinformatics choices, though the agreement between high- and low-coverage
-1KGP datasets suggests that genotyping error does not have a strong effect in
-the 1KGP data. Instead, filtering and bioinformatics choices in the pedigree
-approach are the likely culprit \citep{bergeron2022mutationathon}. Until the
-source of these differences are understood and properly accounted for,
-population-genetic inferences should avoid calibration using mutation rates and
-profiles from pedigree studies.
+the EUR populations, Table~\ref{tab:population-spectra}). If the differences
+are real, then the Icelandic pedigree data is an inappropriate calibration for
+the mutation spectrum in other populations. Second, there could be differences
+in selective pressures between mutations of different classes, although
+selection would need to be very strong for some classes compared to others in
+order to see the observed difference among young variants.  Third, the signal
+may be driven by genotyping error or bioinformatics choices, though the
+agreement between high- and low-coverage 1KGP datasets suggests that genotyping
+error does not have a strong effect in the 1KGP data. Instead, filtering and
+bioinformatics choices in the pedigree approach are the likely culprit
+\citep{bergeron2022mutationathon}. Until the source of these differences are
+understood and properly accounted for, population-genetic inferences should
+avoid calibration using mutation rates and profiles from pedigree studies.
 
 \subsection*{Conclusions}
 
