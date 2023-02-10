@@ -27,14 +27,14 @@
 \usepackage{xr}
 \externaldocument{supplement}
 
-\begin{document}
-
 \title{On the fraught inference of historical human generation times}
 \author[1,*]{Aaron P. Ragsdale}
 \author[2]{Kevin R. Thornton}
 \affil[1]{University of Wisconsin--Madison, Wisconsin, USA}
 \affil[2]{University of California, Irvine, California, USA}
 \affil[*]{apragsdale@wisc.edu}
+
+\begin{document}
 \maketitle
 
 \begin{abstract}
@@ -110,8 +110,8 @@ are not just noisy, but age-stratified mutation spectra reconstructed using
 independent methods do not agree, with mutation profiles diverging in opposing
 directions. Thus, the results from \citet{wang2023human} do not reproduce. We
 further discuss the disagreement between the mutation rate profile found in
-pedigree studies and from young variants \aprcomment{which cannot be
-accounted for in a satisfactory manner}. In conclusion, we suggest that
+pedigree studies and from young variants, the source of which is not well
+understood and complicates their comparison. In conclusion, we suggest that
 downstream analyses using estimated allele ages and mutation profiles should
 more carefully validate their results and such results should be interpreted
 with a heavy dose of skepticism.
@@ -154,26 +154,27 @@ connectivity of ancestral human populations within Africa.
 Genetic studies have estimated the Eurasian--West African divergence (i.e., the
 time of recent shared ancestry) at only $\approx 75$ka (thousand years ago)
 \citep[e.g.,][]{pagani2015tracing,bergstrom2020insights}. While population
-genetic studies vary considerably in estimated population split times, even
-those that infer deeper human divergences place the Eurasian--West African
-divergence at 100--150ka \citep[e.g.,][]{schlebusch2017southern}. If such
-estimated divergence times represent the majority of ancestry of the two groups
-(while allowing for a smaller portion to be due to long-lasting structure),
-then the shared portion of ancestry should be subject to the same generation
-intervals prior to the divergence time. Any differences in the mutation
-spectrum from those epochs would be driven by differences in generation times
-affecting the minority of ancestry that remained isolated. 
+genetic studies vary considerably in estimated split times, even those that
+infer deeper human divergences place the Eurasian--West African divergence at
+100--150ka \citep[e.g.,][]{schlebusch2017southern}. If such estimated
+divergence times represent the majority of ancestry of the two groups (while
+allowing for a smaller portion to be due to long-lasting structure), then the
+shared portion of ancestry should be subject to the same generation intervals
+prior to the divergence time. Any differences in the mutation spectrum from
+those epochs would be driven by differences in generation times affecting the
+minority of ancestry that remained isolated. 
 
-As a simple test of such a scenario, we consider a demographic model of archaic
-admixture within Africa, allowing for some proportion of admixture from a
-diverged lineage into West African populations (such as $\approx10\%$ as
-inferred by \citet{durvasula2020recovering}). At 10,000 generations ago,
-paternal and maternal generation intervals in the ancestors of Eurasians were
-inferred to both be $\approx20$ years, while the ancestral African generation
-intervals were at least 28 and 23 (see Figure S4 in \citet{wang2023human}).
-Using the same mutation model \citep{jonsson2017parental}, we can determine the
-generation intervals in the isolated lineage that is needed to result in a
-mutation spectrum matching that of the inferred generation times.
+As a simple test of such a scenario, we considered a model of archaic admixture
+within Africa, allowing for some proportion of admixture from a diverged
+lineage into West African populations (such as $\approx10\%$ as inferred by
+\citet{durvasula2020recovering}, see Supporting Information). At 10,000
+generations ago, paternal and maternal generation intervals in the ancestors of
+Eurasians were inferred to both be $\approx20$ years, while the ancestral
+African generation intervals were at least 28 and 23 (see Figure S4 in
+\citet{wang2023human}). Using the same mutation model
+\citep{jonsson2017parental}, we can determine the generation intervals in the
+isolated lineage that is needed to result in a mutation spectrum matching that
+of the inferred generation times.
 
 We assume that ancestry proportions of 10\% and 90\% from the diverged and
 Eurasian-shared lineages result in surviving variation from those epochs having
@@ -193,7 +194,7 @@ incompatible with plausible life histories of early humans. Given this, it is
 natural to ask what may be causing such mis-inference. Below we show that
 multiple sources of uncertainty, namely noise and bias in allele age inference
 and incosistencies in trio-base estimates of mutation profiles, confound
-inferences of generation times from time series of mutation spectra.
+inferences of generation times from age-stratified mutation spectra.
 
 \subsection*{Inconsistencies in inferred mutation spectra over time}
 
@@ -271,11 +272,11 @@ proportions differ considerably (Figure~\ref{fig:data-comp}D). For example,
 fewer C$\rightarrow$G mutations, while \relate provides age estimates for
 relatively more C$\rightarrow$T and fewer A$\rightarrow$G mutations. This owes
 to methodological differences in evaluating whether a particular variant can be
-reliably dated, which may have both bioinformatic (\aprcomment{e.g.,}) and
-biological (e.g., recurrent mutations) causes.  Therefore, when comparing
-mutation spectra that are conditioned on variants being dated by a particular
-method, it is not apparent which method, if any, provides unbiased estimates
-of age-stratified mutation spectra.
+reliably dated, which may have both bioinformatic (e.g., genotyping and phasing
+error) and biological (e.g., recurrent mutations) causes. Therefore, when
+comparing mutation spectra that are conditioned on variants being dated by a
+particular method, it is not apparent which method, if any, provides unbiased
+estimates of age-stratified mutation spectra.
 
 \subsection*{Mutation spectra differ between \emph{de novo} mutations and young
 alleles}
@@ -321,10 +322,10 @@ differences are unlikely to be driven by biological processes.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
-types. \aprcomment{Depends on the dataset, but this is the equivalent of 10s of
-thousands of SNPs aged to less that 100 generations.}
-\krtcomment{Would it be helpful to give an example of how many SNPs these
-differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
+types. This is the equivlent of 10s of thousands of SNPs in the most recent bin,
+with the exact number depending on the variant-dating method.
+%\krtcomment{Would it be helpful to give an example of how many SNPs these
+%differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
 \GEVA, \tsdate and \relate, while their estimated mutation spectra
 differ at older times, very closely agree for mutations inferred to be less
 than 100 generations old (Table~\ref{tab:recent-spectra}). In discussing this

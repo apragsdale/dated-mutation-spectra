@@ -19,19 +19,20 @@ def clr(x):
     return np.log(x / geom_mean)
 
 
-def cost_func(ages, data, predict_spectrum, proportion=0.1):
+def cost_func(ages, data, predict_spectrum, proportion=0.1, eur_ages=(22, 22)):
     predicted = (1 - proportion) * predict_spectrum(
-        (20, 20)
+        eur_ages
     ) + proportion * predict_spectrum(ages)
     predicted /= predicted.sum()
     dist = scipy.linalg.norm(clr(predicted) - clr(data))
     return dist
 
+
 # observed inferred ages (at 10k gens ago)
 obs_ages = (28, 23)
 
 # proportion of spectrum from ghost lineage
-proportion = 0.3
+proportion = 0.2
 
 data = predict_spectrum(obs_ages)
 args = (data, predict_spectrum, proportion)
