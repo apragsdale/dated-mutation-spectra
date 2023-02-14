@@ -8,7 +8,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{booktabs}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
 
 % lorem ipsum dummy text
 \usepackage{lipsum}
@@ -59,47 +59,25 @@ five to ten thousand generations ago, corresponding to 150-300ka. As discussed
 in the main text, a 5-10 year difference in generation intervals would require
 long-lasting structure. Admixture from an unidentified, diverged human lineage
 has been proposed to explain observed genetic variation in African populations
-\citep[e.g.,][but see
-\citet{ragsdale2022weakly}]{hey2018phylogeny,durvasula2020recovering,lorente2019whole}.
-In such models, a population that was isolated for hundreds of thousands of
-years contributed 5--10\% ancestry to West African populations.
+\citep[e.g.,][but see \citet{ragsdale2022weakly} for alternative models that
+allow for ongoing gene flow between
+lineages]{hey2018phylogeny,durvasula2020recovering,lorente2019whole}. In such
+models, a population that was isolated for hundreds of thousands of years
+contributed 5--10\% ancestry to West African populations.
 (Figure~\ref{fig:durvasula-model}). The remaining 90--95\% ancestry is shared
 between present-day Eurasian and West African populations, and this ancestry
 would have shared historical generation times. While other models of deep
 population structure in Africa have been proposed, a history of strict
-isolation between diverged lineages before admixture is more likely to result
-in a signal of differing ancestral generation times.
-\krtcomment{This comment is hard to parse for folks not well-versed in the 
-inferences of deep human history -- is there a way to make it easier w/o
-having to cite loads of stuff for people to read?}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics{durvasula_model}
-    \krtcomment{This may be helpful in the main text.}
-    \caption{
-        \textbf{A model for archaic admixture within Africa.} This model is
-        based on a model for ``ghost'' archaic introgression within Africa
-        \citep{durvasula2020recovering}, in which an isolated lineage diverged
-        prior to the human-Neanderthal split and more recently contributed
-        ancestry to West African, but not European populations. The mutation
-        spectrum of West African populations among alleles dating to
-        $\sim250-300$ka is due to a combination of mutations from the
-        ``shared'' and ``\krtedit{isoaled}{isolated}'' lineages, while the European populations'
-        spectrum from this time is due to a combination from the ``shared'' and
-        Neanderthal branches. \citet{wang2023human} showed that masking
-        Neanderthal segments in Eurasian populations had a negligible effect on
-        their inferred generation time histories, so we ignore this small
-        contribution when comparing observed mutation spectra between West
-        African and Eurasian groups.
-    }
-    \label{fig:durvasula-model}
-\end{figure}
+isolation (instead of ongoing gene flow) between diverged lineages before
+admixture is more likely to result in a signal of differing ancestral
+generation times, because ancestries and their associated generation intervals
+would remain distinct.
 
 In such a scenario, differences in inferred average historical generation times
 between West African and Eurasian populations must be due to differences in
-generation times between the two diverged lineages.
-\krtcomment{give intuition about why -- b/c all the West Afr/Eurasian lineages have merged into one ancestral deme?}
+generation times between the two diverged lineages. This is because ancestry
+that is shared within the common branch will have been merged and average
+generation intervals would have likewise been shared.
 Using the mutation model
 \citet{wang2023human} inferred from Icelandic pedigree data
 \citep{jonsson2017parental}, we modeled the Eurasian mutation spectrum from
@@ -116,27 +94,70 @@ populations must match the mutation model from the Icelandic trio data. It is
 likely that none of these assumptions perfectly hold, but these are the same
 assumptions in the original inference of generation time histories.
 
-\krtcomment{this paragraph is hard to parse -- need to explain where 28, 23
-and M(20, 20) come from}
-Given the admixture proportion \krtedit{}{from the diverged/ghost/whatever lineage} $f$,
-inferred West African-ancestral paternal
-and maternal generation intervals of 28 (27--30) and 23 (22--25) years, and the
-mutation model $M(p, m)$, giving the expected proportional mutation spectrum for
-paternal and maternal generation times $p$ and $m$,
-we found generation times $p_d$ and $m_d$ in the
-diverged lineage such that
+We write our mutation model as $M(p, d)$, which takes paternal and maternal
+ages $p$ and $d$ and outputs the expected mutation spectrum. The inferred West
+African-ancestral paternal and maternal generation intervals were roughly 28
+and 23 years (see Figure S4 in \citet{wang2023human}). Then given the
+admixture proportion from the diverged lineage $f$, we found generation times
+$p_d$ and $m_d$ in the diverged lineage such that
 \begin{align*}
     M(28, 23) & = (1-f)M(20, 20) + fM(p_d, m_d).
 \end{align*}
-In fitting this model with $f=0.1$, we found $p_d\approx92$ and $m_d\approx48$.
+In fitting this model with $f=0.1$ (roughly the inferred admixture proportion
+from \citet{durvasula2020recovering}), we found $p_d\approx92$ and
+$m_d\approx48$.
+
 If we assume average ancestral paternal and maternal ages in the
 Eurasian-shared lineage were each 22 years, $p_d\approx76$ and $m_d\approx31$. 
 With Eurasian-ancestral intervals of 22 years and $f=0.2$ (much higher than
-most inferences), the paternal age would still need to be over 50 years.
+most inferences), the paternal age would still need to be over 50 years,
+inconsistent with average generation times in humans and great apes.
+More comparisons are shown in Table~\ref{tab:structured-ages}.
 From this, we conclude that the generation time history inferred by
 \citet{wang2023human} is incompatible with prevailing models of deep population
-structure within Africa. \krtcomment{This must also be incompatible with anything
-and anthropologist would believe?}
+structure within Africa.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}[t]{ccccccc}
+        \toprule
+        \multicolumn{5}{c}{Input Parameters} & \multicolumn{2}{c}{Fit parameters} \\
+        $f$ & $p_\text{EUR}$ & $m_\text{EUR}$ &
+        $p_\text{AFR}$ & $m_\text{AFR}$ &
+        $p_\text{d}$ & $m_\text{d}$ \\
+        \midrule
+        0.1 & 20 & 20 & 28 & 23 & 92.2 & 47.9 \\
+        0.1 & 20 & 20 & 30 & 25 & 111.2 & 67.6 \\
+        0.1 & 20 & 20 & 26 & 22 & 75.0 & 38.6 \\
+        0.2 & 20 & 20 & 28 & 23 & 58.0 & 34.4 \\
+        0.2 & 20 & 20 & 30 & 25 & 67.7 & 44.4 \\
+        0.2 & 20 & 20 & 26 & 22 & 48.8 & 29.6 \\
+        0.3 & 20 & 20 & 28 & 23 & 45.9 & 29.8 \\
+        0.3 & 20 & 20 & 30 & 25 & 52.4 & 36.4 \\
+        0.3 & 20 & 20 & 26 & 22 & 39.5 & 26.5 \\
+        \midrule
+        0.1 & 22 & 22 & 28 & 23 & 75.6 & 30.6 \\
+        0.1 & 22 & 22 & 30 & 25 & 94.2 & 49.9 \\
+        0.1 & 22 & 22 & 26 & 22 & 58.4 & 21.4 \\
+        0.2 & 22 & 22 & 28 & 23 & 50.5 & 25.2 \\
+        0.2 & 22 & 22 & 30 & 25 & 60.1 & 36.4 \\
+        0.2 & 22 & 22 & 26 & 22 & 41.2 & 21.8 \\
+        0.3 & 22 & 22 & 28 & 23 & 41.4 & 25.2 \\
+        0.3 & 22 & 22 & 30 & 25 & 47.9 & 31.8 \\
+        0.3 & 22 & 22 & 26 & 22 & 35.0 & 21.8 \\
+        \bottomrule
+    \end{tabular}
+    \caption{
+        \label{tab:structured-ages}
+        \textbf{Testing admixture proportions and generation intervals under
+        an African archaic admixture model.} In order for the generation
+        times in the isolated branch ($p_d$ and $m_d$) to be reasonably
+        short enough for human biology, the admixture proportion would need
+        to be $\gtrsim0.3$ and for the inferred generation intervals
+        in Eurasians and West Africans to be much closer than the average
+        values shown in Figure S4 in \citet{wang2023human}.
+    }
+\end{table}
 
 \subsection*{Historical mutation spectra}
 
@@ -162,7 +183,8 @@ Allele age data from \GEVA reported in \citet{albers2020dating} were downloaded
 from \url{https://human.genome.dating/download/index}. We used the median
 joint-estimated allele ages, ``AgeMedian\_Jnt''. To compare to allele age data
 estimated from \relate and \tsdate, we used allele ages estimated from the
-Thousand Genomes Project (TGP) data source.
+Thousand Genomes Project (TGP) data source, available from
+\url{http://ftp.ensembl.org/pub/grch37/release-103/variation/gvf/homo_sapiens/}.
 
 \subsubsection*{Allele ages from \relate}
 
@@ -195,8 +217,8 @@ respectively.
 
 \subsubsection*{Data availability}
 
-All analyses were performed using publicly available datasets. Python scripts
-to run analyses described here are available at
+All analyses were performed using publicly available datasets, available from
+the above URLs. Python scripts to run analyses described here are available at
 \url{https://github.com/apragsdale/dated-mutation-spectra}/
 
 \bibliographystyle{genetics}
