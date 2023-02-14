@@ -34,7 +34,7 @@ colors = Bright[6]
 
 classes = ["A>C", "A>G", "A>T", "C>A", "C>G", "C>T"]
 
-def age_heat(ax, ages1, ages2, dataset1=None, dataset2=None):
+def age_heat(fig, ax, ages1, ages2, dataset1=None, dataset2=None):
     min_age = 1e2
     max_age = 1e5
     x = np.logspace(np.log10(min_age), np.log10(max_age), 200)
@@ -59,14 +59,15 @@ def age_heat(ax, ages1, ages2, dataset1=None, dataset2=None):
     ax.text(20000, 200, rf"$r^2={r**2:0.2f}$", fontsize=5, va="center", ha="center")
     ax.xaxis.set_minor_locator(LogLocator(subs=(1.0,)))
     ax.yaxis.set_minor_locator(LogLocator(subs=(1.0,)))
+    fig.colorbar(image, ax=ax)
 
-grid = (6, 3)
+grid = (6, 5)
 fig = plt.figure(2, figsize=(6, 4.5))
 fig.clf()
 
 # heat plots
 
-ax1 = plt.subplot2grid(grid, (0, 0), rowspan=2)
+ax1 = plt.subplot2grid(grid, (0, 0), rowspan=2, colspan=2)
 ages1 = np.array([])
 ages2 = np.array([])
 for chrom in range(22):
@@ -74,10 +75,10 @@ for chrom in range(22):
     ages1 = np.concatenate((ages1, ages["AgeGEVA"]))
     ages2 = np.concatenate((ages2, ages["AgeRelate"]))
 
-age_heat(ax1, ages1, ages2, dataset1="GEVA", dataset2="Relate")
+age_heat(fig, ax1, ages1, ages2, dataset1="GEVA", dataset2="Relate")
 print("Plotted heat map for GEVA and Relate")
 
-ax2 = plt.subplot2grid(grid, (2, 0), rowspan=2)
+ax2 = plt.subplot2grid(grid, (2, 0), rowspan=2, colspan=2)
 ages1 = np.array([])
 ages2 = np.array([])
 for chrom in range(22):
@@ -85,10 +86,10 @@ for chrom in range(22):
     ages1 = np.concatenate((ages1, ages["AgeGEVA"]))
     ages2 = np.concatenate((ages2, ages["Agetsdate"]))
 
-age_heat(ax2, ages1, ages2, dataset1="GEVA", dataset2="tsdate")
+age_heat(fig, ax2, ages1, ages2, dataset1="GEVA", dataset2="tsdate")
 print("Plotted heat map for GEVA and tsdate")
 
-ax3 = plt.subplot2grid(grid, (4, 0), rowspan=2)
+ax3 = plt.subplot2grid(grid, (4, 0), rowspan=2, colspan=2)
 ages1 = np.array([])
 ages2 = np.array([])
 for chrom in range(22):
@@ -96,12 +97,12 @@ for chrom in range(22):
     ages1 = np.concatenate((ages1, ages["AgeRelate"]))
     ages2 = np.concatenate((ages2, ages["Agetsdate"]))
 
-age_heat(ax3, ages1, ages2, dataset1="Relate", dataset2="tsdate")
+age_heat(fig, ax3, ages1, ages2, dataset1="Relate", dataset2="tsdate")
 print("Plotted heat map for Relate and tsdate")
 
 # bar plots (shared + unique, and young vs trios)
-ax4 = plt.subplot2grid(grid, (0, 1), colspan=grid[1]-1, rowspan=3)
-ax5 = plt.subplot2grid(grid, (3, 1), colspan=grid[1]-1, rowspan=3)
+ax4 = plt.subplot2grid(grid, (0, 2), colspan=grid[1]-2, rowspan=3)
+ax5 = plt.subplot2grid(grid, (3, 2), colspan=grid[1]-2, rowspan=3)
 
 # shared and unique calls
 
@@ -125,7 +126,7 @@ ax4.bar(x - width, props["shared"], 0.9*width, color=colors[0], label="Shared")
 ax4.bar(x, props["geva"], 0.9*width, color=colors[1], label="GEVA-unique")
 ax4.bar(x + width, props["relate"], 0.9*width, color=colors[2], label="Relate-unique")
 
-ax4.legend(frameon=False, loc="upper left")
+ax4.legend(frameon=False, loc="upper right")
 ax4.set_xticks(x)
 ax4.set_xticklabels(classes)
 ax4.set_ylabel("Relative proportion")
@@ -145,7 +146,7 @@ ax5.bar(x - 0.5 * width, relate_recent, 0.9 * width, color=colors[1], label="Rel
 ax5.bar(x + 0.5 * width, tsdate_recent, 0.9 * width, color=colors[2], label="tsdate")
 ax5.bar(x + 1.5 * width, trios, 0.9 * width, color=colors[3], label="Pedigree")
 
-ax5.legend(frameon=False, loc="upper left")
+ax5.legend(frameon=False, loc="upper right")
 ax5.set_xticks(x)
 ax5.set_xticklabels(classes)
 ax5.set_ylabel("Relative proportion")
@@ -155,12 +156,12 @@ ax5.set_xlabel("Mutation classes")
 print("Plotted young variants")
 
 fig.tight_layout()
-fig.subplots_adjust(left=0, right=0.98, bottom=0.09, wspace=0.02)
-fig.text(0.03, 0.97, "A", fontsize=8, va="center", ha="center")
-fig.text(0.03, 0.65, "B", fontsize=8, va="center", ha="center")
-fig.text(0.03, 0.33, "C", fontsize=8, va="center", ha="center")
-fig.text(0.28, 0.97, "D", fontsize=8, va="center", ha="center")
-fig.text(0.28, 0.49, "E", fontsize=8, va="center", ha="center")
+fig.subplots_adjust(left=0, right=0.98, bottom=0.09, wspace=1)
+fig.text(0.04, 0.97, "A", fontsize=8, va="center", ha="center")
+fig.text(0.04, 0.65, "B", fontsize=8, va="center", ha="center")
+fig.text(0.04, 0.33, "C", fontsize=8, va="center", ha="center")
+fig.text(0.37, 0.97, "D", fontsize=8, va="center", ha="center")
+fig.text(0.37, 0.49, "E", fontsize=8, va="center", ha="center")
 
 plt.savefig("plots/fig2.pdf")
 
