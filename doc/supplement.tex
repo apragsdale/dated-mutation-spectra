@@ -6,7 +6,7 @@
 \usepackage{url}
 \usepackage{authblk}
 \usepackage{graphicx}
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{amsmath}
 
@@ -22,6 +22,9 @@
 % local definitions
 \newcommand{\comment}[1]{{\textcolor{red}{Comment: #1}}}
 \newcommand{\aprcomment}[1]{{\textcolor{blue}{APR: #1}}}
+\newcommand{\krtcomment}[1]{{\textcolor{purple}{KRT: #1}}}
+\newcommand{\krtedit}[2]{{\emph{\textcolor{gray}{#1}}}{\textcolor{purple}{#2}}}
+\newcommand{\apredit}[2]{{\emph{\textcolor{gray}{#1}}}{\textcolor{blue}{#2}}}
 
 \usepackage{xspace}
 \newcommand{\GEVA}{\texttt{GEVA}\xspace}
@@ -66,10 +69,14 @@ would have shared historical generation times. While other models of deep
 population structure in Africa have been proposed, a history of strict
 isolation between diverged lineages before admixture is more likely to result
 in a signal of differing ancestral generation times.
+\krtcomment{This comment is hard to parse for folks not well-versed in the 
+inferences of deep human history -- is there a way to make it easier w/o
+having to cite loads of stuff for people to read?}
 
 \begin{figure}[h!]
     \centering
     \includegraphics{durvasula_model}
+    \krtcomment{This may be helpful in the main text.}
     \caption{
         \textbf{A model for archaic admixture within Africa.} This model is
         based on a model for ``ghost'' archaic introgression within Africa
@@ -78,7 +85,7 @@ in a signal of differing ancestral generation times.
         ancestry to West African, but not European populations. The mutation
         spectrum of West African populations among alleles dating to
         $\sim250-300$ka is due to a combination of mutations from the
-        ``shared'' and ``isoaled'' lineages, while the European populations'
+        ``shared'' and ``\krtedit{isoaled}{isolated}'' lineages, while the European populations'
         spectrum from this time is due to a combination from the ``shared'' and
         Neanderthal branches. \citet{wang2023human} showed that masking
         Neanderthal segments in Eurasian populations had a negligible effect on
@@ -91,7 +98,9 @@ in a signal of differing ancestral generation times.
 
 In such a scenario, differences in inferred average historical generation times
 between West African and Eurasian populations must be due to differences in
-generation times between the two diverged lineages. Using the mutation model
+generation times between the two diverged lineages.
+\krtcomment{give intuition about why -- b/c all the West Afr/Eurasian lineages have merged into one ancestral deme?}
+Using the mutation model
 \citet{wang2023human} inferred from Icelandic pedigree data
 \citep{jonsson2017parental}, we modeled the Eurasian mutation spectrum from
 this time period using paternal and maternal generation times of 20 (18--22,
@@ -107,7 +116,10 @@ populations must match the mutation model from the Icelandic trio data. It is
 likely that none of these assumptions perfectly hold, but these are the same
 assumptions in the original inference of generation time histories.
 
-Given the admixture proportion $f$, inferred West African-ancestral paternal
+\krtcomment{this paragraph is hard to parse -- need to explain where 28, 23
+and M(20, 20) come from}
+Given the admixture proportion \krtedit{}{from the diverged/ghost/whatever lineage} $f$,
+inferred West African-ancestral paternal
 and maternal generation intervals of 28 (27--30) and 23 (22--25) years, and the
 mutation model $M(p, m)$, giving the expected proportional mutation spectrum for
 paternal and maternal generation times $p$ and $m$,
@@ -123,7 +135,8 @@ With Eurasian-ancestral intervals of 22 years and $f=0.2$ (much higher than
 most inferences), the paternal age would still need to be over 50 years.
 From this, we conclude that the generation time history inferred by
 \citet{wang2023human} is incompatible with prevailing models of deep population
-structure within Africa.
+structure within Africa. \krtcomment{This must also be incompatible with anything
+and anthropologist would believe?}
 
 \subsection*{Historical mutation spectra}
 
