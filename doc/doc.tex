@@ -63,13 +63,19 @@
 
 \aprcomment{Possible titles:
     \begin{itemize}
-        \item 
+        \item Inference of historical human generation times undone by
+            multiple points of uncertainty
+        \item On the fraught inference of historical human generation times
+            [I still like this\dots]
+        \item Others? \dots I'm bad at this
     \end{itemize}
 }
 
 Recent years have seen the rapid development of methods for reconstructing
 \apredit{}{genetic} genealogical structures of large cohorts \krtcomment{is it clear that this means "unrelated"/
 "randomly sampled" individuals and would not be confused with pedigrees?}
+\aprcomment{I think it's ok-- I also added ``genetic'' to genealogical structures, which
+should help}
 \citep{speidel2019method,wohns2022unified,hubisz2020mapping}, which are
 comprised of a series of gene genealogies (or trees) along the genome.
 Reconstructed genealogies (or informative summaries of them) have the potential
@@ -97,8 +103,8 @@ overfitting, this approach requires making a number of assumptions about the
 constancy of the mutational process over time and its similarity across
 populations \citep{harris2015evidence,mathieson2017differences,harris2017rapid,
 dewitt2021nonparametric}, and of negligible effects of selection
-\krtedit{}{and biased gene conversion (cite)} on shaping the
-profile of segregating mutation types.
+and biased gene conversion \citep{lachance2014biased,glemin2015quantification}
+on shaping the profile of segregating mutation types.
 
 \cite{gao2022limited} have recently criticized this approach.
 They show that observed changes in the mutation spectrum over
@@ -128,11 +134,10 @@ when applying different estimates of allele ages from the same population sample
 further discuss the disagreement between the mutation rate profile found in
 pedigree studies and from young variants, the source of which is not well
 understood and complicates their comparison. In conclusion, we suggest that
+current methods of genealogical reconstruction and allele age estimation
+should continue to be evaluated for subtle biases, and that
 downstream analyses using estimated allele ages and mutation profiles should
-more carefully validate their results and such results should be interpreted
-with a heavy dose of skepticism. \krtcomment{This last sentence needs softening -- 
-we need to strike a balance between yelling "garbage in, garbage out" and implying
-that Jerome, Simon, etc., are the problem here.}
+carefully validate their results.
 
 \subsection*{Long-lasting differences in population-specific generation intervals}
 
@@ -319,15 +324,12 @@ of them provide a reasonable fit to the data (Figure
 Published allele ages from both \citet{albers2020dating} (\GEVA) and
 \citet{speidel2019method} (\relate) used the same input dataset: the phase 3
 release of 1KGP. However, they differ in the total number of variants that were
-assigned ages (roughly 30 million and 48 million, respectively).
-\krtcomment{We should say why, to the best we are able. tsdate dates EVERYTHING
-because it requires that the original data can be reconstructed. relate makes assumptions
-leading to some variants not being dated.  More?} \aprcomment{That might be
-TMI? I only kept tsdate sites that were uniquely dated (not split over multiple
-branches), so I ended up making the same choice as relate for which mutations
-to discard.}
-Of those
-variants, 25 million variants were dated by each, with the remaining uniquely
+assigned ages (roughly 30 million and 48 million, respectively). \GEVA and
+\relate each discard variants that violate or are inconsistent with certain
+assumptions, such as allowing only a single mutation at a given site,
+while \tsdate retains all data by allowing for multiple mutations at a site.
+Of those variants, 25 million variants were dated by both \GEVA and \relate,
+with the remaining uniquely
 assigned an age by one or the other method. When comparing mutation spectrum
 histories restricted to variants dated by both \GEVA and \relate, the two
 methods still predict very different mutation profile trajectories
@@ -387,8 +389,6 @@ in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
 types. This is the equivlent of 10s of thousands of SNPs in the most recent
 bin, with the exact number depending on the variant-dating method.
-%\krtcomment{Would it be helpful to give an example of how many SNPs these
-%differences imply? Like $0.02$ is $10^5$ SNPs or whatever?}
 \GEVA, \tsdate and \relate, while their estimated mutation spectra differ at
 older times, very closely agree for mutations inferred to be less than 100
 generations old (Table~\ref{tab:recent-spectra}). In discussing this
@@ -441,30 +441,23 @@ agreement between high- and low-coverage 1KGP datasets suggests that genotyping
 error does not have a strong effect in the 1KGP data. Instead, filtering and
 bioinformatics choices in the pedigree approach are the likely culprit
 \citep{bergeron2022mutationathon}. Until the source of these differences are
-understood and properly accounted for, population-genetic inferences should
+understood and properly accounted for, \apredit{}{we caution that}
+population-genetic inferences should
 avoid calibration using mutation rates and profiles from pedigree studies.
 
 \subsection*{Conclusions}
 
-\krtcomment{This is another place where we need careful wording -- we want to
-reiterate that genealogical reconstruction is great, but also that
-it is an evolving field (maybe cite Nielsen group paper here, arguing that
-all of the methods need improvement).}
-With genome-wide genealogical reconstruction methods in their infancy, we
-should be cautious of unexpected and subtle biases that can impact downstream
-analyses. In the case of generation time inference \citep{wang2023human}, we
-showed that patterns of variation that were attributed to biological processes
-(variation in generation times) are predominantly driven by nonbiological
-artifacts in the input data. This highlights the need for increased scrutiny
-and validation of methods using genealogical reconstruction approaches in
-downstream inferences, as these issues would have been identified by attempting
-to reproduce their inferences using available independent allele age estimates.
 Large-scale reconstruction of gene genealogies, dating mutations, and
 $T_\text{MRCA}$ inference are all exciting developments, but these methods are
-quite new and will likely advance considerably in the coming years. As existing
-methods show very different accuracies and bias even under overly-idealized
-conditions \citep{brandt2022evaluation}, we should continue to evaluate their
-performance and be cautious in their use in downstream analyses.
+quite new and will likely advance considerably in the coming years. Currently,
+existing methods show very different accuracies even under overly-idealized
+conditions \citep{brandt2022evaluation}. We should therefore be cautious of
+unexpected and subtle biases that can impact downstream analyses. In the case
+of generation time inference \citep{wang2023human}, we showed that patterns of
+variation that were attributed to biological processes (variation in generation
+times) are predominantly driven by nonbiological artifacts in the input data.
+These issues likely would have been identified by attempting to reproduce their
+inference using available independent allele age estimates.
 
 \bibliographystyle{genetics}
 \bibliography{doc}
