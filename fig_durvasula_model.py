@@ -68,4 +68,4 @@ ax.add_patch(rect)
 fig.text(0.15, 0.48, "$\sim250$ka", fontsize=6, va="center", ha="center")
 
 
-plt.savefig("durvasula_model.pdf")
+plt.savefig("plots/durvasula_model.pdf")
