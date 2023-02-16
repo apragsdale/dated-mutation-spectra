@@ -29,7 +29,8 @@
 \usepackage{xr}
 \externaldocument{supplement}
 
-\title{On the fraught inference of historical human generation times}
+\title{Multiple soures of uncertainty confound inference of
+historical human generation times}
 \author[1,*]{Aaron P. Ragsdale}
 \author[2]{Kevin R. Thornton}
 \affil[1]{University of Wisconsin--Madison, Wisconsin, USA}
@@ -60,16 +61,6 @@
     uncharacterized biases in their output.
 
 \end{abstract}
-
-\aprcomment{Possible titles:
-    \begin{itemize}
-        \item Multiple sources of uncertainty [confound/preclude/prevent] inference
-            of historical human generation times
-        \item On the fraught inference of historical human generation times
-        \item Inference of historical human generation times undone by
-            multiple points of uncertainty
-    \end{itemize}
-}
 
 Recent years have seen the rapid development of methods for reconstructing
 genetic genealogical structures of large unrelated cohorts
@@ -157,6 +148,28 @@ present-day genetic variation
 \citep{hammer2011genetic,hsieh2016model,hey2018phylogeny,
 ragsdale2019models,lorente2019whole,durvasula2020recovering}.
 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{durvasula_model}
+    \caption{
+        \textbf{A model for archaic admixture within Africa.} In such a model
+        for ``ghost'' archaic introgression within Africa
+        \citep{durvasula2020recovering}, an isolated lineage diverged prior to
+        the human-Neanderthal split and more recently contributed ancestry to
+        West African, but not European populations. The mutation spectrum of
+        West African populations among alleles dating to $\sim250-300$ka is due
+        to a combination of mutations from the ``shared'' and ``isolated''
+        lineages, while the European populations' spectrum from this time is
+        due to a combination from the ``shared'' and Neanderthal branches.
+        \citet{wang2023human} showed that masking Neanderthal segments in
+        Eurasian populations had a negligible effect on their inferred
+        generation time histories, so we ignore this small contribution when
+        comparing observed mutation spectra between West African and Eurasian
+        groups.
+    }
+    \label{fig:durvasula-model}
+\end{figure}
+
 However, in extending their analysis deeper into the past,
 \citet{wang2023human} find that ancestral generation intervals do not converge
 until many 10s of thousands of generations ago. Assuming an average generation
@@ -166,7 +179,7 @@ African populations to have remained isolated for many hundreds of thousands of
 years, for those structured ancestral populations to have had large differences
 in average generation times over the course of this history, and for those
 groups to have contributed substantively to different contemporary human
-populations. While such a scenario of very long-lasting isolation among
+populations. While such a scenario of long-lasting isolation among
 ancestral populations is not impossible, it is not supported by genetic
 \citep{ragsdale2022weakly} or archaeological
 \citep{scerri2018did} evidence, which rather suggest at least periodic
@@ -197,33 +210,6 @@ African generation intervals were at least 28 and 23 (see Figure S4 in
 isolated lineage that is needed to result in a mutation spectrum matching that
 of the inferred generation times.
 
-\begin{figure}[t!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{durvasula_model}
-    \caption{
-        \textbf{A model for archaic admixture within Africa.} In such a model
-        for ``ghost'' archaic introgression within Africa
-        \citep{durvasula2020recovering}, an isolated lineage diverged prior to
-        the human-Neanderthal split and more recently contributed ancestry to
-        West African, but not European populations. The mutation spectrum of
-        West African populations among alleles dating to $\sim250-300$ka is due
-        to a combination of mutations from the ``shared'' and ``isolated''
-        lineages, while the European populations' spectrum from this time is
-        due to a combination from the ``shared'' and Neanderthal branches.
-        \citet{wang2023human} showed that masking Neanderthal segments in
-        Eurasian populations had a negligible effect on their inferred
-        generation time histories, so we ignore this small contribution when
-        comparing observed mutation spectra between West African and Eurasian
-        groups.
-    }
-    \label{fig:durvasula-model}
-\end{figure}
-
-\krtcomment{How easy is it to vary these parameters? Is there any way to "throw 
-them a bone" and find something anywhere close to reasonable?}
-\aprcomment{Easy to vary -- I added a table in the supplement with more scenarios.
-There aren't any that help them out much.}
-
 We assume that admixture proportions from the diverged and Eurasian-shared
 lineages ($f$ and $1-f$, respectively) result in surviving variation from those
 epochs having similar proportions of contributions (in effect, ignoring
@@ -235,7 +221,7 @@ These are unreasonably long generation times for \emph{Homo} species. With 20\%
 admixture from this diverged lineage (which is larger than has been proposed or
 inferred in previous genetic studies), mean ages would still need to be 58 and
 34. For the paternal average generation time to be less than 40, this model would
-require $f=0.4$ or that the inferred genetion times in shared branch to be
+require $f=0.4$ or that the inferred genetion times in the shared branch to be
 considerably higher (Table~\ref{tab:structured-ages}).
 
 Therefore, even assuming a model of long-lasting population structure with
@@ -300,51 +286,9 @@ The ages of variants
 dated by at least two of the methods are only moderately correlated (\GEVA and
 \relate: $r^2 \approx 0.28$, \GEVA and \tsdate: $r^2 \approx 0.33$, \tsdate
 and \relate: $r^2 \approx 0.64$; Figure~\ref{fig:data-comp}A-C and see Figure
-S20 from \citet{wohns2022unified}). \apredit{}{Imperfect correlations should be expected,
+S20 from \citet{wohns2022unified}). Imperfect correlations should be expected,
 as genealogical reconstruction methods have been shown to vary in the accuracy
-of estimated $T_{MRCA}$ \citep{brandt2022evaluation}.}
-
-Despite the low to moderate correlation, it is still possible that differences in
-estimate allele ages are unbiased with respect to mutation type.
-However, we find that ages provided by each method disagree
-at the level of individual mutation
-spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
-\ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with 
-changes in mutation proportions
-often trending in opposite directions over the same time periods. In
-turn, these divergent spectrum histories provide qualitatively different
-inferred generation time histories
-(Figures~\ref{fig:geva-gen-times}--\ref{fig:tsdate-gen-times}). None
-of them provide a reasonable fit to the data (Figure
-\ref{fig:spectrum-ages}D-F).
-
-Published allele ages from both \citet{albers2020dating} (\GEVA) and
-\citet{speidel2019method} (\relate) used the same input dataset: the phase 3
-release of 1KGP. However, they differ in the total number of variants that were
-assigned ages (roughly 30 million and 48 million, respectively). \GEVA and
-\relate each discard variants that violate or are inconsistent with certain
-assumptions, such as allowing only a single mutation at a given site,
-while \tsdate retains all data by allowing for multiple mutations at a site.
-Of those variants, 25 million variants were dated by both \GEVA and \relate,
-with the remaining uniquely
-assigned an age by one or the other method. When comparing mutation spectrum
-histories restricted to variants dated by both \GEVA and \relate, the two
-methods still predict very different mutation profile trajectories
-(Figure~\ref{fig:overlap-spectra}). In comparing the proportions of mutation
-types assigned ages by both methods or uniquely by one, we find that those
-proportions differ considerably (Figure~\ref{fig:data-comp}D). For example,
-\GEVA provides age estimates for relatively more A$\rightarrow$G mutations and
-fewer C$\rightarrow$G mutations, while \relate provides age estimates for
-relatively more C$\rightarrow$T and fewer A$\rightarrow$G mutations. This owes
-to methodological differences in evaluating whether a particular variant can be
-reliably dated, which may have both bioinformatic (e.g., genotyping and phasing
-error) and biological (e.g., recurrent mutations) causes. Therefore, when
-comparing mutation spectra that are conditioned on variants being dated by a
-particular method, it is not apparent which method, if any, provides unbiased
-estimates of age-stratified mutation spectra.
-
-\subsection*{Mutation spectra differ between \emph{de novo} mutations and young
-alleles}
+of estimated $T_{MRCA}$ \citep{brandt2022evaluation}.
 
 \begin{figure}[t!]
     \centering
@@ -369,6 +313,48 @@ alleles}
     \label{fig:data-comp}
 \end{figure}
 
+Despite the imperfect correlation, it is still possible that differences in
+estimate allele ages are unbiased with respect to mutation type.
+However, we find that ages provided by each method disagree
+at the level of individual mutation
+spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
+\ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with 
+changes in mutation proportions
+often trending in opposite directions over the same time periods. In
+turn, these divergent spectrum histories provide qualitatively different
+inferred generation time histories
+(Figures~\ref{fig:geva-gen-times}--\ref{fig:tsdate-gen-times}). None
+of them provide a reasonable fit to the data (Figure
+\ref{fig:spectrum-ages}D-F).
+
+Published allele ages from both \citet{albers2020dating} (\GEVA) and
+\citet{speidel2019method} (\relate) used the same input dataset: the phase 3
+release of 1KGP. However, they differ in the total number of variants that were
+assigned ages (roughly 30 million and 48 million, respectively). \GEVA and
+\relate each discard variants that violate or are inconsistent with certain
+assumptions, such as allowing only a single mutation at a given site,
+while \tsdate retains all data by allowing for multiple mutations at a site.
+Of those variants, 25 million variants were dated by both \GEVA and \relate,
+with the remaining uniquely
+assigned an age by one or the other method. When comparing mutation spectrum
+histories restricted to variants dated by both \GEVA and \relate, the two
+methods still predict different mutation profile trajectories
+(Figure~\ref{fig:overlap-spectra}). In comparing the proportions of mutation
+types assigned ages by both methods or uniquely by one, we find that those
+proportions differ considerably (Figure~\ref{fig:data-comp}D). For example,
+\GEVA provides age estimates for relatively more A$\rightarrow$G mutations and
+fewer C$\rightarrow$G mutations, while \relate provides age estimates for
+relatively more C$\rightarrow$T and fewer A$\rightarrow$G mutations. This owes
+to methodological differences in evaluating whether a particular variant can be
+reliably dated, which may have both bioinformatic (e.g., genotyping and phasing
+error) and biological (e.g., recurrent mutations) causes. Therefore, when
+comparing mutation spectra that are conditioned on variants being dated by a
+particular method, it is not apparent which method, if any, provides unbiased
+estimates of age-stratified mutation spectra.
+
+\subsection*{Mutation spectra differ between \emph{de novo} mutations and young
+alleles}
+
 The large disagreements in mutation spectrum histories between multiple variant
 age-estimation methods are concerning for down-stream inferences that rely on
 them. Independent of biases in allele age estimate, there are further problems
@@ -387,7 +373,7 @@ $0.02$, which would imply a large over- or under-count of different mutation
 types. This is the equivlent of 10s of thousands of SNPs in the most recent
 bin, with the exact number depending on the variant-dating method.
 \GEVA, \tsdate and \relate, while their estimated mutation spectra differ at
-older times, very closely agree for mutations inferred to be less than 100
+older times, closely agree for mutations inferred to be less than 100
 generations old (Table~\ref{tab:recent-spectra}). In discussing this
 discrepancy, \citet{wang2023human} state, ``We found that the mutation spectrum
 from the large pedigree study consistently differed from the variant spectrum
@@ -438,7 +424,7 @@ agreement between high- and low-coverage 1KGP datasets suggests that genotyping
 error does not have a strong effect in the 1KGP data. Instead, filtering and
 bioinformatics choices in the pedigree approach are the likely culprit
 \citep{bergeron2022mutationathon}. Until the source of these differences are
-understood and properly accounted for, \apredit{}{we caution that}
+understood and properly accounted for, we caution that
 population-genetic inferences should
 avoid calibration using mutation rates and profiles from pedigree studies.
 
@@ -447,14 +433,15 @@ avoid calibration using mutation rates and profiles from pedigree studies.
 Large-scale reconstruction of gene genealogies, dating mutations, and
 $T_\text{MRCA}$ inference are all exciting developments, but these methods are
 quite new and will likely advance considerably in the coming years. Currently,
-existing methods show very different accuracies even under overly-idealized
+existing methods show different accuracies even under overly-idealized
 conditions \citep{brandt2022evaluation}. We should therefore be cautious of
 unexpected and subtle biases that can impact downstream analyses. In the case
 of generation time inference \citep{wang2023human}, we showed that patterns of
 variation that were attributed to biological processes (variation in generation
 times) are predominantly driven by nonbiological artifacts in the input data.
-These issues likely would have been identified by attempting to reproduce their
-inference using available independent allele age estimates.
+As the field continues to evaluate the accuracy of allele age estimation and
+genealogical reconstruction methods, we recommend that analyses that rely on
+their output thoroughly validate their results using independent approaches.
 
 \bibliographystyle{genetics}
 \bibliography{doc}
