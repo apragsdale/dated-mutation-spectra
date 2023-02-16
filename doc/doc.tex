@@ -29,7 +29,7 @@
 \usepackage{xr}
 \externaldocument{supplement}
 
-\title{Multiple soures of uncertainty confound inference of
+\title{Multiple sources of uncertainty confound inference of
 historical human generation times}
 \author[1,*]{Aaron P. Ragsdale}
 \author[2]{Kevin R. Thornton}
@@ -69,30 +69,29 @@ comprised of a series of gene genealogies (or trees) along the genome.
 Reconstructed genealogies (or informative summaries of them) have the potential
 to transform population genetic inference. Biological and evolutionary
 processed determine the structure of these genealogies, including the
-location of mutations. In particular, the age
-of a variant can be estimated by mapping its mutation to the branch of the
-genealogy consistent with the observed data.
+distribution of mutations. In particular, the age of a variant can be estimated
+by mapping its mutation to the branch of the genealogy consistent with the
+observed data.
 
 The past few years have also seen efforts to sequence large sets of pedigrees,
-providing increased resolution of important parameters of genome biology
-including direct measurements of mutation rates and profiles. Through
-high-coverage sequencing of multiple generations of families, \emph{de novo}
-mutations can be determined as maternally or paternally inherited.
-With a
-large enough sample size (meoises), both the number of mutations and proportions of
-mutation types (i.e., the \emph{mutation spectrum} of A$\rightarrow$C,
-A$\rightarrow$G, etc.\ mutation types) can be correlated with parental age and
-sex \citep{jonsson2017parental,halldorsson2019characterizing}. These two sets
-of inferences, the estimated ages of mutations and the parental age- and
+providing increased resolution of important parameters of genome biology such
+as direct measurements of mutation rates and profiles. Through high-coverage
+sequencing of multiple generations of families, \emph{de novo} mutations can be
+determined as maternally or paternally inherited. With a large enough sample
+size (meoises), both the number of mutations and proportions of mutation types
+(i.e., the \emph{mutation spectrum} of A$\rightarrow$C, A$\rightarrow$G, etc.\
+mutation types) can be correlated with parental age and sex
+\citep{jonsson2017parental,halldorsson2019characterizing}. These two sets of
+inferences, the estimated ages of mutations and the parental age- and
 sex-dependence of the mutation spectrum, can be combined to infer the history
 of average maternal and paternal generation intervals for human populations of
 diverse ancestries \citep{macia2021different,wang2023human}. In order to avoid
 overfitting, this approach requires making a number of assumptions about the
 constancy of the mutational process over time and its similarity across
 populations \citep{harris2015evidence,mathieson2017differences,harris2017rapid,
-dewitt2021nonparametric}, and of negligible effects of selection
-and biased gene conversion \citep{lachance2014biased,glemin2015quantification}
-on shaping the profile of segregating mutation types.
+dewitt2021nonparametric}, and of negligible effects of selection and biased
+gene conversion \citep{lachance2014biased,glemin2015quantification} on shaping
+the profile of segregating mutation types.
 
 \cite{gao2023limited} have recently criticized this approach.
 They show that observed changes in the mutation spectrum over
@@ -106,8 +105,8 @@ variation in mutation profiles.
 \citet{gao2023limited} also point out that pedigree-based estimates of the
 \emph{de novo} mutation spectrum do not agree with the mutation spectrum among
 young variants in existing population-level datasets,
-potentially biasing such approaches. Because such mutatations
-occured recently, these discrepancies would require strong mutation-type-specific
+potentially biasing such approaches. Because such mutations
+occurred recently, these discrepancies would require strong mutation-type-specific
 selection or large recent shifts in the \emph{de novo} mutation spectrum.
 
 In this note, we examine both the results and conclusions of
@@ -173,16 +172,16 @@ ragsdale2019models,lorente2019whole,durvasula2020recovering}.
 However, in extending their analysis deeper into the past,
 \citet{wang2023human} find that ancestral generation intervals do not converge
 until many 10s of thousands of generations ago. Assuming an average generation
-time of 25--30 years, this corresponds to well over one million years. This
-observation would require some portion of the ancestries of Eurasian and West
-African populations to have remained isolated for many hundreds of thousands of
-years, for those structured ancestral populations to have had large differences
-in average generation times over the course of this history, and for those
-groups to have contributed substantively to different contemporary human
-populations. While such a scenario of long-lasting isolation among
-ancestral populations is not impossible, it is not supported by genetic
-\citep{ragsdale2022weakly} or archaeological
-\citep{scerri2018did} evidence, which rather suggest at least periodic
+time of 25--30 years, this corresponds to roughly one million years or more.
+This observation would require some portion of the ancestries of Eurasian and
+West African populations to have remained isolated for many hundreds of
+thousands of years, for those structured ancestral populations to have had
+large differences in average generation times over the course of this history,
+and for those groups to have contributed substantively to different
+contemporary human populations. While such a scenario of long-lasting isolation
+among ancestral populations is not impossible, it is not supported by genetic
+\citep[e.g.,][]{ragsdale2022weakly} or archaeological
+\citep[e.g.,][]{scerri2018did} evidence, which rather suggest at least periodic
 connectivity of ancestral human populations within Africa.
 
 Genetic studies have estimated the Eurasian--West African divergence (i.e., the
@@ -202,10 +201,10 @@ As a simple test of such a scenario, we considered a model of archaic admixture
 within Africa, allowing for some proportion of admixture from a diverged
 lineage into West African populations (such as $\approx10\%$ as inferred by
 \citet{durvasula2020recovering}, Figure~\ref{fig:durvasula-model}). At 10,000
-generations ago, paternal and maternal generation intervals in the ancestors of
-Eurasians were inferred to both be $\approx20$ years, while the ancestral
-African generation intervals were at least 28 and 23 (see Figure S4 in
-\citet{wang2023human}). Using the same mutation model
+generations ago, average paternal and maternal generation intervals in the
+ancestors of Eurasians were inferred to both be $\approx20$ years, while the
+ancestral African generation intervals were at least 28 and 23 (see Figure S4
+in \citet{wang2023human}). Using the same mutation model
 \citep{jonsson2017parental}, we can determine the generation intervals in the
 isolated lineage that is needed to result in a mutation spectrum matching that
 of the inferred generation times (see Supporting Information).
@@ -215,14 +214,15 @@ lineages ($f$ and $1-f$, respectively) result in surviving variation from those
 epochs having similar proportions of contributions (in effect, ignoring
 differences in total mutation rate and demographic effects that may distort
 the magnitude of the contributed mutation spectra, see Supporting Information).
-With 10\% admixture into West Africans from a diverged lineage, the mean
-paternal age of conception would need to be 92 and the mean maternal age 48.
-These are unreasonably long generation times for \emph{Homo} species. With 20\%
-admixture from this diverged lineage (which is larger than has been proposed or
-inferred in previous genetic studies), mean ages would still need to be 58 and
-34. For the paternal average generation time to be less than 40, this model would
-require $f=0.4$ or that the inferred genetion times in the shared branch were
-considerably higher (Table~\ref{tab:structured-ages}).
+With 10\% admixture into the ancestors of West Africans from a diverged
+lineage, the mean paternal age of conception would need to be 92 and the mean
+maternal age 48.  These are unreasonably long generation times for \emph{Homo}
+species. With 20\% admixture from this diverged lineage (which is larger than
+has been proposed or inferred in previous genetic studies), mean ages would
+still need to be 58 and 34. For the paternal average generation time to be less
+than 40, this model would require $f=0.4$ or that the inferred generation times
+in the shared branch were considerably higher
+(Table~\ref{tab:structured-ages}).
 
 Therefore, even assuming a model of long-lasting population structure with
 strict isolation within Africa, we find the reconstructed generation time
@@ -230,7 +230,7 @@ intervals over the past 10,000 years from \citet{wang2023human} to be
 incompatible with plausible life histories of early humans. Given this, it is
 natural to ask what may be causing such mis-inference. Below we show that
 multiple sources of uncertainty, namely noise and bias in allele age inference
-and incosistencies in trio-base estimates of mutation profiles, confound
+and inconsistencies in trio-base estimates of mutation profiles, confound
 inferences of generation times from age-stratified mutation spectra.
 
 \subsection*{Inconsistencies in inferred mutation spectra over time}
@@ -244,7 +244,7 @@ recombination in reducing the size of that ancestral haplotype. Singletons are
 excluded from analysis and are not assigned an age. Partitioning variants by
 their estimated ages shows that the mutation spectrum has changed over time,
 assuming that the observed spectrum of segregating variation is not biased with
-respect to the spectrum of \emph{de novo} mutations occuring during that time
+respect to the spectrum of \emph{de novo} mutations occurring during that time
 (Figure~\ref{fig:spectrum-ages}A and see Figure 1C in \citet{wang2023human}).
 
 \begin{figure}[t!]
@@ -370,7 +370,7 @@ differences are unlikely to be driven by biological processes.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
 $0.02$, which would imply a large over- or under-count of different mutation
-types. This is the equivlent of 10s of thousands of SNPs in the most recent
+types. This is the equivalent of 10s of thousands of SNPs in the most recent
 bin, with the exact number depending on the variant-dating method.
 \GEVA, \tsdate and \relate, while their estimated mutation spectra differ at
 older times, closely agree for mutations inferred to be less than 100
@@ -401,7 +401,7 @@ among present-day Icelanders may not reflect average generation times in
 world-wide populations over the past 3-5 thousand years, represented by the
 most recent time bin in their analysis. Still more concerning is that we do not
 know the source of the discrepancy between the Iceland and 1KGP mutation
-spectra. Without knowing this, it is unclear that simply substracting the
+spectra. Without knowing this, it is unclear that simply subtracting the
 differences between them properly accounts for it. Instead, mutation
 class-specific genotyping differences may distort the underlying mutation
 model, potentially driving deviations in predicted mutation profiles in
