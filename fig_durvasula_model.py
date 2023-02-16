@@ -65,7 +65,7 @@ rect = patches.Rectangle(
 
 # Add the patch to the Axes
 ax.add_patch(rect)
-fig.text(0.15, 0.48, "$\sim300$ka", fontsize=6, va="center", ha="center")
+fig.text(0.15, 0.48, "$\sim250$ka", fontsize=6, va="center", ha="center")
 
 
-plt.savefig("durvasula_model.pdf")
+plt.savefig("plots/durvasula_model.pdf")

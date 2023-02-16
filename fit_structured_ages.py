@@ -30,15 +30,16 @@ def cost_func(ages, data, predict_spectrum, proportion=0.1, eur_ages=(22, 22)):
 
 # observed inferred ages (at 10k gens ago)
 obs_ages = (28, 23)
+eur_ages = (20, 20)
 
 # proportion of spectrum from ghost lineage
-proportion = 0.2
+proportion = 0.1
 
 data = predict_spectrum(obs_ages)
-args = (data, predict_spectrum, proportion)
+args = (data, predict_spectrum, proportion, eur_ages)
 
 ret = scipy.optimize.fmin_l_bfgs_b(
-    cost_func, (30, 30), args=args, approx_grad=True, bounds=[[10, 100], [10, 100]]
+    cost_func, (30, 30), args=args, approx_grad=True, bounds=[[10, 200], [10, 200]]
 )
 
 print(ret[0])
