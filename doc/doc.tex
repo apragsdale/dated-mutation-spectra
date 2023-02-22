@@ -45,8 +45,8 @@ historical human generation times}
     \noindent \citet{wang2023human} recently proposed an approach to infer the
     history of human generation intervals from changes in mutation profiles
     over time. As the relative proportions of different mutation types depend
-    on the ages of parents, binning variants by the time they arose allows
-    for the inference of average paternal and maternal generation times at past
+    on the ages of parents, binning variants by the time they arose allows for
+    the inference of average paternal and maternal generation intervals over
     times. Applying this approach to published allele age estimates,
     \citet{wang2023human} inferred long-lasting sex differences in average
     generation times and surprisingly found that ancestral generation times of
@@ -68,7 +68,7 @@ genetic genealogical structures of large unrelated cohorts
 comprised of a series of gene genealogies (or trees) along the genome.
 Reconstructed genealogies (or informative summaries of them) have the potential
 to transform population genetic inference. Biological and evolutionary
-processed determine the structure of these genealogies, including the
+processes determine the structure of these genealogies, including the
 distribution of mutations. In particular, the age of a variant can be estimated
 by mapping its mutation to the branch of the genealogy consistent with the
 observed data.
@@ -154,17 +154,17 @@ ragsdale2019models,lorente2019whole,durvasula2020recovering}.
         \textbf{A model for archaic admixture within Africa.} In such a model
         for ``ghost'' archaic introgression within Africa
         \citep{durvasula2020recovering}, an isolated lineage diverged prior to
-        the human-Neanderthal split and more recently contributed ancestry to
-        West African, but not European populations. The mutation spectrum of
-        West African populations among alleles dating to $\sim250-300$ka is due
-        to a combination of mutations from the ``shared'' and ``isolated''
-        lineages, while the European populations' spectrum from this time is
-        due to a combination from the ``shared'' and Neanderthal branches.
-        \citet{wang2023human} showed that masking Neanderthal segments in
-        Eurasian populations had a negligible effect on their inferred
-        generation time histories, so we ignore this small contribution when
-        comparing observed mutation spectra between West African and Eurasian
-        groups.
+        the human-Neanderthal split and more recently contributed ancestry
+        (with proportion $f$) to West African, but not European populations.
+        The mutation spectrum of West African populations among alleles dating
+        to $\sim250-300$ka is due to a combination of mutations from the
+        ``shared'' and ``isolated'' lineages, while the European populations'
+        spectrum from this time is due to a combination from the ``shared'' and
+        Neanderthal branches.  \citet{wang2023human} showed that masking
+        Neanderthal segments in Eurasian populations had a negligible effect on
+        their inferred generation time histories, so we ignore this small
+        contribution when comparing observed mutation spectra between West
+        African and Eurasian groups.
     }
     \label{fig:durvasula-model}
 \end{figure}
@@ -172,7 +172,7 @@ ragsdale2019models,lorente2019whole,durvasula2020recovering}.
 However, in extending their analysis deeper into the past,
 \citet{wang2023human} find that ancestral generation intervals do not converge
 until many 10s of thousands of generations ago. Assuming an average generation
-time of 25--30 years, this corresponds to roughly one million years or more.
+time of 25--30 years, this corresponds to one to two million years in the past.
 This observation would require some portion of the ancestries of Eurasian and
 West African populations to have remained isolated for many hundreds of
 thousands of years, for those structured ancestral populations to have had
@@ -347,7 +347,7 @@ fewer C$\rightarrow$G mutations, while \relate provides age estimates for
 relatively more C$\rightarrow$T and fewer A$\rightarrow$G mutations. This owes
 to methodological differences in evaluating whether a particular variant can be
 reliably dated, which may have both bioinformatic (e.g., genotyping and phasing
-error) and biological (e.g., recurrent mutations) causes. Therefore, when
+errors) and biological (e.g., recurrent mutations) causes. Therefore, when
 comparing mutation spectra that are conditioned on variants being dated by a
 particular method, it is not apparent which method, if any, provides unbiased
 estimates of age-stratified mutation spectra.
@@ -356,7 +356,7 @@ estimates of age-stratified mutation spectra.
 alleles}
 
 The large disagreements in mutation spectrum histories between multiple variant
-age-estimation methods are concerning for down-stream inferences that rely on
+age-estimation methods are concerning for downstream inferences that rely on
 them. Independent of biases in allele age estimate, there are further problems
 in comparing age-stratified mutation spectra to those estimated from pedigree
 studies \citep{jonsson2017parental,halldorsson2019characterizing}. As
@@ -394,7 +394,7 @@ by differences in coverage.
 To account for the differences between the \emph{de novo} spectrum from
 pedigree studies \citep{jonsson2017parental} and the spectrum among young
 variants, \citet{wang2023human} subtracted this difference from each historical
-mutation spectrum. This choice ``has the effect of assuming that parental ages
+mutation spectrum. ``[This choice] has the effect of assuming that parental ages
 in the pedigreed mutation dataset reflect generation times in the most recent
 historical bin'' \citep{wang2023human}. However, the average generation time
 among present-day Icelanders may not reflect average generation times in

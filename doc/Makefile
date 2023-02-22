@@ -7,6 +7,7 @@ doc.pdf: doc.tex doc.bib
 	pdflatex doc.tex
 	pdflatex supplement.tex
 	pdflatex doc.tex
+	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dPrinted=false -dNOPAUSE -dQUIET -dBATCH -sOutputFile=smalldoc.pdf doc.pdf
 
 doc.ps: doc.dvi
 	dvips doc
