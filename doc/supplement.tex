@@ -65,7 +65,7 @@ has been proposed to explain observed genetic variation in African populations
 allow for ongoing gene flow between
 lineages]{hey2018phylogeny,durvasula2020recovering,lorente2019whole}. In such
 models, a population that was isolated for hundreds of thousands of years
-contributed 5--10\% ancestry to West African populations.
+contributed 5--10\% ancestry to West African populations
 (Figure~\ref{fig:durvasula-model}). The remaining 90--95\% ancestry is shared
 between present-day Eurasian and West African populations, and this ancestry
 would have shared historical generation times. While other models of deep
@@ -100,7 +100,7 @@ We write our mutation model as $M(p, d)$, which takes paternal and maternal
 ages $p$ and $d$ and outputs the expected mutation spectrum. The inferred West
 African-ancestral paternal and maternal generation intervals were roughly 28
 and 23 years (see Figure S4 in \citet{wang2023human}). Then given the
-admixture proportion from the diverged lineage $f$, we found generation times
+admixture proportion $f$ from the diverged lineage, we found generation times
 $p_d$ and $m_d$ in the diverged lineage such that
 \begin{align*}
     M(28, 23) & = (1-f)M(20, 20) + fM(p_d, m_d).
@@ -204,11 +204,11 @@ The reconstructed genealogies from \citet{wohns2022unified} were downloaded
 from \url{https://zenodo.org/record/5512994}. Data for each chromosome arm were
 provided in tree sequence format, and mutation ages can be estimated from the
 upper and lower bounds of the genealogical edge on which it arose. We kept
-sites that were uniquely assigned to a single branch, and we considered
-variants that segregate among the subset of individuals from the AFR, EAS, EUR,
-and SAS Thousand Genomes Project superpopulations. For such sites, allele ages
-were found using the function \texttt{tsdate.sites\_time\_from\_ts(ts,
-node\_selection="arithmetic")}.
+sites with variants that were uniquely assigned to a single branch, and we
+considered variants that segregate among the subset of individuals from the
+AFR, EAS, EUR, and SAS Thousand Genomes Project superpopulations. For such
+sites, allele ages were found using the function
+\texttt{tsdate.sites\_time\_from\_ts(ts, node\_selection="arithmetic")}.
 
 \subsubsection*{Reference genomes} To determine triplet contexts for each
 mutation, we used the reference genomes for GRCh37 (\GEVA and \relate data) and
