@@ -257,8 +257,10 @@ respect to the spectrum of \emph{de novo} mutations occurring during that time
         (D-F) In fitting historical generation intervals to each observed
         mutation spectrum profile, none of the mutation spectrum histories
         observed in the data are recovered by the predicted spectra using the
-        inferred generation time histories. Trajectories are smoothed using
-        LOESS regression.
+        inferred generation time histories.
+        Figures~\ref{fig:geva-fit}--\ref{fig:tsdate-fit} show the mutation
+        spectrum histories from data overlayed with predictions. Trajectories
+        are smoothed using LOESS regression.
     }
     \label{fig:spectrum-ages}
 \end{figure}
@@ -346,11 +348,11 @@ proportions differ considerably (Figure~\ref{fig:data-comp}D). For example,
 fewer C$\rightarrow$G mutations, while \relate provides age estimates for
 relatively more C$\rightarrow$T and fewer A$\rightarrow$G mutations. This owes
 to methodological differences in evaluating whether a particular variant can be
-reliably dated, which may have both bioinformatic (e.g., genotyping and phasing
-errors) and biological (e.g., recurrent mutations) causes. Therefore, when
-comparing mutation spectra that are conditioned on variants being dated by a
-particular method, it is not apparent which method, if any, provides unbiased
-estimates of age-stratified mutation spectra.
+reliably dated, which may have both bioinformatic (e.g., genotyping, phasing
+and polarization errors) and biological (e.g., recurrent mutations) causes.
+Therefore, when comparing mutation spectra that are conditioned on variants
+being dated by a particular method, it is not apparent which method, if any,
+provides unbiased estimates of age-stratified mutation spectra.
 
 \subsection*{Mutation spectra differ between \emph{de novo} mutations and young
 alleles}
@@ -423,7 +425,9 @@ may be driven by genotyping error or bioinformatics choices, though the
 agreement between high- and low-coverage 1KGP datasets suggests that genotyping
 error does not have a strong effect in the 1KGP data. Instead, filtering and
 bioinformatics choices in the pedigree approach are the likely culprit
-\citep{bergeron2022mutationathon}. Until the source of these differences are
+\citep[][and see Figure 3, supplement 2 in
+\citet{gao2023limited}]{bergeron2022mutationathon}.
+Until the source of these differences are
 understood and properly accounted for, we caution that
 population-genetic inferences should
 avoid calibration using mutation rates and profiles from pedigree studies.
