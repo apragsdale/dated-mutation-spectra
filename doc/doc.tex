@@ -436,6 +436,51 @@ understood and properly accounted for, we caution that
 population-genetic inferences should
 avoid calibration using mutation rates and profiles from pedigree studies.
 
+\subsection*{Summary of previous simulation studies}
+
+\cite{brandt2022evaluation} looked at argweaver, relate and tsinfer/tsdate.
+argweaver is not relevant here.
+They focus on the mean squared errors (MSE) of estimated coalescence times.
+Sadly, the SI material genetics seems broken so we go to the preprint at \url{https://www.biorxiv.org/content/10.1101/2021.11.15.468686v4}.
+
+Their results:
+
+\begin{enumerate}
+    \item Figure S1: relate and tsinfer/tsdate tend to underestimate pairwise coalescence times. (The latter looks especially bad.)
+    \item Figure S2: The MSE of the estimate coalescence time increases with increasing true coalescence time.
+    \item Figure S2: All programs OVER estimate recent times and UNDER estimate older times.
+    \item Figure S2: The sims have mutation rate equal to the recombination rate.
+\end{enumerate}
+
+From this: the MSE is very low (looks zero-ish) for recent times, but large for older times.
+From their results, downstream analyses that either take point estimates at face value or bin point estimates 
+will have inaccurate point estimates or estimates moving into the wrong bins for older nodes/mutations.
+
+All of these simulations are highly idealized--the methods say,
+"all sims done under standard coalescent w/recombination" and cite Hudson 1983.
+
+From the GEVA paper \citep{albers2020dating}:
+
+\begin{enumerate}
+    \item Fig 2A shows results based on simulations comparable to \cite{brandt2022evaluation}, but with much larger sample size.
+          GEVA works very well for this case.
+    \item For "complex demography" and perfect data, Fig 2B shows a tendancy to over-estimate recent times and under estimate older times.
+    \item These trends get more pronounced for imperfect data (Fig 2B bottom panels.)
+    \item The SI figs converge on a story (by SI Fig 3) that complex demography + data (genotyping) error gives the same types of biases as described by Brandt et al.
+          (Phasing seems to make things a touch worse -- SI Fig 4.)
+\end{enumerate}
+
+Complex demography means the Gutenkunst model.
+Simulating data errors means introducing genotyping errors to mimic what they think is reasonable in light of real data.
+They also add additional error for some results by adding a phasing step.
+
+I would argue that none of this explains what is going on in the real analysis!
+If older mutations usually end up in wrong time bins, that should be equally likely for all mutation classes.
+But that is NOT what we see!
+If we were to simulate data where we mess around with the transition matrix in different time epochs (and mess with the mutation rate to fake changes in generation time),
+I doubt that we'd mimic mutation class A showing a different pattern from B.
+It would seem that what we see much be some \textit{technical} issue that we still don't understand?
+
 \subsection*{Conclusions}
 
 Large-scale reconstruction of gene genealogies, dating mutations, and
