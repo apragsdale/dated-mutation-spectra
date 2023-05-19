@@ -464,7 +464,7 @@ From the GEVA paper \citep{albers2020dating}:
 \begin{enumerate}
     \item Fig 2A shows results based on simulations comparable to \cite{brandt2022evaluation}, but with much larger sample size.
           GEVA works very well for this case.
-    \item For "complex demography" and perfect data, Fig 2B shows a tendancy to over-estimate recent times and under estimate older times.
+    \item For "complex demography" and perfect data, Fig 2B shows a tendency to over-estimate recent times and under estimate older times.
     \item These trends get more pronounced for imperfect data (Fig 2B bottom panels.)
     \item The SI figs converge on a story (by SI Fig 3) that complex demography + data (genotyping) error gives the same types of biases as described by Brandt et al.
           (Phasing seems to make things a touch worse -- SI Fig 4.)
@@ -480,6 +480,33 @@ But that is NOT what we see!
 If we were to simulate data where we mess around with the transition matrix in different time epochs (and mess with the mutation rate to fake changes in generation time),
 I doubt that we'd mimic mutation class A showing a different pattern from B.
 It would seem that what we see much be some \textit{technical} issue that we still don't understand?
+
+\subsection*{Prose re: simulation results}
+
+\textit{I don't know quite where to put this yet.}
+
+Previous work have evaluated the performance of \GEVA, \relate, and of \tsdate using coalescent
+simulation \citep{brandt2022evaluation, albers2020dating}.
+For data simulated under neutral models with constant population size, and assuming perfect data,
+\relate and \tsdate tend to overestimate recent coalescent times and underestimate older times \citep{brandt2022evaluation}.
+For this same case, \GEVA will tend to overestimate "intermediate" times and underestimate
+older times \cite[see][Fig S1]{albers2020dating}.
+Under demographic models inferred for human populations, \GEVA will begins to show the same behavior
+as \relate and \tsdate, over- and under- estimating recent and older times,
+respectively \cite[][Fig S2]{albers2020dating}.
+Genotyping and phasing errors exacerbate these biases \cite[][Figs S3 and S4]{albers2020dating}.
+\cite{brandt2022evaluation} did not perform simulations under such conditions.
+For \relate and \tsdate, the mean squared error (MSE) of node ages increases for more ancient nodes \cite{brandt2022evaluation}.
+\cite{albers2020dating} did not provide a comparable evaluation for \GEVA.
+
+The accuracy of mutation age estimates is determined by the accuracy of the coalescent time estimates (node ages).
+We therefore expect the ages of recent mutations to be overestimated and the ages of older variants to be underestimated.
+Analyses that "bin" mutations into time windows will tend to have older mutations placed into incorrect bins
+(due to the higher MSE of the age estimates).
+
+While estimation errors may contribute to the poor fit of the mutation spectra to the data (\ref{fig:spectrum-ages}),
+it is not clear why different mutation types (A to T, etc.) should be affected different nor why
+they should give different inferences about generation time \cite[all see][]{gao2023limited}.
 
 \subsection*{Conclusions}
 
