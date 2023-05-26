@@ -123,8 +123,8 @@ should continue to be evaluated for subtle biases, and that
 downstream analyses using estimated allele ages and mutation profiles should
 carefully validate their results.
 
-\subsection*{Long-lasting generation time differences are inconsistent with current
-human history models}
+\subsection*{Long-lasting generation time differences are inconsistent with
+current models of human history}
 
 Applying the proposed inference approach to multiple populations of different
 continental ancestries, \citet{wang2023human} estimated that the ancestors of
@@ -282,19 +282,19 @@ estimated allele ages from the distant past have decreased accuracy
 suggests a bias in \GEVA's reported dates that correlates with mutation type.
 
 Accurate dating of variant ages is central to the inference of generation
-intervals from time-stratified mutation spectra.
-Given the poor fit of the model to the \GEVA data and the known uncertainty in
-age estimation for older variants, we attempted to reproduce the inferred
-generation time histories using allele age estimates from independent sources,
-\relate \citep{speidel2019method} and \tsdate \citep{wohns2022unified}, both
-state-of-the-art genealogical reconstruction methods able to scale to modern sample sizes. 
-The ages of variants
-dated by at least two of the methods are only moderately correlated (\GEVA and
-\relate: $r^2 \approx 0.28$, \GEVA and \tsdate: $r^2 \approx 0.33$, \tsdate
-and \relate: $r^2 \approx 0.64$; Figure~\ref{fig:data-comp}A-C and see Figure
-S20 from \citet{wohns2022unified}). Imperfect correlations should be expected,
-as genealogical reconstruction methods have been shown to vary in the accuracy
-of estimated $T_{MRCA}$ \citep{brandt2022evaluation}.
+intervals from time-stratified mutation spectra.  Given the poor fit of the
+model to the \GEVA data and the known uncertainty in age estimation for older
+variants, we attempted to reproduce the inferred generation time histories
+using allele age estimates from independent sources, \relate
+\citep{speidel2019method} and \tsdate \citep{wohns2022unified}, both
+state-of-the-art genealogical reconstruction methods able to scale to modern
+sample sizes.  The ages of variants dated by at least two of the methods are
+only moderately correlated (\GEVA and \relate: $r^2 \approx 0.28$, \GEVA and
+\tsdate: $r^2 \approx 0.33$, \tsdate and \relate: $r^2 \approx 0.64$;
+Figure~\ref{fig:data-comp}A-C and see Figure S20 from
+\citet{wohns2022unified}). Imperfect correlations should be expected, as
+genealogical reconstruction methods have been shown to vary in the accuracy of
+estimated $T_{MRCA}$ \citep{brandt2022evaluation}.
 
 \begin{figure}[t!]
     \centering
@@ -320,25 +320,22 @@ of estimated $T_{MRCA}$ \citep{brandt2022evaluation}.
 \end{figure}
 
 Despite the imperfect correlation, it is still possible that differences in
-estimate allele ages are unbiased with respect to mutation type.
-However, we find that ages provided by each method disagree
-at the level of individual mutation
-spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
-\ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with 
-changes in mutation proportions
-often trending in opposite directions over the same time periods. In
-turn, these divergent spectrum histories provide qualitatively different
+estimate allele ages are unbiased with respect to mutation type. However, we
+find that ages provided by each method disagree at the level of individual
+mutation spectrum histories (Figures~\ref{fig:spectrum-ages}A-C and
+\ref{fig:geva-spectra}--\ref{fig:tsdate-spectra}), with changes in mutation
+proportions often trending in opposite directions over the same time periods.
+In turn, these divergent spectrum histories provide qualitatively different
 inferred generation time histories
-(Figures~\ref{fig:geva-gen-times}--\ref{fig:tsdate-gen-times}). None
-of them provide a reasonable fit to the data (Figure
-\ref{fig:spectrum-ages}D-F).
+(Figures~\ref{fig:geva-gen-times}--\ref{fig:tsdate-gen-times}). None of them
+provide a reasonable fit to the data (Figure \ref{fig:spectrum-ages}D-F).
 
 Published allele ages from both \citet{albers2020dating} (\GEVA) and
 \citet{speidel2019method} (\relate) used the same input dataset: the phase 3
 release of 1KGP. However, they differ in the total number of variants that were
-assigned ages (roughly 30 million and 48 million, respectively).  \GEVA and
+assigned ages (roughly 30 million and 48 million, respectively). \GEVA and
 \relate provide allele age estimates for data that is consistent with certain
-assumptions, such as allowing only a single mutation at a given site.  For
+assumptions, such as allowing only a single mutation at a given site. For
 multi-allelic mutations or those that are inconsistent with the underlying tree
 topology, \relate and \tsdate retain this data by allowing multiple mutations
 at a site, although such sites are discarded from downstream analyses. Of
@@ -356,10 +353,39 @@ while \relate provides age estimates for relatively more C$\rightarrow$T and
 fewer A$\rightarrow$G mutations. This owes to methodological differences in
 evaluating whether a particular variant can be reliably dated, which may have
 both bioinformatic (e.g., genotyping, phasing and polarization errors) and
-biological (e.g., recurrent mutations) causes.  Therefore, when comparing
+biological (e.g., recurrent mutations) causes. Therefore, when comparing
 mutation spectra that are conditioned on variants being dated by a particular
 method, it is not apparent which method, if any, provides unbiased estimates of
 age-stratified mutation spectra.
+
+\subsubsection*{Uncertainty in allele age inference}
+
+In genealogical reconstruction methods, the accuracy of mutation age esimates
+is determined by the accuracy of coalescent time estimates. Previous studies
+have evaluated the performance of \relate, \tsdate and \GEVA using coalescent
+simulations \citep{brandt2022evaluation,albers2020dating}. Each method assumes
+a constant underlying mutation rate and information about mutation types is
+unused, while some (such as \relate) currently allow for population size
+changes to be coestimated with the genealogies. For data simulated under
+neutral models with constant population size and assuming perfect data, \relate
+and \tsdate tend to overestimate recent coalescent times and underestimate
+older times \citep{brandt2022evaluation}, and \GEVA overestimates
+``intermediate'' times and underestimates older times \citep{albers2020dating}.
+Mean squared error (MSE) of coalescent times also increases for more ancient
+nodes \citep{brandt2022evaluation}, and more complex demographic scenarios and
+genotyping and phasing errors exacerbate these biases.
+
+We therefore expect the ages of recent mutations to be overestimated and the
+ages of older variants to be underestimated. Analyses that bin mutations into
+time windows (as done here) will tend to place older mutations into incorrect
+bins due to the higher MSE of the age estimates, although accounting for this
+uncertainty by weighting mutation contributions to bins assuming a uniform
+density of mutations along each branch does not reconcile differences between
+methods (Figures~\ref{fig:geva-CI} and \ref{fig:relate-CI}). While estimation
+errors may contribute to the poor fit between model and data
+(Figure~\ref{fig:spectrum-ages}), it is not clear why mutation types should be
+affected differently nor why they should give different inferences about
+generation times \citep{gao2023limited}.
 
 \subsection*{Mutation spectra differ between \emph{de novo} mutations and young
 alleles}
@@ -372,19 +398,11 @@ identified in Icelandic trios \citep{jonsson2017parental} differs from the
 spectrum of young segregating variation (e.g., variants estimated to be less
     than 100 generations old, Figure~\ref{fig:data-comp}E and
 Table~\ref{tab:recent-spectra}). 
-%\citet{gao2023limited} argue that these
-%differences are unlikely to be driven by biological processes. Because such
-%mutations occurred recently, these discrepancies would require strong
-%mutation-type-specific selection or large recent shifts in the \emph{de novo}
-%mutation spectrum.
 For some mutation classes, the relative proportion of \emph{de novo} mutations
 in the trio-based study differs from the young-variant spectrum by up to
-$0.02$, which would imply a large over- or under-count of different mutation
-types. This is the equivalent of 10s of thousands of SNPs in the most recent
-bin, with the exact number depending on the variant-dating method. While
-estimated mutation spectra from \GEVA, \tsdate and \relate differ at older
-times, they closely agree for mutations inferred to be less than 100
-generations old (Table~\ref{tab:recent-spectra}).
+$2\%$, which would imply a large over- or under-count of different mutation
+types. This is the equivalent of tens of thousands of SNPs in the most recent
+bin, with the exact number depending on the variant-dating method.
 
 In discussing this discrepancy, \citet{wang2023human} state, ``We found that
 the mutation spectrum from the large pedigree study consistently differed from
@@ -393,9 +411,12 @@ because we removed singletons from the polymorphism dataset to reduce errors.''
 While \GEVA does not provide estimates of allele ages for singletons, both
 \tsdate and \relate do report singleton allele ages, and their inclusion does
 not strongly affect the mutation spectrum for very young variants
-(Table~\ref{tab:recent-spectra}), though it does impact the mutation profiles
-in older time periods (Figures~\ref{fig:relate-spectra-singletons},
-\ref{fig:tsdate-spectra-singletons}). Reported ages from \GEVA and \relate both
+(Table~\ref{tab:recent-spectra}). While the inclusions of singletons does
+impact\ the mutation profiles in older time periods
+(Figures~\ref{fig:relate-spectra-singletons},
+\ref{fig:tsdate-spectra-singletons}), \GEVA, \tsdate and \relate each closely
+agree for mutations inferred to be less than 100 generations old
+(Table~\ref{tab:recent-spectra}). Reported ages from \GEVA and \relate both
 used the low-coverage phase 3 1KGP data while \tsdate used the more recent
 independently sequenced high-coverage 1KGP data \citep{byrska2022high}, so the
 accuracy of the mutation spectrum among young variants is unlikely to be driven
@@ -417,111 +438,109 @@ class-specific genotyping differences may distort the underlying mutation
 model, potentially driving deviations in predicted mutation profiles in
 unexpected ways.
 
-What could be driving the large disagreement between the spectrum of \emph{de
-novo} mutations from Icelandic pedigrees and that of young variants in the 1KGP
+What causes the large disagreement between the spectrum of \emph{de novo}
+mutations from Icelandic pedigrees and that of young variants in the 1KGP
 dataset? First, there could be true differences in the mutation spectrum
-between the Iceland cohort and 1KGP populations, although this seems unlikely, as
-populations of different ancestries in 1KGP have more similar recent mutation
-spectra to each other than to the Iceland \emph{de novo} spectrum (including
-the EUR populations, Table~\ref{tab:population-spectra}). If the differences
-are real, then the Icelandic pedigree data is an inappropriate calibration for
-the mutation spectrum in other populations. Second, there could be differences
-in selective pressures between mutations of different classes, although
-selection would need to be very strong for some classes compared to others in
-order to see the observed difference among young variants.  Third, the signal
-may be driven by genotyping error or bioinformatics choices, though the
-agreement between high- and low-coverage 1KGP datasets suggests that genotyping
-error does not have a strong effect in the 1KGP data. Instead, filtering and
-bioinformatics choices in the pedigree approach are the likely culprit
-\citep{bergeron2022mutationathon}.
-Indeed, \citet{gao2023limited} show that two studies of Icelandic trios that
-partially overlap in families that were included
-\citep{jonsson2017parental,halldorsson2019characterizing} estimate
-significantly different \emph{de novo} mutation spectra due to filtering
-choices (see Figure 3, supplement 2 in \citet{gao2023limited}).
-Until the source of these differences are
-understood and properly accounted for, we caution that
-population-genetic inferences should
-avoid calibration using mutation rates and profiles from pedigree studies.
+between the Iceland cohort and 1KGP populations, although this seems unlikely,
+as populations of different ancestries in 1KGP have more similar recent
+mutation spectra to each other than to the Iceland \emph{de novo} spectrum
+(including the EUR populations, Table~\ref{tab:population-spectra}). If the
+differences are real, then the Icelandic pedigree data is an inappropriate
+calibration for the mutation spectrum in other populations. Second, there could
+be differences in selective pressures between mutations of different classes.
+However, selection would need to be very strong for some mutation classes
+compared to others in order to see the observed difference among young
+variants. Third, the signal may be driven by genotyping error or bioinformatics
+choices. The agreement between high- and low-coverage 1KGP datasets suggests
+that genotyping error does not have a strong effect in the 1KGP data. Instead,
+filtering and bioinformatics choices in the pedigree approach are the likely
+culprit \citep{bergeron2022mutationathon}. Indeed, \citet{gao2023limited} show
+that two studies of Icelandic trios that partially overlap in families that
+were included \citep{jonsson2017parental,halldorsson2019characterizing}
+estimate significantly different \emph{de novo} mutation spectra due to
+filtering choices (see Figure 3, supplement 2 in \citeauthor{gao2023limited}).
+Until the source of these differences are understood and properly accounted
+for, we caution that population-genetic inferences should avoid calibration
+using mutation rates and profiles from pedigree studies.
 
-\subsection*{Summary of previous simulation studies}
-
-\cite{brandt2022evaluation} looked at argweaver, relate and tsinfer/tsdate.
-argweaver is not relevant here.
-They focus on the mean squared errors (MSE) of estimated coalescence times.
-Sadly, the SI material genetics seems broken so we go to the preprint at \url{https://www.biorxiv.org/content/10.1101/2021.11.15.468686v4}.
-
-Their results:
-
-\begin{enumerate}
-    \item Figure S1: relate and tsinfer/tsdate tend to underestimate pairwise coalescence times. (The latter looks especially bad.)
-    \item Figure S2: The MSE of the estimate coalescence time increases with increasing true coalescence time.
-    \item Figure S2: All programs OVER estimate recent times and UNDER estimate older times.
-    \item Figure S2: The sims have mutation rate equal to the recombination rate.
-\end{enumerate}
-
-From this: the MSE is very low (looks zero-ish) for recent times, but large for older times.
-From their results, downstream analyses that either take point estimates at face value or bin point estimates 
-will have inaccurate point estimates or estimates moving into the wrong bins for older nodes/mutations.
-
-All of these simulations are highly idealized--the methods say,
-"all sims done under standard coalescent w/recombination" and cite Hudson 1983.
-
-From the GEVA paper \citep{albers2020dating}:
-
-\begin{enumerate}
-    \item Fig 2A shows results based on simulations comparable to \cite{brandt2022evaluation}, but with much larger sample size.
-          GEVA works very well for this case.
-    \item For "complex demography" and perfect data, Fig 2B shows a tendency to over-estimate recent times and under estimate older times.
-    \item These trends get more pronounced for imperfect data (Fig 2B bottom panels.)
-    \item The SI figs converge on a story (by SI Fig 3) that complex demography + data (genotyping) error gives the same types of biases as described by Brandt et al.
-          (Phasing seems to make things a touch worse -- SI Fig 4.)
-\end{enumerate}
-
-Complex demography means the Gutenkunst model.
-Simulating data errors means introducing genotyping errors to mimic what they think is reasonable in light of real data.
-They also add additional error for some results by adding a phasing step.
-
-I would argue that none of this explains what is going on in the real analysis!
-If older mutations usually end up in wrong time bins, that should be equally likely for all mutation classes.
-But that is NOT what we see!
-If we were to simulate data where we mess around with the transition matrix in different time epochs (and mess with the mutation rate to fake changes in generation time),
-I doubt that we'd mimic mutation class A showing a different pattern from B.
-It would seem that what we see much be some \textit{technical} issue that we still don't understand?
-
-\subsection*{Prose re: simulation results}
-
-\aprcomment{Seems we could have a short discussion-y section on this, as well
-as some of the assumptions that go into the methods (such as constancy of
-mutation rates, and that information about the mutation types are unseen and
-unused by the tree sequence reconstruction approache). This would also satisfy
-some of reviewer 1's requests for discussion.}
-
-\textit{I don't know quite where to put this yet.}
-
-Previous work have evaluated the performance of \GEVA, \relate, and of \tsdate using coalescent
-simulation \citep{brandt2022evaluation, albers2020dating}.
-For data simulated under neutral models with constant population size, and assuming perfect data,
-\relate and \tsdate tend to overestimate recent coalescent times and underestimate older times \citep{brandt2022evaluation}.
-For this same case, \GEVA will tend to overestimate "intermediate" times and underestimate
-older times \cite[see][Fig S1]{albers2020dating}.
-Under demographic models inferred for human populations, \GEVA will begins to show the same behavior
-as \relate and \tsdate, over- and under- estimating recent and older times,
-respectively \cite[][Fig S2]{albers2020dating}.
-Genotyping and phasing errors exacerbate these biases \cite[][Figs S3 and S4]{albers2020dating}.
-\cite{brandt2022evaluation} did not perform simulations under such conditions.
-For \relate and \tsdate, the mean squared error (MSE) of node ages increases for more ancient nodes \cite{brandt2022evaluation}.
-\cite{albers2020dating} did not provide a comparable evaluation for \GEVA.
-
-The accuracy of mutation age estimates is determined by the accuracy of the coalescent time estimates (node ages).
-We therefore expect the ages of recent mutations to be overestimated and the ages of older variants to be underestimated.
-Analyses that "bin" mutations into time windows will tend to have older mutations placed into incorrect bins
-(due to the higher MSE of the age estimates).
-
-While estimation errors may contribute to the poor fit of the mutation spectra to the data (\ref{fig:spectrum-ages}),
-it is not clear why different mutation types (A to T, etc.) should be affected different nor why
-they should give different inferences about generation time \cite[all see][]{gao2023limited}.
-(Mumble mumble something else msut be happening.)
+%\subsection*{Summary of previous simulation studies}
+%
+%\cite{brandt2022evaluation} looked at argweaver, relate and tsinfer/tsdate.
+%argweaver is not relevant here.
+%They focus on the mean squared errors (MSE) of estimated coalescence times.
+%Sadly, the SI material genetics seems broken so we go to the preprint at \url{https://www.biorxiv.org/content/10.1101/2021.11.15.468686v4}.
+%
+%Their results:
+%
+%\begin{enumerate}
+%    \item Figure S1: relate and tsinfer/tsdate tend to underestimate pairwise coalescence times. (The latter looks especially bad.)
+%    \item Figure S2: The MSE of the estimate coalescence time increases with increasing true coalescence time.
+%    \item Figure S2: All programs OVER estimate recent times and UNDER estimate older times.
+%    \item Figure S2: The sims have mutation rate equal to the recombination rate.
+%\end{enumerate}
+%
+%From this: the MSE is very low (looks zero-ish) for recent times, but large for older times.
+%From their results, downstream analyses that either take point estimates at face value or bin point estimates 
+%will have inaccurate point estimates or estimates moving into the wrong bins for older nodes/mutations.
+%
+%All of these simulations are highly idealized--the methods say,
+%"all sims done under standard coalescent w/recombination" and cite Hudson 1983.
+%
+%From the GEVA paper \citep{albers2020dating}:
+%
+%\begin{enumerate}
+%    \item Fig 2A shows results based on simulations comparable to \cite{brandt2022evaluation}, but with much larger sample size.
+%          GEVA works very well for this case.
+%    \item For "complex demography" and perfect data, Fig 2B shows a tendency to over-estimate recent times and under estimate older times.
+%    \item These trends get more pronounced for imperfect data (Fig 2B bottom panels.)
+%    \item The SI figs converge on a story (by SI Fig 3) that complex demography + data (genotyping) error gives the same types of biases as described by Brandt et al.
+%          (Phasing seems to make things a touch worse -- SI Fig 4.)
+%\end{enumerate}
+%
+%Complex demography means the Gutenkunst model.
+%Simulating data errors means introducing genotyping errors to mimic what they think is reasonable in light of real data.
+%They also add additional error for some results by adding a phasing step.
+%
+%I would argue that none of this explains what is going on in the real analysis!
+%If older mutations usually end up in wrong time bins, that should be equally likely for all mutation classes.
+%But that is NOT what we see!
+%If we were to simulate data where we mess around with the transition matrix in different time epochs (and mess with the mutation rate to fake changes in generation time),
+%I doubt that we'd mimic mutation class A showing a different pattern from B.
+%It would seem that what we see much be some \textit{technical} issue that we still don't understand?
+%
+%\subsection*{Prose re: simulation results}
+%
+%\aprcomment{Seems we could have a short discussion-y section on this, as well
+%as some of the assumptions that go into the methods (such as constancy of
+%mutation rates, and that information about the mutation types are unseen and
+%unused by the tree sequence reconstruction approache). This would also satisfy
+%some of reviewer 1's requests for discussion.}
+%
+%\textit{I don't know quite where to put this yet.}
+%
+%Previous work have evaluated the performance of \GEVA, \relate, and of \tsdate using coalescent
+%simulation \citep{brandt2022evaluation, albers2020dating}.
+%For data simulated under neutral models with constant population size, and assuming perfect data,
+%\relate and \tsdate tend to overestimate recent coalescent times and underestimate older times \citep{brandt2022evaluation}.
+%For this same case, \GEVA will tend to overestimate "intermediate" times and underestimate
+%older times \cite[see][Fig S1]{albers2020dating}.
+%Under demographic models inferred for human populations, \GEVA will begins to show the same behavior
+%as \relate and \tsdate, over- and under- estimating recent and older times,
+%respectively \cite[][Fig S2]{albers2020dating}.
+%Genotyping and phasing errors exacerbate these biases \cite[][Figs S3 and S4]{albers2020dating}.
+%\cite{brandt2022evaluation} did not perform simulations under such conditions.
+%For \relate and \tsdate, the mean squared error (MSE) of node ages increases for more ancient nodes \cite{brandt2022evaluation}.
+%\cite{albers2020dating} did not provide a comparable evaluation for \GEVA.
+%
+%The accuracy of mutation age estimates is determined by the accuracy of the coalescent time estimates (node ages).
+%We therefore expect the ages of recent mutations to be overestimated and the ages of older variants to be underestimated.
+%Analyses that "bin" mutations into time windows will tend to have older mutations placed into incorrect bins
+%(due to the higher MSE of the age estimates).
+%
+%While estimation errors may contribute to the poor fit of the mutation spectra to the data (\ref{fig:spectrum-ages}),
+%it is not clear why different mutation types (A to T, etc.) should be affected different nor why
+%they should give different inferences about generation time \cite[all see][]{gao2023limited}.
+%(Mumble mumble something else msut be happening.)
 
 \subsection*{Conclusions}
 
