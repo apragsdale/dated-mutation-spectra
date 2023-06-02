@@ -52,7 +52,8 @@ historical human generation times''}
 
 \section*{Supplemental methods}
 
-\subsection*{Generation times needed to explain long-lasting differences between populations}
+\subsection*{Generation times needed to explain long-lasting
+differences between populations}
 
 Using the reported generation intervals from \citet{wang2023human} (as shown in
 Figure S4 in their supplemental material), we explored scenarios that could
@@ -61,7 +62,7 @@ five to ten thousand generations ago, corresponding to 150-300ka. As discussed
 in the main text, a 5-10 year difference in generation intervals would require
 long-lasting structure. Admixture from an unidentified, diverged human lineage
 has been proposed to explain observed genetic variation in African populations
-\citep[e.g.,][but see \citet{ragsdale2022weakly} for alternative models that
+\citep[e.g.,][but see \citet{ragsdale2023weakly} for alternative models that
 allow for ongoing gene flow between
 lineages]{hey2018phylogeny,durvasula2020recovering,lorente2019whole}. In such
 models, a population that was isolated for hundreds of thousands of years
@@ -97,11 +98,16 @@ likely that none of these assumptions perfectly hold, but these are the same
 assumptions in the original inference of generation time histories.
 
 We write our mutation model as $M(p, d)$, which takes paternal and maternal
-ages $p$ and $d$ and outputs the expected mutation spectrum. The inferred West
-African-ancestral paternal and maternal generation intervals were roughly 28
-and 23 years (see Figure S4 in \citet{wang2023human}). Then given the
-admixture proportion $f$ from the diverged lineage, we found generation times
-$p_d$ and $m_d$ in the diverged lineage such that
+ages $p$ and $d$ and outputs the expected mutation spectrum. The output
+mutation spectrum is the relative proportions of each mutation type (which sums
+to 1), and it is fit to data by minimizing the Aitchisondistance between the
+centered log-ratio tranform of both the data and expected spectra (as described
+in Section S3.1 in \citet{wang2023human}).
+
+The inferred West African-ancestral paternal and maternal generation intervals
+were roughly 28 and 23 years (see Figure S4 in \citet{wang2023human}). Then
+given the admixture proportion $f$ from the diverged lineage, we found
+generation times $p_d$ and $m_d$ in the diverged lineage such that
 \begin{align*}
     M(28, 23) & = (1-f)M(20, 20) + fM(p_d, m_d).
 \end{align*}
@@ -210,12 +216,36 @@ AFR, EAS, EUR, and SAS Thousand Genomes Project superpopulations. For such
 sites, allele ages were found using the function
 \texttt{tsdate.sites\_time\_from\_ts(ts, node\_selection="arithmetic")}.
 
+\subsubsection*{Distributing allele weights over branches}
+
+Instead of taking the midpoints of branches a mutation is mapped to as the
+allele age (in \relate and \tsdate) or the reported median age from \GEVA, we
+also accounted for uncertainty in the placement of the mutation along each
+branch. To do so, we assumed that mutations are distributed uniformly along
+each branch, so if a branch spans multiple time bins, the mutation contributes
+to each of those time bins relative to the proportion of the branch that
+overlaps with each bin. In \GEVA, we similarly accounted for uncertainty in the
+allele age by uniformly distributing the contribution of the mutation to
+(potentially) multiple bins using the 95\% upper and lower confidence interval
+bounds. Figures~\ref{fig:geva-CI} and \ref{fig:relate-CI} show that this approach
+results in qualitatively similar mutation spectra to taking the midpoint/median
+allele age estimates.
+
 \subsubsection*{Reference genomes} To determine triplet contexts for each
 mutation, we used the reference genomes for GRCh37 (\GEVA and \relate data) and
 GRCH38 (\tsdate data). These were downloaded from
 \url{http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/} and
 \url{https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/},
 respectively.
+
+\subsubsection{Summarizing data within time bins}
+
+Within each time bin, we work with the relative proportions of observed
+mutations of each of the six mutation times. Percent changes (as shown in
+Figure~\ref{fig:spectrum-ages}) are the changes in proportion (multiplied
+by 100) of each mutation class relative to the mutation spectrum in the
+most recent time bin in the dataset with all populations combined. This
+follows the summarization approach taken by \citet{wang2023human}.
 
 \subsubsection*{Data availability}
 
@@ -225,6 +255,8 @@ the above URLs. Python scripts to run analyses described here are available at
 
 \bibliographystyle{genetics}
 \bibliography{doc}
+
+\clearpage
 
 \section*{Tables and figures}
 
@@ -291,7 +323,12 @@ the above URLs. Python scripts to run analyses described here are available at
         \label{tab:population-spectra}
         \textbf{Mutation profiles from the past 100 generations in continental
         population groups.}
-        \aprcomment{caption}
+        For mutations that are inferred to be young,
+        the mutation spectra are largely consistent across population groups
+        as well as methods.
+        As shown in Table~\ref{tab:recent-spectra} and Figure~\ref{fig:data-comp}E,
+        these differ from the \emph{de novo}  mutation spectrum inferred from 
+        Icelandic trios.
     }
 \end{table}
 
@@ -302,7 +339,9 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.geva.max_age.10000.pdf}
     \caption{
         \textbf{\GEVA-inferred mutation spectrum history.}
-        \aprcomment{caption}
+        Extending to 10,000 generations in the past, the mutation spectrum history
+        from allele ages estimated by \GEVA matches the spectrum history in
+        \citet{wang2023human}.
     }
     \label{fig:geva-spectra}
 \end{figure}
@@ -312,8 +351,7 @@ the above URLs. Python scripts to run analyses described here are available at
     \centering
     \includegraphics[width=\textwidth]{../plots/spectrum_history.relate.max_age.10000.pdf}
     \caption{
-        \textbf{\relate-inferred mutation spectrum history.}
-        \aprcomment{caption}
+        \textbf{\relate-inferred mutation spectrum history over 10,000 generations.}
     }
     \label{fig:relate-spectra}
 \end{figure}
@@ -323,8 +361,7 @@ the above URLs. Python scripts to run analyses described here are available at
     \centering
     \includegraphics[width=\textwidth]{../plots/spectrum_history.tsdate.max_age.10000.pdf}
     \caption{
-        \textbf{\tsdate-inferred mutation spectrum history.}
-        \aprcomment{caption}
+        \textbf{\tsdate-inferred mutation spectrum history over 10,000 generations.}
     }
     \label{fig:tsdate-spectra}
 \end{figure}
@@ -335,7 +372,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.geva.max_age.80000.pdf}
     \caption{
         \textbf{\GEVA-inferred mutation spectrum history, extending to 80,000 generations.}
-        \aprcomment{caption}
     }
     \label{fig:geva-spectra-80k}
 \end{figure}
@@ -346,7 +382,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.relate.max_age.80000.pdf}
     \caption{
         \textbf{\relate-inferred mutation spectrum history, extending to 80,000 generations.}
-        \aprcomment{caption}
     }
     \label{fig:geva-spectra-80k}
 \end{figure}
@@ -357,7 +392,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.tsdate.max_age.80000.pdf}
     \caption{
         \textbf{\tsdate-inferred mutation spectrum history, extending to 80,000 generations.}
-        \aprcomment{caption}
     }
     \label{fig:geva-spectra-80k}
 \end{figure}
@@ -368,7 +402,9 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.relate.max_age.10000.singletons.pdf}
     \caption{
         \textbf{\relate-inferred mutation spectrum history, including singletons.}
-        \aprcomment{caption}
+        The inclusion of singletons has only a small effect on the mutation spectrum from
+        recent time periods, but a larger effect in older time bins.
+        Compare to Figure~\ref{fig:relate-spectra}.
     }
     \label{fig:relate-spectra-singletons}
 \end{figure}
@@ -379,7 +415,11 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.tsdate.max_age.10000.singletons.pdf}
     \caption{
         \textbf{\tsdate-inferred mutation spectrum history, including singletons.}
-        \aprcomment{caption}
+        The inclusion of singletons using \tsdate does not have as strong of an effect
+        on the mutation spectrum history as doing so in \relate
+        (Figure~\ref{fig:relate-spectra-singletons}), though still results in some
+        qualitative differences from the spectrum history without singletons
+        (Figure~\ref{fig:tsdate-spectra}).
     }
     \label{fig:tsdate-spectra-singletons}
 \end{figure}
@@ -391,7 +431,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \caption{
         \textbf{\GEVA-inferred mutation spectrum history, including European
             pulse-associated C$\rightarrow$T contexts.}
-        \aprcomment{caption}
+        \GEVA captures the known pulse of $C\rightarrow T$ mutations among certain
+        triplet contexts, in European populations \citep{harris2015evidence}.
     }
     \label{fig:tsdate-spectra-singletons}
 \end{figure}
@@ -403,7 +444,12 @@ the above URLs. Python scripts to run analyses described here are available at
     \caption{
         \textbf{\relate-inferred mutation spectrum history, including European
             pulse-associated C$\rightarrow$T contexts.}
-        \aprcomment{caption}
+        \relate recovers the known pulse of $C\rightarrow T$ mutations in European
+        populations, and also finds the same signal in South Asian and African
+        populations. South Asians and Europeans have more recent shared ancestry, on
+        average, while the signal in African populations could be due to some
+        European-related ancestry found in some of the AFR-labeled populations in the
+        1KGP (ASW, ACB, and LWK). Note that the scales differ between panels.
     }
     \label{fig:tsdate-spectra-singletons}
 \end{figure}
@@ -415,7 +461,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \caption{
         \textbf{\tsdate-inferred mutation spectrum history, including European
             pulse-associated C$\rightarrow$T contexts.}
-        \aprcomment{caption}
+        \tsdate does not pick out the European-related pulse in certain $C\rightarrow T$
+        triplet mutation classes.
     }
     \label{fig:tsdate-spectra-singletons}
 \end{figure}
@@ -427,7 +474,11 @@ the above URLs. Python scripts to run analyses described here are available at
     \caption{
         \textbf{Mutation spectrum histories from mutations that were dated by
         both \GEVA and \relate.}
-        \aprcomment{caption}
+        Using only mutations that were dated by both \GEVA and \relate, we find
+        that the qualitative differences in mutation spectrum histories from
+        each method remain. Thus, mutations dated by only one of the two methods
+        are unlikely to be driving the differences in mutation spectra between
+        methods.
     }
     \label{fig:overlap-spectra}
 \end{figure}
@@ -438,8 +489,9 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/spectrum_history.geva.max_age.10000.CI.pdf}
     \caption{
         \textbf{\GEVA-inferred mutation spectrum history, assuming a uniform
-        distribution of ages within the 95\% confidence interval.}
-        \aprcomment{caption}
+        distribution of ages within the 95\% confidence interval.} Compare to
+        Figure~\ref{fig:geva-spectra}, which uses the median age estimate
+        from \GEVA.
     }
     \label{fig:geva-CI}
 \end{figure}
@@ -451,7 +503,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \caption{
         \textbf{\relate-inferred mutation spectrum history, assuming a uniform
         distribution of ages along a branch.}
-        \aprcomment{caption}
+        Compare to Figure~\ref{fig:relate-spectra},
+        which uses branch midpoints to assign allele ages.
     }
     \label{fig:relate-CI}
 \end{figure}
@@ -463,7 +516,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/inferred_generation_times.DM.geva.max_age.10000.pdf}
     \caption{
         \textbf{\GEVA-inferred generation time histories.}
-        \aprcomment{caption}
     }
     \label{fig:geva-gen-times}
 \end{figure}
@@ -473,7 +525,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/inferred_generation_times.DM.relate.max_age.10000.pdf}
     \caption{
         \textbf{\relate-inferred generation time histories.}
-        \aprcomment{caption}
     }
     \label{fig:relate-gen-times}
 \end{figure}
@@ -484,7 +535,6 @@ the above URLs. Python scripts to run analyses described here are available at
     \includegraphics[width=\textwidth]{../plots/inferred_generation_times.DM.tsdate.max_age.10000.pdf}
     \caption{
         \textbf{\tsdate-inferred generation time histories.}
-        \aprcomment{caption}
     }
     \label{fig:tsdate-gen-times}
 \end{figure}
@@ -494,9 +544,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \centering
     \includegraphics[width=\textwidth]{../plots/goodness-of-fit.DM.geva.max_age.10000.pdf}
     \caption{
-        \textbf{Prediction of mutation spectrum history from
+        \textbf{Model prediction of mutation spectrum history from
         \GEVA-inferred generation times.}
-        \aprcomment{caption}
     }
     \label{fig:geva-fit}
 \end{figure}
@@ -505,9 +554,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \centering
     \includegraphics[width=\textwidth]{../plots/goodness-of-fit.DM.relate.max_age.10000.pdf}
     \caption{
-        \textbf{Prediction of mutation spectrum history from
+        \textbf{Model prediction of mutation spectrum history from
         \relate-inferred generation times.}
-        \aprcomment{caption}
     }
     \label{fig:relate-fit}
 \end{figure}
@@ -517,9 +565,8 @@ the above URLs. Python scripts to run analyses described here are available at
     \centering
     \includegraphics[width=\textwidth]{../plots/goodness-of-fit.DM.tsdate.max_age.10000.pdf}
     \caption{
-        \textbf{Prediction of mutation spectrum history from
+        \textbf{Model prediction of mutation spectrum history from
         \tsdate-inferred generation times.}
-        \aprcomment{caption}
     }
     \label{fig:tsdate-fit}
 \end{figure}
