@@ -100,7 +100,7 @@ assumptions in the original inference of generation time histories.
 We write our mutation model as $M(p, d)$, which takes paternal and maternal
 ages $p$ and $d$ and outputs the expected mutation spectrum. The output
 mutation spectrum is the relative proportions of each mutation type (which sums
-to 1), and it is fit to data by minimizing the Aitchisondistance between the
+to 1), and it is fit to data by minimizing the Aitchison distance between the
 centered log-ratio tranform of both the data and expected spectra (as described
 in Section S3.1 in \citet{wang2023human}).
 
@@ -200,7 +200,7 @@ Allele age data from \relate reported in \citet{speidel2019method} were
 downloaded from \url{https://zenodo.org/record/3234689}. \relate provides
 allele ages separately for the 26 populations in the Thousand Genomes Project.
 As such, we followed the approach in \citet{wohns2022unified} and computed the
-average upper and lower bounds of the edge the mutation lies over for each
+average upper and lower bounds of the branch the mutation maps to for each
 population it is present in. We then took the midpoint of those averaged
 upper and lower bounds as the allele age estimate.
 
@@ -238,7 +238,7 @@ GRCH38 (\tsdate data). These were downloaded from
 \url{https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/},
 respectively.
 
-\subsubsection{Summarizing data within time bins}
+\subsubsection*{Summarizing data within time bins}
 
 Within each time bin, we work with the relative proportions of observed
 mutations of each of the six mutation times. Percent changes (as shown in
@@ -332,7 +332,7 @@ the above URLs. Python scripts to run analyses described here are available at
     }
 \end{table}
 
-
+\clearpage
 
 \begin{figure}[ht!]
     \centering
@@ -342,6 +342,9 @@ the above URLs. Python scripts to run analyses described here are available at
         Extending to 10,000 generations in the past, the mutation spectrum history
         from allele ages estimated by \GEVA matches the spectrum history in
         \citet{wang2023human}.
+        In all plots showing mutation spectrum trajectories, thin lines represent
+        the spectrum within each bin, and thick lines are the LOESS-smoothed
+        curves fit to the underlying data.
     }
     \label{fig:geva-spectra}
 \end{figure}
