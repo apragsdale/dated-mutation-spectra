@@ -49,8 +49,8 @@ historical human generation times}
     history of human generation intervals from changes in mutation profiles
     over time. As the relative proportions of different mutation types depend
     on the ages of parents, binning variants by the time they arose allows for
-    the inference of average paternal and maternal generation intervals over
-    time. Applying this approach to published allele age estimates,
+    the inference of changes in average paternal and maternal generation
+    intervals. Applying this approach to published allele age estimates,
     \citet{wang2023human} inferred long-lasting sex differences in average
     generation times and surprisingly found that ancestral generation times of
     West African populations remained substantially higher than those of
@@ -342,7 +342,7 @@ at a site, although such sites are discarded from downstream analyses. Of
 variants with a single allele age estimate, 25 million were dated by both \GEVA
 and \relate, with the remaining uniquely assigned an age by one or the other
 method. When comparing mutation spectrum histories restricted to variants dated
-by both \GEVA and \relate, the two methods still predict different mutation
+by both \GEVA and \relate, the two methods still provide different mutation
 profile trajectories (Figure~\ref{fig:overlap-spectra}).
 
 In comparing the proportions of mutation types assigned ages by both methods or
@@ -374,7 +374,7 @@ older times \citep{brandt2022evaluation}, and \GEVA overestimates
 Mean squared error (MSE) of coalescent times also increases for more ancient
 nodes \citep{brandt2022evaluation}. For \GEVA, more complex demographic
 scenarios and genotyping and phasing errors exacerbate these biases
-\cite{albers2020dating} but have not be evaluated for \relate nor \tsdate.
+\cite{albers2020dating}, but have not be evaluated for \relate nor \tsdate.
 
 We therefore expect the ages of recent mutations to be overestimated and the
 ages of older variants to be underestimated. Analyses that bin mutations into
@@ -434,7 +434,7 @@ world-wide populations over the past 3-5 thousand years, represented by the
 most recent time bin in their analysis. Still more concerning is that we do not
 know the source of the discrepancy between the Iceland and 1KGP mutation
 spectra. Without knowing this, it is unclear that simply subtracting the
-differences between them properly accounts for it. Instead, mutation
+differences between them properly accounts for them. Instead, mutation
 class-specific genotyping differences may distort the underlying mutation
 model, potentially driving deviations in predicted mutation profiles in
 unexpected ways.
