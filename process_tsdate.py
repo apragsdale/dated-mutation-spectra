@@ -17,7 +17,7 @@ usage: python process_trees.py [optional] -c [chrom]
 If the chrom flag is not given, we process all chromosomes in series.
 """
 
-import tskit, tsdate
+import tskit, tsdate, tszip
 import gzip
 import sys, os
 import json
@@ -51,10 +51,7 @@ def load_ts(fname):
     """
     if not os.path.isfile(f"{fname}.tsz"):
         raise IOError
-    os.system(f"tsunzip {fname}.tsz")
-    ts = tskit.load(fname)
-    os.system(f"tszip {fname}")
-    return ts
+    return tszip.decompress(f"{fname}.tsz")
 
 
 def get_sample_node_map(ts):
