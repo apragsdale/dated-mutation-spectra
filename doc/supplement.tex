@@ -194,6 +194,15 @@ estimated from \relate and \tsdate, we used allele ages estimated from the
 Thousand Genomes Project (TGP) data source, available from
 \url{http://ftp.ensembl.org/pub/grch37/release-103/variation/gvf/homo_sapiens/}.
 
+We computed confidence intervals using a block bootstrap approach
+(Figure~\ref{fig:geva-error}). For each time bin of the \GEVA dataset
+(including all populations), we divided the autosomal genome into $\sim5$Mb
+chunks and counting dated mutation occurances within each chunk. There were 560
+total chunks. To generated a bootstrap replicate, we resampled with replacement
+from these 560 regions. We repeated this process 560 times and took the
+empirical 2.5 and 97.5\% interval for each mutation type within each time bin,
+independently.
+
 \subsubsection*{Allele ages from \relate}
 
 Allele age data from \relate reported in \citet{speidel2019method} were
@@ -349,6 +358,14 @@ the above URLs. Python scripts to run analyses described here are available at
     \label{fig:geva-spectra}
 \end{figure}
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics{../plots/ALL.error.pdf}
+    \caption{
+        \textbf{Confidence intervals for \GEVA-estimated mutation spectra.}
+    }
+    \label{fig:geva-error}
+\end{figure}
 
 \begin{figure}[ht!]
     \centering

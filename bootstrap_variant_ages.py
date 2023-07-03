@@ -151,44 +151,68 @@ def count_mutation_types(df):
     return class_counts
 
 
-def parse_variant_data(dataset, max_age, keep_singletons, max_frequency, num_bins=100):
-    ## this isn't the fastest way to do this, but I was running into memory
-    ## issues trying to load all data across chromosomes at once into one df
-    # set up age bins
+def get_windows(df, bs_size):
+    min_pos = min(df["Pos"])
+    windows = [(min_pos // bs_size) * bs_size]
+    if min_pos % bs_size > bs_size / 2:
+        windows.append(windows[-1] + 2 * bs_size)
+    else:
+        windows.append(windows[-1] + bs_size)
+    max_pos = max(df["Pos"])
+    while windows[-1] < max_pos:
+        windows.append(windows[-1] + bs_size)
+    if windows[-1] - max_pos > bs_size / 2:
+        windows.pop(windows.index(windows[-2]))
+    return windows
+
+def parse_variant_data_bs(
+    dataset, max_age, keep_singletons, max_frequency, num_bins=100, bs_size=5000000
+):
     bin_edges = get_bin_edges(dataset, max_age, num_bins)
     eprint(current_time(), "set up bin edges")
     # gather data across chromosomes
-    pop_data = {p: {i: defaultdict(int) for i in range(num_bins)} for p in pops}
+    all_data = {} # keys: (chrom, left, right)
     for chrom in range(1, 23):
+        eprint(current_time(), "parsing chromosome", chrom)
         # load chromosome data
         df = read_chromosome(chrom, dataset, max_age, keep_singletons, max_frequency)
         if df is None:
             continue
-        for i, (bin_min, bin_max) in enumerate(zip(bin_edges[:-1], bin_edges[1:])):
-            # for each bin, subset data to that bin
-            df_bin = subset_to_bin(df, bin_min, bin_max)
-            for pop in pops:
-                # for each population, keep data segregating in that population
-                df_pop = df_bin[df_bin[pop] > 0]
-                class_counts = count_mutation_types(df_pop)
-                # add those counts to our data dict
-                for c, v in class_counts.items():
-                    pop_data[pop][i][c] += v
+        windows = get_windows(df, bs_size)
+        eprint(current_time(), f"have {len(windows) - 1} windows")
+        for win_left, win_right in zip(windows[:-1], windows[1:]):
+            df_window = df[(df["Pos"] >= win_left) * (df["Pos"] < win_right)]
+            pop_data = {p: {i: defaultdict(int) for i in range(num_bins)} for p in pops}
+            for i, (bin_min, bin_max) in enumerate(zip(bin_edges[:-1], bin_edges[1:])):
+                # for each bin, subset data to that bin
+                df_bin = subset_to_bin(df_window, bin_min, bin_max)
+                for pop in pops:
+                    # for each population, keep data segregating in that population
+                    df_pop = df_bin[df_bin[pop] > 0]
+                    class_counts = count_mutation_types(df_pop)
+                    # add those counts to our data dict
+                    for c, v in class_counts.items():
+                        pop_data[pop][i][c] += v
+            all_data[(chrom, win_left, win_right)] = pop_data
+            eprint(current_time(), "processed window", win_left, win_right)
         eprint(current_time(), "parsed chromosome", chrom)
 
-    all_pop_counts = {
-        pop: {
-            i: {"Min": bin_edges[i], "Max": bin_edges[i + 1]} for i in range(num_bins)
+    all_dfs = {}
+    for k in all_data.keys():
+        all_pop_counts = {
+            pop: {
+                i: {"Min": bin_edges[i], "Max": bin_edges[i + 1]} for i in range(num_bins)
+            }
+            for pop in pops
         }
-        for pop in pops
-    }
-    for pop in pops:
-        for i in range(num_bins):
-            all_pop_counts[pop][i].update(pop_data[pop][i])
-    pop_dfs = {}
-    for pop in pops:
-        pop_dfs[pop] = pd.DataFrame.from_dict(all_pop_counts[pop], orient="index")
-    return pop_dfs
+        for pop in pops:
+            for i in range(num_bins):
+                all_pop_counts[pop][i].update(all_data[k][pop][i])
+        pop_dfs = {}
+        for pop in pops:
+            pop_dfs[pop] = pd.DataFrame.from_dict(all_pop_counts[pop], orient="index")
+        all_dfs[k] = pop_dfs
+    return all_dfs
 
 
 if __name__ == "__main__":
@@ -205,13 +229,10 @@ if __name__ == "__main__":
     if keep_singletons is True and dataset == "geva":
         raise ValueError("No singletons in GEVA!")
 
-    pop_dfs = parse_variant_data(
+    all_dfs = parse_variant_data_bs(
         dataset, max_age, keep_singletons, max_frequency, num_bins=num_bins
     )
-    for pop in pops:
-        if num_bins == 100:
-            fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{int(max_age)}.singletons.{keep_singletons}.max_frequency.{max_frequency}.csv"
-        else:
-            fname = f"./data/binned_ages.{dataset}.{pop}.max_age.{int(max_age)}.singletons.{keep_singletons}.max_frequency.{max_frequency}.num_bins.{int(num_bins)}.csv"
-        pop_dfs[pop].to_csv(fname, sep="\t", index=False)
+    with gzip.open("bootstrap_dfs.pkl.gz", "wb+") as fout:
+        pickle.dump(all_dfs, fout)
+
     eprint(current_time(), "saved data!!")
