@@ -48,7 +48,13 @@ pops = {
     "SAS": ["BEB", "GIH", "ITU", "PJL", "STU"],
 }
 
-sample_sizes = {"ALL": 2157, "AFR": 661, "EAS": 503, "EUR": 504, "SAS": 489}
+sample_sizes = {
+    "ALL": 2 * 2157,
+    "AFR": 2 * 661,
+    "EAS": 2 * 503,
+    "EUR": 2 * 504,
+    "SAS": 2 * 489,
+}
 
 
 # only run once.. I find it more manageable to work on each chrom separately
@@ -142,7 +148,7 @@ def subset_relate(chrom):
     for i, pos in enumerate(df["Pos"]):
         age_col[i] = np.mean(ages[pos])
     df["Age"] = age_col
-    
+
     eprint(current_time(), "computed average ages, getting frequencies")
     # add allele frequencies
     ALL = np.zeros(len(df))
